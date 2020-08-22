@@ -14,14 +14,19 @@ public class ActionCard {
                 setName ("Collect from the Bank");
                 switch (a.getAction("Collect from the Bank")) {
                     case 1:
+                        // (input value you want to set)
                         break;
                     case 2:
+                        // (input value you want to set)
                         break;
                     case 3:
+                        // (input value you want to set)
                         break;
                     case 4:
+                        // (input value you want to set)
                         break;
                     case 5:
+                        // (input value you want to set)
                         break;
                 }
                 break;
@@ -30,16 +35,22 @@ public class ActionCard {
                 setName ("Pay the Bank");
                 switch (a.getAction("Collect from the Bank")) {
                     case 1:
+                        // (input value you want to set)
                         break;
                     case 2:
+                        // (input value you want to set)
                         break;
                     case 3:
+                        // (input value you want to set)
                         break;
                     case 4:
+                        // (input value you want to set)
                         break;
                     case 5:
+                        // (input value you want to set)    
                         break;
                     case 6:
+                        // (input value you want to set)
                         break;
                 }
                 break;
@@ -48,8 +59,10 @@ public class ActionCard {
                 setName ("Pay the Player");
                 switch (a.getAction("Collect from the Bank")) {
                     case 1:
+                        // (input value you want to set)
                         break;
                     case 2:
+                        // (input value you want to set)
                         break;
                 }
                 break;
@@ -58,8 +71,10 @@ public class ActionCard {
                 setName ("Collect From a Player");
                 switch (a.getAction("Collect from the Bank")) {
                     case 1:
+                        // (input value you want to set)
                         break;
                     case 2:
+                        // (input value you want to set)
                         break;
                 }
                 break;
@@ -68,7 +83,7 @@ public class ActionCard {
 
     public void setName (String n) {
         name = n;
-    }
+    } 
 
     public void setPayAmount (int a) {
         payAmount = a;

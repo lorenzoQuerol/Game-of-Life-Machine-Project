@@ -18,12 +18,20 @@ public class ActionDeck {
         isEmpty = true;
     }
 
+    /**
+     * This randomly generates integers from 1 to 4 and puts it 
+     * into a stack of 50 elements for reading later on.
+     */
     public void generateNewDeck () {
         for (int i = 0; i < 50; i++) 
-            actionCardDeck.push((int)(Math.random() * ((4-1) + 1) + 1)); // generates random integers from 1 to 4 til it fills up to 50
+            actionCardDeck.push((int)(Math.random() * ((4-1) + 1) + 1)); 
     }
 
-    public void generateActions () {
+    /**
+     * This assigns integer values for each type of action card and 
+     * will be used in interpreting what kind of action card it will be.
+     */
+    public void assignActions () {
         for (int i = 0; i < 5; i++) 
             collectFromBank[i] = i+1;
 
@@ -38,10 +46,19 @@ public class ActionDeck {
             PayToPlayer[i] = i+1;
     }
 
+    /**
+     * This pops the stack and returns a value for interpreting 
+     * the action card.
+     */
     public int getCard () {
         return actionCardDeck.pop();
     }
-    
+
+    /**
+     * @param type the integer value that correlates to a specific
+     * action card's action.
+     *
+     */
     public int getAction (String n) {
         int type = 0;
         switch (n) {
@@ -64,6 +81,10 @@ public class ActionDeck {
             return type;
     }
 
+    /**
+     * This checks if the Action Card deck is empty or not.
+     * @param  
+     */
     private boolean isEmpty (Stack s) {
         return s.empty() ?  true : false;
     }
