@@ -6,7 +6,7 @@ public class ActionDeck {
     private int[] collectFromBank;
     private int[] payToBank;
     private int[] collectFromPlayer;
-    private int[] PayToPlayer;
+    private int[] payToPlayer;
     private static boolean isEmpty;
 
     public ActionDeck () {
@@ -14,7 +14,7 @@ public class ActionDeck {
         collectFromBank = new int[5];
         payToBank = new int[6];
         collectFromPlayer = new int[2];
-        PayToPlayer = new int[2];
+        payToPlayer = new int[2];
         isEmpty = true;
     }
 
@@ -38,7 +38,6 @@ public class ActionDeck {
         for (int i = 0; i < 6; i++) 
             payToBank[i] = i+1;
         
-
         for (int i = 0; i < 2; i++) 
             collectFromPlayer[i] = i+1;
         
