@@ -3,11 +3,6 @@ public class ActionCard {
     private String name;
     private int payAmount;
     
-    public ActionCard (String n, int amount) {
-        name = n;
-        payAmount = amount;
-    }
-
     public void checkActionCard (ActionDeck a) {
         switch (a.getCard()) {
             case 1:
@@ -97,8 +92,9 @@ public class ActionCard {
         return payAmount;
     }
 
-    public void displayActionCard () {
-
+    public void displayCard () {
+        System.out.println(getName());
+        System.out.println(getPayAmount());
     }
 
     @Override

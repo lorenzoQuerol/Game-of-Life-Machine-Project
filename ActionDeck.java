@@ -42,7 +42,7 @@ public class ActionDeck {
             collectFromPlayer[i] = i+1;
         
         for (int i = 0; i < 2; i++) 
-            PayToPlayer[i] = i+1;
+            payToPlayer[i] = i+1;
     }
 
     /**
