@@ -9,19 +9,25 @@ public class ActionCard {
                 setName ("Collect from the Bank");
                 switch (a.getAction("Collect from the Bank")) {
                     case 1:
-                        // (input value you want to set) call setName
+                        setName ("Tax Refund");
+                        setPayAmount (15000);
                         break;
-                    case 2:
-                        // (input value you want to set)
+                    case 2:                      
+                        setName ("Sell an Item");
+                        setPayAmount (7500);
                         break;
                     case 3:
-                        // (input value you want to set)
+                        setName ("Bonus Payday");
+                        setPayAmount (20000);
                         break;
                     case 4:
-                        // (input value you want to set)
+                        setName ("Setup School");
+                        setPayAmount (50000);
                         break;
                     case 5:
-                        // (input value you want to set)
+                        setName ("Write a Book");
+                        setPayAmount (10000);
+                        
                         break;
                 }
                 break;
@@ -30,22 +36,28 @@ public class ActionCard {
                 setName ("Pay the Bank");
                 switch (a.getAction("Pay the Bank")) {
                     case 1:
-                        // (input value you want to set)
+                        setName ("Buy an Item");
+                        setPayAmount (-10000);
                         break;
                     case 2:
-                        // (input value you want to set)
+                        setName ("Visit a Place");
+                        setPayAmount (-25000);;
                         break;
                     case 3:
-                        // (input value you want to set)
+                        setName ("Hiking");
+                        setPayAmount (-20000);
                         break;
                     case 4:
-                        // (input value you want to set)
+                        setName ("Watch a Show");
+                        setPayAmount (-2500);
                         break;
                     case 5:
-                        // (input value you want to set)    
+                        setName ("Win a Competition");
+                        setPayAmount (-15000);  
                         break;
                     case 6:
-                        // (input value you want to set)
+                        setName ("Traffic Violation");
+                        setPayAmount (-1000);
                         break;
                 }
                 break;
@@ -54,10 +66,12 @@ public class ActionCard {
                 setName ("Pay the Player");
                 switch (a.getAction("Pay the Player")) {
                     case 1:
-                        // (input value you want to set)
+                        setName ("Lawsuit");
+                        setPayAmount (-50000);
                         break;
                     case 2:
-                        // (input value you want to set)
+                        setName ("Christmas Bonus!");
+                        setPayAmount (-25000);
                         break;
                 }
                 break;
@@ -66,10 +80,12 @@ public class ActionCard {
                 setName ("Collect From a Player");
                 switch (a.getAction("Collect From a Player")) {
                     case 1:
-                        // (input value you want to set)
+                        setName ("File a Lawsuit");
+                        setPayAmount (30000);
                         break;
                     case 2:
-                        // (input value you want to set)
+                        setName ("It's your Birthday!");
+                        setPayAmount (15000); 
                         break;
                 }
                 break;
