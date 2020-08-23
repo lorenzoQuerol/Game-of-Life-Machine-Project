@@ -22,7 +22,7 @@ public class ActionDeck {
      * This randomly generates integers from 1 to 4 and puts it 
      * into a stack of 50 elements for reading later on.
      */
-    public void generateNewDeck () {
+    public void generateNewActionDeck () {
         for (int i = 0; i < 50; i++) 
             actionCardDeck.push((int)(Math.random() * ((4-1) + 1) + 1)); 
     }
@@ -48,15 +48,18 @@ public class ActionDeck {
     /**
      * This pops the stack and returns a value for interpreting 
      * the action card.
+     * 
+     * @return integer value of the topmost card of the stack
      */
-    public int getCard () {
+    public int getActionCard () {
         return actionCardDeck.pop();
     }
 
     /**
-     * @param type the integer value that correlates to a specific
-     * action card's action.
-     *
+     * 
+     * @param n the name of the card's specific action
+     * @return the integer value of that card's specific
+     * action
      */
     public int getAction (String n) {
         int type = 0;
@@ -82,7 +85,8 @@ public class ActionDeck {
 
     /**
      * This checks if the Action Card deck is empty or not.
-     * @param  
+     * @param s stack
+     * @return boolean value for when stack is empty or not 
      */
     private boolean isEmpty (Stack s) {
         return s.empty() ?  true : false;

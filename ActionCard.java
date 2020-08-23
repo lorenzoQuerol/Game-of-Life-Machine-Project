@@ -4,7 +4,7 @@ public class ActionCard {
     private int payAmount;
     
     public void checkActionCard (ActionDeck a) {
-        switch (a.getCard()) {
+        switch (a.getActionCard()) {
             case 1:
                 setName ("Collect from the Bank");
                 switch (a.getAction("Collect from the Bank")) {
@@ -77,8 +77,8 @@ public class ActionCard {
                 break;
 
             case 4:
-                setName ("Collect From a Player");
-                switch (a.getAction("Collect From a Player")) {
+                setName ("Collect from a Player");
+                switch (a.getAction("Collect from a Player")) {
                     case 1:
                         setName ("File a Lawsuit");
                         setPayAmount (30000);
