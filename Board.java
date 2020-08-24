@@ -11,20 +11,27 @@ public class Board {
     public static void InitializeData() {
         boardSpaces = new int[50];
         players = new ArrayList<Player>();
-        actionDeck = new ActionDeck();
-        actionCard = new ActionCard();
+        actionDeck = new ActionDeck ();
+        actionCard = new ActionCard ();
 
-        actionDeck.generateNewActionDeck();
-        actionDeck.assignActions();
+        actionDeck.generateNewActionDeck ();
+        actionDeck.assignActions ();
     }
 
+
     public static void main(String[] args) {
-        InitializeData();
+        InitializeData ();
         int playerTurn = 0;
         boolean gameOver = false;
-        
 
+        Player player1 = new Player();
+        // System.out.println(actionDeck);
+        // player1.chooseActionCard(actionDeck, actionCard);
         
+        // player1.chooseActionCard(actionDeck, actionCard);
+        // System.out.println(actionDeck);
+        // player1.chooseActionCard(actionDeck, actionCard);
+        // System.out.println(actionDeck);
     }
 
     

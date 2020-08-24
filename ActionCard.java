@@ -109,8 +109,8 @@ public class ActionCard {
     }
 
     public void displayCard () {
-        System.out.println(getName());
-        System.out.println(getPayAmount());
+        System.out.println (getName ());
+        System.out.println (getPayAmount ());
     }
 
     @Override

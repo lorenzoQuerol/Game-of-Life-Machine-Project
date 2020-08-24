@@ -30,7 +30,6 @@ public class Player {
     }
 
     public void chooseActionCard (ActionDeck a, ActionCard c) {
-        a.getActionCard();
         c.checkActionCard(a);
         System.out.println(c);
     }

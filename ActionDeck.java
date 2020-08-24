@@ -1,8 +1,11 @@
 import java.util.Stack;
+import java.util.Arrays;
+import java.util.Random;
 
 public class ActionDeck {
-    
+
     private Stack<Integer> actionCardDeck;
+    private int[] temp;
     private int[] collectFromBank;
     private int[] payToBank;
     private int[] collectFromPlayer;
@@ -11,20 +14,66 @@ public class ActionDeck {
 
     public ActionDeck () {
         actionCardDeck = new Stack<Integer>();
+        temp = new int[50];
         collectFromBank = new int[5];
         payToBank = new int[6];
         collectFromPlayer = new int[2];
         payToPlayer = new int[2];
         isEmpty = true;
+        
     }
+
+
+    static int getFrequency (int a[], int n, int x) { 
+        int count = 0; 
+        for (int i=0; i < n; i++) 
+        if (a[i] == x)  
+            count++; 
+        return count; 
+    } 
 
     /**
      * This randomly generates integers from 1 to 4 and puts it 
      * into a stack of 50 elements for reading later on.
      */
     public void generateNewActionDeck () {
-        for (int i = 0; i < 50; i++) 
-            actionCardDeck.push((int)(Math.random() * ((4-1) + 1) + 1)); 
+        int index = 0;
+
+        while (getFrequency (temp, 50, 1) != 20) {
+            index = (int) (Math.random() * 50);
+            if (temp[index] != 0)
+                continue;
+            else
+                temp[index] = 1;
+        }
+        
+        while (getFrequency (temp, 50, 2) != 20) {
+            index = (int) (Math.random() * 50);
+            if (temp[index] != 0)
+                continue;
+            else
+                temp[index] = 2;
+        }
+        
+        while (getFrequency (temp, 50, 3) != 5) {
+            index = (int) (Math.random() * 50);
+            if (temp[index] != 0)
+                continue;
+            else
+                temp[index] = 3;
+        }
+
+        while (getFrequency (temp, 50, 4) != 5) {
+            index = (int) (Math.random() * 50);
+            if (temp[index] != 0)
+                continue;
+            else
+                temp[index] = 4;
+        }
+ 
+        for (int x : temp) 
+            actionCardDeck.push(x);
+        
     }
 
     /**
@@ -52,7 +101,7 @@ public class ActionDeck {
      * @return integer value of the topmost card of the stack
      */
     public int getActionCard () {
-        return actionCardDeck.pop();
+        return actionCardDeck.pop ();
     }
 
     /**
@@ -65,19 +114,19 @@ public class ActionDeck {
         int type = 0;
         switch (n) {
             case "Collect from the Bank":
-                type = (int)((Math.random() * ((5-1) + 1) + 1));
+                type = (int)((Math.random () * ((5-1) + 1) + 1));
                 break;
                 
             case "Pay the Bank":
-                type = (int)((Math.random() * ((6-1) + 1) + 1));
+                type = (int)((Math.random () * ((6-1) + 1) + 1));
                 break;
 
             case "Pay the Player":
-                type = (int)((Math.random() * ((2-1) + 1) + 1));
+                type = (int)((Math.random () * ((2-1) + 1) + 1));
                 break;
 
             case "Collect from a Player":
-                type = (int)((Math.random() * ((2-1) + 1) + 1));
+                type = (int)((Math.random () * ((2-1) + 1) + 1));
                 break;
         }
             return type;
@@ -89,7 +138,7 @@ public class ActionDeck {
      * @return boolean value for when stack is empty or not 
      */
     private boolean isEmpty (Stack s) {
-        return s.empty() ?  true : false;
+        return s.empty () ?  true : false;
     }
 
     @Override
