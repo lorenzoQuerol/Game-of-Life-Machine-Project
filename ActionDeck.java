@@ -1,11 +1,12 @@
 import java.util.Stack;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.Collections;
 
 public class ActionDeck {
 
     private Stack<Integer> actionCardDeck;
-    private int[] temp;
+    private ArrayList<Integer> temp;
     private int[] collectFromBank;
     private int[] payToBank;
     private int[] collectFromPlayer;
@@ -14,66 +15,38 @@ public class ActionDeck {
 
     public ActionDeck () {
         actionCardDeck = new Stack<Integer>();
-        temp = new int[50];
+        temp = new ArrayList<Integer>();
         collectFromBank = new int[5];
         payToBank = new int[6];
         collectFromPlayer = new int[2];
         payToPlayer = new int[2];
         isEmpty = true;
-        
     }
-
-
-    static int getFrequency (int a[], int n, int x) { 
-        int count = 0; 
-        for (int i=0; i < n; i++) 
-        if (a[i] == x)  
-            count++; 
-        return count; 
-    } 
 
     /**
      * This randomly generates integers from 1 to 4 and puts it 
      * into a stack of 50 elements for reading later on.
      */
     public void generateNewActionDeck () {
-        int index = 0;
+		if (isEmpty(actionCardDeck)) {
+			for (int i = 0; i < 20; i++) {
+				temp.add (1);
+				temp.add (2);
+			}
+				
+			for (int i = 0; i < 5; i++) {
+				temp.add (3);
+				temp.add (4);
+			}
+				
+			Collections.shuffle (temp);
+			Collections.shuffle (temp);
+				
+			for (int card : temp) 
+				actionCardDeck.push (card);
 
-        while (getFrequency (temp, 50, 1) != 20) {
-            index = (int) (Math.random() * 50);
-            if (temp[index] != 0)
-                continue;
-            else
-                temp[index] = 1;
-        }
-        
-        while (getFrequency (temp, 50, 2) != 20) {
-            index = (int) (Math.random() * 50);
-            if (temp[index] != 0)
-                continue;
-            else
-                temp[index] = 2;
-        }
-        
-        while (getFrequency (temp, 50, 3) != 5) {
-            index = (int) (Math.random() * 50);
-            if (temp[index] != 0)
-                continue;
-            else
-                temp[index] = 3;
-        }
-
-        while (getFrequency (temp, 50, 4) != 5) {
-            index = (int) (Math.random() * 50);
-            if (temp[index] != 0)
-                continue;
-            else
-                temp[index] = 4;
-        }
- 
-        for (int x : temp) 
-            actionCardDeck.push(x);
-        
+			isEmpty = false;
+		} 
     }
 
     /**
@@ -139,11 +112,6 @@ public class ActionDeck {
      */
     private boolean isEmpty (Stack s) {
         return s.empty () ?  true : false;
-    }
-
-    @Override
-    public String toString () {
-        return "Current Stack: " + actionCardDeck;
     }
 
 }
