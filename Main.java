@@ -18,5 +18,7 @@ public class Main {
         InitializeData ();
         Player player1 = new Player ();
         player1.chooseActionCard(actionDeck);
+        System.out.println("Hello world");
     }
+
 }
