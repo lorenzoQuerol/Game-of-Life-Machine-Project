@@ -19,6 +19,6 @@ public class Main {
         Player player1 = new Player ();
         System.out.println("ENZO IS HERE");
         player1.chooseActionCard(actionDeck);
-        System.out.println("Hello World!");
     }
+
 }
