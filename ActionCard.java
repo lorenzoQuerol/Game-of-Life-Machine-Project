@@ -1,121 +1,41 @@
 public class ActionCard {
-
-    private String name;
-    private int payAmount;
     
-    public void checkActionCard (ActionDeck a) {
-        switch (a.getActionCard()) {
-            case 1:
-                setName ("Collect from the Bank");
-                switch (a.getAction("Collect from the Bank")) {
-                    case 1:
-                        setName ("Tax Refund");
-                        setPayAmount (15000);
-                        break;
-                    case 2:                      
-                        setName ("Sell an Item");
-                        setPayAmount (7500);
-                        break;
-                    case 3:
-                        setName ("Bonus Payday");
-                        setPayAmount (20000);
-                        break;
-                    case 4:
-                        setName ("Setup School");
-                        setPayAmount (50000);
-                        break;
-                    case 5:
-                        setName ("Write a Book");
-                        setPayAmount (10000);
-                        
-                        break;
-                }
-                break;
+    private String name;
+    private String actionType;
+    private int payAmount;
 
-            case 2:
-                setName ("Pay the Bank");
-                switch (a.getAction("Pay the Bank")) {
-                    case 1:
-                        setName ("Buy an Item");
-                        setPayAmount (-10000);
-                        break;
-                    case 2:
-                        setName ("Visit a Place");
-                        setPayAmount (-25000);;
-                        break;
-                    case 3:
-                        setName ("Hiking");
-                        setPayAmount (-20000);
-                        break;
-                    case 4:
-                        setName ("Watch a Show");
-                        setPayAmount (-2500);
-                        break;
-                    case 5:
-                        setName ("Win a Competition");
-                        setPayAmount (-15000);  
-                        break;
-                    case 6:
-                        setName ("Traffic Violation");
-                        setPayAmount (-1000);
-                        break;
-                }
-                break;
-
-            case 3:
-                setName ("Pay the Player");
-                switch (a.getAction("Pay the Player")) {
-                    case 1:
-                        setName ("Lawsuit");
-                        setPayAmount (-50000);
-                        break;
-                    case 2:
-                        setName ("Christmas Bonus!");
-                        setPayAmount (-25000);
-                        break;
-                }
-                break;
-
-            case 4:
-                setName ("Collect from a Player");
-                switch (a.getAction("Collect from a Player")) {
-                    case 1:
-                        setName ("File a Lawsuit");
-                        setPayAmount (30000);
-                        break;
-                    case 2:
-                        setName ("It's your Birthday!");
-                        setPayAmount (15000); 
-                        break;
-                }
-                break;
-        }
-    }
-
-    public void setName (String n) {
+    public ActionCard (String n) {
         name = n;
-    } 
-
-    public void setPayAmount (int a) {
-        payAmount = a;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    public int getPayAmount () {
+    public String getActionType() {
+        return actionType;
+    }
+
+    public int getPayAmount() {
         return payAmount;
     }
 
-    public void displayCard () {
-        System.out.println (getName ());
-        System.out.println (getPayAmount ());
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
+
+    public void setPayAmount(int payAmount) {
+        this.payAmount = payAmount;
     }
 
     @Override
-    public String toString () {
-        return "Action Card: " + name + "\n" + "Amount: " + payAmount;
+    public String toString() {
+        return "Name: " + name + "\n" +
+               "Action: " + actionType + "\n" +
+               "Pay Amount: " + payAmount + "\n";
     }
 }
-

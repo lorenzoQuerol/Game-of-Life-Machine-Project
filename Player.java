@@ -8,7 +8,7 @@ public class Player {
     private boolean playerMarried;
     private boolean playerDegreee;
 
-    // private CareerCard playerCareer;
+    private CareerCard playerCareer;
     // private SalaryCard playerSalary;
 
     private int space;
@@ -29,12 +29,27 @@ public class Player {
         return space;
     }
 
-    public void chooseActionCard (ActionDeck a, ActionCard c) {
-        c.checkActionCard(a);
-        System.out.println(c);
+    public void chooseActionCard (ActionDeck a) {
+        System.out.println(a.drawCard());
+    }
+
+    public void chooseCareerCard (){
+
+    }
+
+    public void chooseBlueCard (){
+
+    }
+
+    public void chooseSalaryCard (){
+
+    }
+
+    public void borrowMoney (){
+        
     }
 
     public void displayPlayerInfo () {
-
+        
     }
 }

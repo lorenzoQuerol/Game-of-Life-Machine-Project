@@ -1,16 +1,12 @@
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
 public class CareerDeck {
 
-	private Stack<Integer> CareerCard;
-	private ArrayList<Integer> temp;
-
+	private Stack<Integer> careerCardDeck;
 	
 	public CareerDeck () {
-		careerCardDeck = new Stack<Integer>();
-		temp = new ArrayList<Integer>();
+		careerCardDeck  = new Stack<Integer>();
 	}
 
 	public void generateNewCareerDeck () {
@@ -22,8 +18,6 @@ public class CareerDeck {
 	}
 
 	public int getCareerCard () {
-		careerCardDeck.pop();
-	}
-
-	
+		return careerCardDeck.pop();
+	}	
 }

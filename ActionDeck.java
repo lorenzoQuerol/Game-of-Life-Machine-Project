@@ -1,117 +1,118 @@
-import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Stack;
 
 public class ActionDeck {
+    
+    private Stack<ActionCard> actionCardDeck;
+    private ArrayList<ActionCard> temp;
 
-    private Stack<Integer> actionCardDeck;
-    private ArrayList<Integer> temp;
-    private int[] collectFromBank;
-    private int[] payToBank;
-    private int[] collectFromPlayer;
-    private int[] payToPlayer;
-    private static boolean isEmpty;
-
-    public ActionDeck () {
-        actionCardDeck = new Stack<Integer>();
-        temp = new ArrayList<Integer>();
-        collectFromBank = new int[5];
-        payToBank = new int[6];
-        collectFromPlayer = new int[2];
-        payToPlayer = new int[2];
-        isEmpty = true;
+    public ActionDeck() {
+        actionCardDeck = new Stack<ActionCard>();
+        temp = new ArrayList<ActionCard>();
     }
 
-    /**
-     * This randomly generates integers from 1 to 4 and puts it 
-     * into a stack of 50 elements for reading later on.
-     */
-    public void generateNewActionDeck () {
-		if (isEmpty(actionCardDeck)) {
-			for (int i = 0; i < 20; i++) {
-				temp.add (1);
-				temp.add (2);
-			}
-				
-			for (int i = 0; i < 5; i++) {
-				temp.add (3);
-				temp.add (4);
-			}
-				
-			Collections.shuffle (temp);
-			Collections.shuffle (temp);
-				
-			for (int card : temp) 
-				actionCardDeck.push (card);
+    public void generateActionDeck () {
+        String[] namePool = {"Collect From Bank", "Pay the Bank", "Pay the Player", "Collect from Player"};
+        String[] collectBankPool = {"Tax Refund", "Sell an Item", "Bonus Payday", "Setup School", "Write a Book"};
+        String[] payBankPool = {"Buy an Item", "Visit a Place", "Hiking", "Watch a Show", "Win a Competition", "Traffic Violation"};
+        String[] payPlayerPool = {"Lawsuit", "Christmas Bonus"};
+        String[] collectPlayerPool = {"File a Lawsuit", "It's your Birthday!"};
 
-			isEmpty = false;
-		} 
-    }
-
-    /**
-     * This assigns integer values for each type of action card and 
-     * will be used in interpreting what kind of action card it will be.
-     */
-    public void assignActions () {
-        for (int i = 0; i < 5; i++) 
-            collectFromBank[i] = i+1;
-
-        for (int i = 0; i < 6; i++) 
-            payToBank[i] = i+1;
-        
-        for (int i = 0; i < 2; i++) 
-            collectFromPlayer[i] = i+1;
-        
-        for (int i = 0; i < 2; i++) 
-            payToPlayer[i] = i+1;
-    }
-
-    /**
-     * This pops the stack and returns a value for interpreting 
-     * the action card.
-     * 
-     * @return integer value of the topmost card of the stack
-     */
-    public int getActionCard () {
-        return actionCardDeck.pop ();
-    }
-
-    /**
-     * 
-     * @param n the name of the card's specific action
-     * @return the integer value of that card's specific
-     * action
-     */
-    public int getAction (String n) {
-        int type = 0;
-        switch (n) {
-            case "Collect from the Bank":
-                type = (int)((Math.random () * ((5-1) + 1) + 1));
-                break;
-                
-            case "Pay the Bank":
-                type = (int)((Math.random () * ((6-1) + 1) + 1));
-                break;
-
-            case "Pay the Player":
-                type = (int)((Math.random () * ((2-1) + 1) + 1));
-                break;
-
-            case "Collect from a Player":
-                type = (int)((Math.random () * ((2-1) + 1) + 1));
-                break;
+        for(int j = 0; j < 20; j++) {
+            temp.add(new ActionCard(namePool[0]));
+            temp.add(new ActionCard(namePool[1]));
         }
-            return type;
+        for(int j = 0; j < 5; j++) {
+            temp.add(new ActionCard(namePool[2]));
+            temp.add(new ActionCard(namePool[3]));
+        }
+            
+        for(ActionCard card : temp) {
+            switch(card.getName()) {
+                case "Collect From Bank":
+                    card.setActionType(collectBankPool[(int)(Math.random() * (3))]);
+                    switch(card.getActionType()) {
+                        case "Tax Refund":
+                            card.setPayAmount(15000);
+                            break;
+                        case "Sell an Item":
+                            card.setPayAmount(7500);
+                            break;
+                        case "Bonus Payday":
+                            card.setPayAmount(20000);
+                            break;
+                        case "Setup School":
+                            card.setPayAmount(50000);
+                            break;
+                        case "Write a Book":
+                            card.setPayAmount(10000);   
+                            break;
+                    }
+                    break;
+
+                case "Pay the Bank":
+                    card.setActionType(payBankPool[(int)(Math.random() * (5))]);
+                    switch(card.getActionType()) {
+                        case "Buy an Item":
+                            card.setPayAmount(-10000);
+                            break;
+                        case "Visit a Place":
+                            card.setPayAmount(-25000);
+                            break;
+                        case "Hiking":
+                            card.setPayAmount(-20000);
+                            break;
+                        case "Watch a Show":
+                            card.setPayAmount(-2500);
+                            break;
+                        case "Win a Competition":
+                            card.setPayAmount(-15000);
+                            break;
+                        case "Traffic Violation":
+                            card.setPayAmount(-1000);
+                            break;
+                    }
+                    break;
+
+                case "Pay the Player": 
+                    card.setActionType(payPlayerPool[(int)(Math.random() * (1))]);
+                    switch(card.getActionType()) {
+                        case "Lawsuit":
+                            card.setPayAmount(-50000);
+                            break;
+                        case "Christmas Bonus":
+                            card.setPayAmount(-25000);
+                            break;
+                    }
+                    break;
+
+                case "Collect from Player": 
+                    card.setActionType(collectPlayerPool[(int)(Math.random() * (1))]);
+                    switch(card.getActionType()) {
+                        case "File a Lawsuit":
+                            card.setPayAmount(30000);
+                            break;
+                        case "It's your Birthday!":
+                            card.setPayAmount(15000);
+                            break;
+                    }
+                    break;
+            }
+        }
+        Collections.shuffle(temp);
+        Collections.shuffle(temp);
+
+        for (ActionCard card: temp)
+            actionCardDeck.push(card);
     }
 
-    /**
-     * This checks if the Action Card deck is empty or not.
-     * @param s stack
-     * @return boolean value for when stack is empty or not 
-     */
-    private boolean isEmpty (Stack s) {
-        return s.empty () ?  true : false;
+    public ActionCard drawCard () {
+        return actionCardDeck.pop();
     }
-
+    @Override
+    public String toString() {
+        return "Current Stack: " + actionCardDeck;
+    }
 }

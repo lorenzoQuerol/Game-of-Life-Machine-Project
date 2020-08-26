@@ -1,30 +1,22 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
 
 public class Main {
     private static int[] boardSpaces;
     private static ArrayList<Player> players;
     private static ActionDeck actionDeck;
-    private static ActionCard actionCard;
+    
 
     public static void InitializeData() {
         boardSpaces = new int[50];
         players = new ArrayList<Player>();
         actionDeck = new ActionDeck ();
-        actionCard = new ActionCard ();
-
-        actionDeck.generateNewActionDeck ();
-        actionDeck.assignActions ();
+        
+        actionDeck.generateActionDeck ();
     }
 
     public static void main(String[] args) {
         InitializeData ();
-        int playerTurn = 0;
-        boolean gameOver = false;
-
-        Player player1 = new Player();
-        
-    
+        Player player1 = new Player ();
+        player1.chooseActionCard(actionDeck);
     }
 }
