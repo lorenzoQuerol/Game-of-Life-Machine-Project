@@ -11,7 +11,7 @@ public class ActionCard {
     public String getName() {
         return name;
     }
-
+    
     public String getActionType() {
         return actionType;
     }
