@@ -28,8 +28,8 @@ public class Player {
         space = s;
     }
 
-    public void setPlayerCash(int playerCash) {
-        this.playerCash = playerCash;
+    public void setPlayerCash(int c) {
+        playerCash = c;
     }
 
     public String getPlayerName() {
@@ -45,60 +45,59 @@ public class Player {
     }
 
     public void chooseActionCard (ActionDeck a, Scanner in, ArrayList<Player> players) {
-        int currentCash;
         String choice;
-        ActionCard chosenActionCard = a.drawCard();
+        ActionCard chosenActionCard = a.drawActionCard();
         System.out.println(chosenActionCard);
         
         switch (chosenActionCard.getActionType()) {
             case "Lawsuit":
-                System.out.println("You have been filed for a Lawsuit!");
-                currentCash = getPlayerCash();
-                currentCash += chosenActionCard.getPayAmount();
-                setPlayerCash(currentCash);
+                System.out.println("You have been filed for a Lawsuit!");  
+                this.playerCash += chosenActionCard.getPayAmount();
                 
                 System.out.println("Choose a Player to Pay: ");
 
-                for (Player x : players)
+                for (Player x : players) {
+                    if (x.getPlayerName() == this.playerName)
+                        continue;
                     System.out.println(x.getPlayerName());
+                }
 
                 choice = in.nextLine();
 
                 for (Player x : players) {
-                    if (x.getPlayerName().contains(choice)) {
+                    if (x.getPlayerName().contains(choice))
                         x.playerCash += (chosenActionCard.getPayAmount() * -1);
-                    }
                 }
 
-                System.out.println("Cash now: " + playerCash);
+                System.out.println("Cash now: " + this.playerCash);
                 break;
 
             case "Christmas Bonus":
                 System.out.println("You paid everyone " + (chosenActionCard.getPayAmount() * -1 + "!"));
-                currentCash = getPlayerCash();
 
                 for (Player x : players) {
                     if (x.getPlayerName() == getPlayerName()) {
                         continue;
                     }
-                    currentCash += chosenActionCard.getPayAmount();
+                    this.playerCash += chosenActionCard.getPayAmount();
                     x.playerCash += (chosenActionCard.getPayAmount() * -1);
                 }
 
-                setPlayerCash(currentCash);
-                System.out.println("Cash now: " + playerCash);
+                System.out.println("Cash now: " + this.playerCash);
                 break;
 
             case "File a Lawsuit":
                 System.out.println("You Filed a Lawsuit Against Someone!");
-                currentCash = getPlayerCash();
-                currentCash += chosenActionCard.getPayAmount();
-                setPlayerCash(currentCash);
+                this.playerCash += chosenActionCard.getPayAmount();
                 
                 System.out.println("Choose a Player to File a Lawsuit Against: ");
 
-                for (Player x : players)
+                for (Player x : players) {
+                    if (x.getPlayerName() == this.playerName)
+                        continue;
                     System.out.println(x.getPlayerName());
+                }
+
                 choice = in.nextLine();
 
                 for (Player x : players) {
@@ -111,23 +110,20 @@ public class Player {
 
             case "It's your Birthday!":
                 System.out.println("It's your birthday! Everyone gifts you " + (chosenActionCard.getPayAmount() + "!"));
-                currentCash = getPlayerCash();
 
                 for (Player x : players) {
                     if (x.getPlayerName() == getPlayerName()) 
                         continue;
-                    currentCash += chosenActionCard.getPayAmount();
+                    this.playerCash += chosenActionCard.getPayAmount();
                     x.playerCash += (chosenActionCard.getPayAmount() * -1);
                 }
 
-                setPlayerCash(currentCash);
-                System.out.println("Cash now: " + playerCash);
-                
+                System.out.println("Cash now: " + this.playerCash);
                 break;
             
             default:
-                playerCash += chosenActionCard.getPayAmount();
-                System.out.println("Cash now: " + getPlayerCash());
+                this.playerCash += chosenActionCard.getPayAmount();
+                System.out.println("Cash now: " + this.playerCash);
         }
     }
 
