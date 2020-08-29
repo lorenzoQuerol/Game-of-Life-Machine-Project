@@ -1,38 +1,35 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.Stack;
 
 public class ActionDeck {
     
-    private Stack<ActionCard> actionCardDeck;
+    private Deque<ActionCard> actionCardDeck;
     private ArrayList<ActionCard> temp;
 
     public ActionDeck() {
-        actionCardDeck = new Stack<ActionCard>();
+        actionCardDeck = new ArrayDeque<>();
         temp = new ArrayList<ActionCard>();
     }
 
     public void generateActionDeck () {
         System.out.println("Generating and Shuffling New Deck!");
-        String[] namePool = {"Collect From Bank", "Pay the Bank", "Pay the Player", "Collect from Player"};
-        String[] collectBankPool = {"Tax Refund", "Sell an Item", "Bonus Payday", "Setup School", "Write a Book"};
-        String[] payBankPool = {"Buy an Item", "Visit a Place", "Hiking", "Watch a Show", "Win a Competition", "Traffic Violation"};
-        String[] payPlayerPool = {"Lawsuit", "Christmas Bonus"};
-        String[] collectPlayerPool = {"File a Lawsuit", "It's your Birthday!"};
 
         for(int j = 0; j < 20; j++) {
-            temp.add(new ActionCard(namePool[0]));
-            temp.add(new ActionCard(namePool[1]));
+            temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[0]));
+            temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[1]));
         }
         for(int j = 0; j < 5; j++) {
-            temp.add(new ActionCard(namePool[2]));
-            temp.add(new ActionCard(namePool[3]));
+            temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[2]));
+            temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[3]));
         }
             
         for(ActionCard card : temp) {
             switch(card.getName()) {
                 case "Collect From Bank":
-                    card.setActionType(collectBankPool[(int)(Math.random() * (5))]);
+                    card.setActionType(ActionCard.COLLECTBANK_STRINGS[(int)(Math.random() * (5))]);
                     switch(card.getActionType()) {
                         case "Tax Refund":
                             card.setPayAmount(15000);
@@ -53,7 +50,7 @@ public class ActionDeck {
                     break;
 
                 case "Pay the Bank":
-                    card.setActionType(payBankPool[(int)(Math.random() * (5))]);
+                    card.setActionType(ActionCard.PAYBANK_STRINGS[(int)(Math.random() * (6))]);
                     switch(card.getActionType()) {
                         case "Buy an Item":
                             card.setPayAmount(-10000);
@@ -77,7 +74,7 @@ public class ActionDeck {
                     break;
 
                 case "Pay the Player": 
-                    card.setActionType(payPlayerPool[(int)(Math.random() * (2))]);
+                    card.setActionType(ActionCard.PAYPLAYER_STRINGS[(int)(Math.random() * (2))]);
                     switch(card.getActionType()) {
                         case "Lawsuit":
                             card.setPayAmount(-50000);
@@ -89,7 +86,7 @@ public class ActionDeck {
                     break;
 
                 case "Collect from Player": 
-                    card.setActionType(collectPlayerPool[(int)(Math.random() * (2))]);
+                    card.setActionType(ActionCard.COLLECTPLAYER_STRINGS[(int)(Math.random() * (2))]);
                     switch(card.getActionType()) {
                         case "File a Lawsuit":
                             card.setPayAmount(30000);
@@ -101,22 +98,25 @@ public class ActionDeck {
                     break;
             }
         }
+
         Collections.shuffle(temp);
         Collections.shuffle(temp);
 
         for (ActionCard card: temp)
             actionCardDeck.push(card);
+    
+        temp.clear(); 
     }
 
-    public ActionCard drawCard () {
+    public ActionCard drawActionCard() {
         return actionCardDeck.pop();
     }
 
-    public boolean deckEmpty () {
-        return actionCardDeck.empty();
+    private boolean deckEmpty() {
+        return actionCardDeck.isEmpty();
     }
 
-    @Override
+    @Override   
     public String toString() {
         return "Current Stack: " + actionCardDeck;
     }
