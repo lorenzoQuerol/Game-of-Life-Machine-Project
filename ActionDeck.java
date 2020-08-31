@@ -162,6 +162,13 @@ public class ActionDeck {
     }
 
     /**
+     * Displays the current shuffled deck
+     */
+    public void displayDeck () {
+        System.out.println(actionCardDeck);
+    }
+
+    /**
      * Formats the output for the action card deck.
      */
     @Override   

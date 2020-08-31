@@ -63,6 +63,8 @@ public class Board {
             game.players.get(i).setName(name);
         }
         
+        game.actionDeck.displayDeck(); // This displays the generated and shuffled action card deck
+        
         /*
         This is main game area, players take turns drawing an action card until the deck runs out,
         or if the player decides to quit, it will exit the demo.
