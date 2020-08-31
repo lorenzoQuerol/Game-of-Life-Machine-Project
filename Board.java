@@ -64,16 +64,27 @@ public class Board {
         }
         
         do {
-            System.out.println("Enzo Cash: " + game.players.get(0).getCash() + " | " + "Gian Cash: " + game.players.get(1).getCash());
+            System.out.println(" ");
+            for (int j = 0; j < playerCount; j++) {
+                System.out.println(game.players.get(j).getName() + "'s Cash: " + game.players.get(j).getCash());
+            }
+            System.out.println(" ");
             System.out.println("Would you like to continue drawing action cards? ");
             System.out.println("\t(1) Draw Action Card");
             System.out.println("\t(2) Quit");
             System.out.print("Choice: ");
             int choice = Integer.parseInt(in.nextLine());
-            if (choice == 2)
+
+            if (choice == 1) {
+                gameOver = game.takeTurn (game.players.get(counter), in, game.actionDeck, gameOver);
+                counter++;
+            }
+            else if (choice == 2) {
                 break;
-            gameOver = game.takeTurn (game.players.get(counter), in, game.actionDeck, gameOver);
-            counter++;
+            }
+            else {
+                System.out.println("Invalid input! Please try again.\n\n");
+            }
             if (counter > game.players.size() - 1)
                 counter = 0;
         } while (!gameOver);

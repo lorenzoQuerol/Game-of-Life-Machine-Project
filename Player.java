@@ -23,8 +23,8 @@ public class Player {
      * the player.
      */
     public Player () {
-        // this.cash = 200000; // Normal starter cash
-        this.cash = 20000; // For testing the bank loan methods, set player cash to a lower amount to instigate a bank loan
+        this.cash = 200000; // Normal starter cash
+        //this.cash = 20000; // For testing the bank loan methods, set player cash to a lower amount to instigate a bank loan
     } 
 
     /**
