@@ -2,21 +2,43 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
-import java.util.Stack;
 
 public class ActionDeck {
-    
+
+    // Instance variables for an action card deck
     private Deque<ActionCard> actionCardDeck;
     private ArrayList<ActionCard> temp;
 
+    /**
+     * Constructor for an action card deck object. It creates a temporary
+     * array list, as well as a deque for pushing action card objects into.
+     */
     public ActionDeck() {
         actionCardDeck = new ArrayDeque<>();
         temp = new ArrayList<ActionCard>();
     }
+    
+    /**
+     * Gets the action card deck's size.
+     * @return The current size of the action card deck
+     */
+    public int getActionDeckSize () {
+        return actionCardDeck.size();
+    }
 
+    /**
+     * Generates and shuffles a new action card deck.
+     */
     public void generateActionDeck () {
-        System.out.println("Generating and Shuffling New Deck!");
+        System.out.println("Generating and Shuffling New Action Card Deck!");
 
+        /*
+        The temporary array list is used to generate the action deck values into
+        its respective proportions per type of action card.
+        ~~~
+        "Collect from bank" and "Pay the bank" action cards each comprise 40% (20 cards each) of the deck
+        "Collect from player" and "Pay the player" action cards each comprise 10% (5 cards each) of the deck
+        */
         for(int j = 0; j < 20; j++) {
             temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[0]));
             temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[1]));
@@ -25,7 +47,11 @@ public class ActionDeck {
             temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[2]));
             temp.add(new ActionCard(ActionCard.NAMEPOOL_STRINGS[3]));
         }
-            
+        
+        /*
+        The newly instantiated action card objects are then assigned randomly generated action types that depends on 
+        the name of the card. It then assigns the pay value that the programmers specified for the card.
+        */
         for(ActionCard card : temp) {
             switch(card.getName()) {
                 case "Collect From Bank":
@@ -99,23 +125,45 @@ public class ActionDeck {
             }
         }
 
+        /*
+        The temporary array list uses the Collections API to shuffle the deck twice before
+        being pushed into the deque for use by the players.
+        */
         Collections.shuffle(temp);
         Collections.shuffle(temp);
 
         for (ActionCard card: temp)
             actionCardDeck.push(card);
-    
+
+        /*
+        This is necessary to reset the temporary array list before generating a new
+        deck of action cards in the future.
+        */
         temp.clear(); 
     }
 
+    /**
+     * Let's the player draw a card from the action card deck. If the 
+     * action card deck is empty, it calls the generationActionDeck method.
+     * @return An action card
+     */
     public ActionCard drawActionCard() {
+        if (deckEmpty())
+            generateActionDeck();
         return actionCardDeck.pop();
     }
 
+    /** 
+     * Checks the action card deck if it is empty.
+     * @return A boolean value if the deck is empty or not
+     */
     private boolean deckEmpty() {
         return actionCardDeck.isEmpty();
     }
 
+    /**
+     * Formats the output for the action card deck.
+     */
     @Override   
     public String toString() {
         return "Current Stack: " + actionCardDeck;
