@@ -63,6 +63,10 @@ public class Board {
             game.players.get(i).setName(name);
         }
         
+        /*
+        This is main game area, players take turns drawing an action card until the deck runs out,
+        or if the player decides to quit, it will exit the demo.
+        */ 
         do {
             System.out.println(" ");
             for (int j = 0; j < playerCount; j++) {
@@ -85,6 +89,7 @@ public class Board {
             else {
                 System.out.println("Invalid input! Please try again.\n\n");
             }
+            
             if (counter > game.players.size() - 1)
                 counter = 0;
         } while (!gameOver);
