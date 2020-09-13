@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"SalaryDeck","l":"SalaryDeck()","url":"%3Cinit%3E()"}]

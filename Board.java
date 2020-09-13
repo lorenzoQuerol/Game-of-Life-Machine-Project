@@ -42,15 +42,15 @@ public class Board {
         return gameOver;        
     }
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Board game = new Board();
 
-        boolean gameOver = false; 
+        boolean gameOver = false;
         int counter = 0;
-        
+
         /*
-        This asks for how many players will play the game, while 
+        This asks for how many players will play the game, while
         also asking for the name of the player.
         */
         System.out.print("How many players will play: ");
@@ -62,16 +62,17 @@ public class Board {
             String name = in.nextLine();
             game.players.get(i).setName(name);
         }
-        
-        game.actionDeck.displayDeck(); // This displays the generated and shuffled action card deck
-        
+
+        // game.actionDeck.displayDeck(); // This displays the generated and shuffled action card deck
+
         /*
         This is main game area, players take turns drawing an action card until the deck runs out,
         or if the player decides to quit, it will exit the demo.
-        */ 
+        */
         do {
             System.out.println(" ");
             for (int j = 0; j < playerCount; j++) {
+                game.actionDeck.getActionDeckSize();
                 System.out.println(game.players.get(j).getName() + "'s Cash: " + game.players.get(j).getCash());
             }
             System.out.println(" ");
@@ -91,10 +92,10 @@ public class Board {
             else {
                 System.out.println("Invalid input! Please try again.\n\n");
             }
-            
+
             if (counter > game.players.size() - 1)
                 counter = 0;
         } while (!gameOver);
         System.out.println("====End Demo====");
-    } 
+    }
 }
