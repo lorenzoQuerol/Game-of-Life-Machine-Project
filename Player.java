@@ -10,10 +10,12 @@ public class Player {
 
     private boolean isMarried;
     private boolean isGraduate;
+    private boolean isRetired;
 
     private CareerCard career;
     private SalaryCard salary;
     private HouseCard house;
+    private int numChildren;
     private int bankLoan;
 
     private int space;
@@ -24,7 +26,6 @@ public class Player {
      */
     public Player () {
         this.cash = 200000; // Normal starter cash
-        //this.cash = 20000; // For testing the bank loan methods, set player cash to a lower amount to instigate a bank loan
     } 
 
     /**
@@ -146,24 +147,22 @@ public class Player {
      * @param in The input scanner
      * @param players The list of current players
      */
-    public void receiveActionCard (ActionDeck a, Scanner in, ArrayList<Player> players) {
+    public void receiveActionCard (ActionCard a, Scanner in, ArrayList<Player> players) {
         String choice;
-        ActionCard chosenActionCard = a.drawActionCard();
-        System.out.println(chosenActionCard);
         
         /*
         Certain action cards require the interaction of the current player with other players in the game.
         e.g. the player's cash is increased by the amount that was deducted from another player, and vice versa.
         */ 
-        switch (chosenActionCard.getActionType()) { 
+        switch (a.getActionType()) { 
             case "Lawsuit":
                 System.out.println("You have been filed for a Lawsuit!");  
-                if (!bankLoanNeeded(this, chosenActionCard.getPayAmount())) 
-                    this.cash += (chosenActionCard.getPayAmount());
+                if (!bankLoanNeeded(this, a.getPayAmount())) 
+                    this.cash += (a.getPayAmount());
                 else {
-                    while (bankLoanNeeded(this, chosenActionCard.getPayAmount()))
+                    while (bankLoanNeeded(this, a.getPayAmount()))
                         makeBankLoan(this);
-                    this.cash += (chosenActionCard.getPayAmount());
+                    this.cash += (a.getPayAmount());
                 }
 
                 System.out.println("Choose a Player to Pay: ");
@@ -172,33 +171,33 @@ public class Player {
 
                 for (Player x : players) {
                     if (x.getName().contains(choice)) 
-                        x.cash += (chosenActionCard.getPayAmount() * -1);                 
+                        x.cash += (a.getPayAmount() * -1);                 
                 }
                 break;
 
             case "Christmas Bonus":
-                System.out.println("You paid everyone " + (chosenActionCard.getPayAmount() * -1 + "!"));
+                System.out.println("You paid everyone " + (a.getPayAmount() * -1 + "!"));
 
                 for (Player x : players) {
                     if (x.getName() == this.name) { // If it reads the name of the current player, skip
                         continue;
                     }
 
-                    if (!bankLoanNeeded(this, chosenActionCard.getPayAmount())) {
-                        this.cash += (chosenActionCard.getPayAmount());
-                        x.cash += (chosenActionCard.getPayAmount() * -1);
+                    if (!bankLoanNeeded(this, a.getPayAmount())) {
+                        this.cash += (a.getPayAmount());
+                        x.cash += (a.getPayAmount() * -1);
                     } else {
-                        while (bankLoanNeeded(this, chosenActionCard.getPayAmount()))
+                        while (bankLoanNeeded(this, a.getPayAmount()))
                             makeBankLoan(this);
-                        this.cash += (chosenActionCard.getPayAmount());
-                        x.cash += (chosenActionCard.getPayAmount() * -1);
+                        this.cash += (a.getPayAmount());
+                        x.cash += (a.getPayAmount() * -1);
                     }             
                 }
                 break;
 
             case "File a Lawsuit":
                 System.out.println("You Filed a Lawsuit Against Someone!");
-                this.cash += chosenActionCard.getPayAmount();
+                this.cash += a.getPayAmount();
                 
                 System.out.println("Choose a Player to File a Lawsuit Against: ");
                 displayOtherPlayers(players);
@@ -206,70 +205,143 @@ public class Player {
                 
                 for (Player x : players) {
                     if (x.getName().contains(choice)) {
-                        if (!bankLoanNeeded(x, chosenActionCard.getPayAmount())) 
-                            x.cash += (chosenActionCard.getPayAmount() * -1);
+                        if (!bankLoanNeeded(x, a.getPayAmount())) 
+                            x.cash += (a.getPayAmount() * -1);
                         else {
-                            while (bankLoanNeeded(x, chosenActionCard.getPayAmount()))
+                            while (bankLoanNeeded(x, a.getPayAmount()))
                                 makeBankLoan(x);
-                            x.cash += (chosenActionCard.getPayAmount() * -1);
+                            x.cash += (a.getPayAmount() * -1);
                         }
                     }
                 }
                 break;
 
             case "It's your Birthday!":
-                System.out.println("It's your birthday! Everyone gifts you " + (chosenActionCard.getPayAmount() + "!"));
+                System.out.println("It's your birthday! Everyone gifts you " + (a.getPayAmount() + "!"));
 
                 for (Player x : players) {
                     if (x.getName() == this.name) 
                         continue;
-                    if (!bankLoanNeeded(x, chosenActionCard.getPayAmount())){
-                        this.cash += chosenActionCard.getPayAmount();
-                        x.cash += (chosenActionCard.getPayAmount() * -1);
+                    if (!bankLoanNeeded(x, a.getPayAmount())){
+                        this.cash += a.getPayAmount();
+                        x.cash += (a.getPayAmount() * -1);
                     } else {
-                        while (bankLoanNeeded(x, chosenActionCard.getPayAmount()))
+                        while (bankLoanNeeded(x, a.getPayAmount()))
                             makeBankLoan(x);
-                        this.cash += chosenActionCard.getPayAmount();
-                        x.cash += (chosenActionCard.getPayAmount() * -1);
+                        this.cash += a.getPayAmount();
+                        x.cash += (a.getPayAmount() * -1);
                     }                    
                 }
                 break;
             
             default:
-                if (!bankLoanNeeded(this, chosenActionCard.getPayAmount()))
-                        this.cash += (chosenActionCard.getPayAmount());
+                if (!bankLoanNeeded(this, a.getPayAmount()))
+                        this.cash += (a.getPayAmount());
                 else {
-                    while (bankLoanNeeded(this, chosenActionCard.getPayAmount()))
+                    while (bankLoanNeeded(this, a.getPayAmount()))
                         makeBankLoan(this);
-                    this.cash += (chosenActionCard.getPayAmount());
+                    this.cash += (a.getPayAmount());
                 }
         }
     }
 
-    public void receiveCareerCard (){
+    public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, Scanner in) {
+        System.out.println("Choose a career:");
+        System.out.println(c1);
+        System.out.println(c2);
+        System.out.print("Choice: ");
 
+        String choice = in.nextLine(); 
+
+        if (choice == c1.getName()) {
+            this.career = c1;
+            cd.deck.addFirst(c2); // returns the unchosen card back to the bottom of the original deck
+        } else {
+            this.career = c2;
+            cd.deck.addFirst(c1);
+        }
     }
 
-    public void receiveBlueCard (){
+    public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
+        boolean hasBlueCard = false;
 
+        // case 1: player's career matches blue card
+        if (b.getCareerLink() == this.career.getName()) 
+            this.cash += 15000;
+
+        // case 2: blue card matches another player's career
+        for (Player x : players) {
+            if (x.career.getName() == b.getCareerLink()){
+                x.cash += 15000;
+                this.cash -= 15000;
+                hasBlueCard = true;
+                break;
+            }
+        }
+        
+        // case 3: nobody's career in the game matches the blue card
+        if (hasBlueCard == false)
+            this.cash -= 15000;
     }
 
-    public void receiveSalaryCard (){
+    public void receiveSalaryCard (SalaryCard s) {
+        this.salary = s;
+    }
 
+    public void receiveHouseCard (HouseCard h) {
+        this.house = h;
     }
 
     public void makeBankLoan (Player p) {
-        System.out.println("===Bank loan made===");
         p.cash += 20000;
         p.bankLoan += 25000;
     }
 
     public void settleBankLoan () {
-
+        if (this.cash - 25000 >= 0 && this.bankLoan - 25000 >= 0) {
+            this.cash -= 25000; 
+            this.bankLoan -= 25000;
+        } else {
+            this.cash -= this.bankLoan;
+            this.bankLoan = 0;
+        }
     }
 
-    public void retire () {
+    public void retire (ArrayList<Player> players) {
+        int place = 0;
 
+        // 1. Collect retirement pay from the bank.
+        for (Player p : players) {
+            if (p == this)
+                continue;
+            if (p.isRetired == true)
+                place++;
+        }
+        
+        switch (place) {
+            case 0: // first case: player is first to retire
+                this.cash += 100000;
+                break;
+                
+            case 1: // second case: player is second to retire
+                this.cash += 50000;
+                break;
+
+            case 2: // third case: player is last to retire
+                this.cash += 20000;
+                break;
+        } 
+        
+        // 2. Collect $10000 for each child he has from the bank.
+        this.cash += (this.numChildren * 10000);
+
+        // 3. Sell your house to the Bank for the amount listed on the card
+        this.cash += this.house.finalPayAmount;
+        this.house = null;
+
+        // 4. Repay to the Bank, all outstanding loans with interest.
+        while (this.bankLoan != 0)
+            settleBankLoan();
     }
 
     /**
