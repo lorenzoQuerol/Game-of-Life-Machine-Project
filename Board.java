@@ -2,16 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Board {
+    private int[] mainPath;
     private int[] careerPath;
-    private int[] collegePath;
-    private int[] pathOne;
     private int[] changeCareerPath;
-    private int[] familyPath;
-    private int[] pathTwo;
 
     private ArrayList<Player> players;
-    private ActionDeck actionDeck;
 
+    private ActionDeck actionDeck;
     private CareerDeck careerDeck;
     private BlueDeck blueDeck;
     private SalaryDeck salaryDeck;
@@ -19,10 +16,24 @@ public class Board {
 
     public Board () { 
         players = new ArrayList<Player>();
-        actionDeck = new ActionDeck ();
-        actionDeck.generateActionDeck ();
+        actionDeck = new ActionDeck();
+        careerDeck = new CareerDeck();
+        blueDeck = new BlueDeck();
+        salaryDeck = new SalaryDeck();
+        houseDeck = new HouseDeck();
+        mainPath = new int[75];
+        careerPath = new int[10];
+        changeCareerPath = new int[10];
     }
     
+    public void initializeData () {
+        actionDeck.generateDeck();
+        careerDeck.generateDeck();
+        blueDeck.generateDeck();
+        salaryDeck.generateDeck();
+        houseDeck.generateDeck();
+    }
+
     /**
      * Allows the player to take a turn (e.g. spin a number and get a card).
      * @param p The current player
@@ -32,70 +43,37 @@ public class Board {
      * @return A boolean value if the game is over
      */
     public boolean takeTurn (Player p, Scanner in, ActionDeck actionDeck, boolean gameOver) {
-        System.out.println("Card #" + actionDeck.getActionDeckSize());
+        System.out.println("Card #" + actionDeck.getDeckSize());
         System.out.println(p.getName() + "'s turn!");
-        p.receiveActionCard(actionDeck, in, players);
-        // if (actionDeck.getActionDeckSize() == 0) Continuous Action Card Generation after it runs out
-        //     actionDeck.generateActionDeck();
-        if (actionDeck.getActionDeckSize() == 0)
-            gameOver = true;
+        p.receiveActionCard(actionDeck.drawCard(), in, players);
+        if (actionDeck.getDeckSize() == 0) //Continuous Action Card Generation after it runs out
+            actionDeck.generateDeck();
+        
         return gameOver;        
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        Board game = new Board();
-
-        boolean gameOver = false;
-        int counter = 0;
-
-        /*
-        This asks for how many players will play the game, while
-        also asking for the name of the player.
-        */
-        System.out.print("How many players will play: ");
-        int playerCount = Integer.parseInt(in.nextLine());
-
-        for (int i = 0; i < playerCount; i++) {
-            game.players.add(new Player());
-            System.out.print("Set a name for your player: ");
-            String name = in.nextLine();
-            game.players.get(i).setName(name);
-        }
-
-        // game.actionDeck.displayDeck(); // This displays the generated and shuffled action card deck
-
-        /*
-        This is main game area, players take turns drawing an action card until the deck runs out,
-        or if the player decides to quit, it will exit the demo.
-        */
-        do {
-            System.out.println(" ");
-            for (int j = 0; j < playerCount; j++) {
-                game.actionDeck.getActionDeckSize();
-                System.out.println(game.players.get(j).getName() + "'s Cash: " + game.players.get(j).getCash());
-            }
-            System.out.println(" ");
-            System.out.println("Would you like to continue drawing action cards? ");
-            System.out.println("\t(1) Draw Action Card");
-            System.out.println("\t(2) Quit");
-            System.out.print("Choice: ");
-            int choice = Integer.parseInt(in.nextLine());
-
-            if (choice == 1) {
-                gameOver = game.takeTurn (game.players.get(counter), in, game.actionDeck, gameOver);
-                counter++;
-            }
-            else if (choice == 2) {
-                break;
-            }
-            else {
-                System.out.println("Invalid input! Please try again.\n\n");
-            }
-
-            if (counter > game.players.size() - 1)
-                counter = 0;
-        } while (!gameOver);
-        System.out.println("====End Demo====");
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
+
+    public ActionDeck getActionDeck() {
+        return actionDeck;
+    }
+
+    public BlueDeck getBlueDeck() {
+        return blueDeck;
+    }
+
+    public CareerDeck getCareerDeck() {
+        return careerDeck;
+    }
+
+    public SalaryDeck getSalaryDeck() {
+        return salaryDeck;
+    }
+
+    public HouseDeck getHouseDeck() {
+        return houseDeck;
+    }
+
 }

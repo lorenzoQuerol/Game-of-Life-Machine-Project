@@ -1,13 +1,13 @@
 public class ActionCard {
     
     // Possible names for the action card
-    public static final String[] NAMEPOOL_STRINGS = {"Collect From Bank", "Pay the Bank", "Pay the Player", "Collect from Player"};
+    public static final String[] ACTIONCARD = {"Collect From Bank", "Pay the Bank", "Pay the Player", "Collect from Player"};
 
     // Possible action types for the action card
-    public static final String[] COLLECTBANK_STRINGS = {"Tax Refund", "Sell an Item", "Bonus Payday", "Setup School", "Write a Book"};
-    public static final String[] PAYBANK_STRINGS = {"Buy an Item", "Visit a Place", "Hiking", "Watch a Show", "Win a Competition", "Traffic Violation"};
-    public static final String[] PAYPLAYER_STRINGS = {"Lawsuit", "Christmas Bonus"};
-    public static final String[] COLLECTPLAYER_STRINGS = {"File a Lawsuit", "It's your Birthday!"};
+    public static final String[] COLLECTBANK = {"Tax Refund", "Sell an Item", "Bonus Payday", "Setup School", "Write a Book"};
+    public static final String[] PAYBANK = {"Buy an Item", "Visit a Place", "Hiking", "Watch a Show", "Win a Competition", "Traffic Violation"};
+    public static final String[] PAYPLAYER = {"Lawsuit", "Christmas Bonus"};
+    public static final String[] COLLECTPLAYER = {"File a Lawsuit", "It's your Birthday!"};
 
     // Instance variables for an action card
     private String name;
@@ -19,7 +19,7 @@ public class ActionCard {
      * @param n The name randomly assigned to the new card object instantiated
      */
     public ActionCard (String n) {
-        name = n;
+        this.name = n;
     }
 
     /**
@@ -27,7 +27,7 @@ public class ActionCard {
      * @return The name of the action card
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
@@ -35,7 +35,7 @@ public class ActionCard {
      * @return The action type of the action card
      */
     public String getActionType() {
-        return actionType;
+        return this.actionType;
     }
 
     /**
@@ -43,7 +43,7 @@ public class ActionCard {
      * @return The pay value of the action card.
      */
     public int getPayAmount() {
-        return payAmount;
+        return this.payAmount;
     }
 
     /**

@@ -1,58 +1,30 @@
 public class CareerCard {
 
+	// Possible names for the action card
+	public static final String[] CAREER = {"Lawyer", "Accountant", "Computer Consultant", "Doctor", "Server", "Racecar Driver", "Athlete"};
+
 	private String name;
 	private int payRaise;
 	
-	public void checkCareerCard (CareerDeck c) {
-		switch (c.getCareerCard ()) {
-			case 1:
-				name = "Lawyer";
-				break;
-
-			case 2:
-				name = "Accountant";
-				break;
-
-			case 3:
-				name = "Computer Consultant";
-				break;
-
-			case 4:
-				name = "Doctor";
-				break;
-
-			case 5:
-				name = "Server";
-				break;
-
-			case 6:
-				name = "Racecar Driver";
-				break;
-
-			case 7:
-				name = "Athlete";
-				break;
-		}
+	public CareerCard (String n) {
+		this.name = n;
 	}
-	
-	public void setName (String n) {
-        name = n;
-    } 
 
 	public void setPayRaise (int p) {
-        payRaise = p;
+        this.payRaise = p;
     }
 
 	public String getName () {
-		return name;
+		return this.name;
 	}
 
 	public int getPayRaise () {
-		return payRaise;
+		return this.payRaise;
 	}
 
-	public void displayCareerCard () {
-		System.out.println (getName ());
-		System.out.println (getPayRaise ());
-	}
-}
+	@Override
+    public String toString() {
+        return "Name: " + name + "\n" +
+               "Pay Raise: " + payRaise + "\n";
+    }
+} 
