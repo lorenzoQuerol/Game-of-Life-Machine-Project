@@ -1,0 +1,79 @@
+#player2 {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+    -fx-border-color: #CF5C36;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #F9F8F8;
+    -fx-font-size: 16px;
+}
+
+#player2:hover {
+    -fx-background-color: #CF5C36;
+    -fx-border-color: #F9F8F8;
+    -fx-text-fill: #272838;
+    -fx-font-size: 20px;
+}
+
+#player3 {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+    -fx-border-color: #8884FF;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #F9F8F8;
+    -fx-font-size: 16px;
+}
+
+#player3:hover {
+    -fx-background-color: #8884FF;
+    -fx-border-color: #F9F8F8;
+    -fx-text-fill: #272838;
+    -fx-font-size: 20px;
+}
+
+#playerBack {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+    -fx-border-color: #EEE5E9;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #F9F8F8;
+    -fx-font-size: 16px;
+}
+
+#playerBack:hover {
+    -fx-background-color: #EEE5E9;
+    -fx-border-color: #F9F8F8;
+    -fx-text-fill: #272838;
+    -fx-font-size: 20px;
+}
+
+#startGame {
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+    -fx-border-color: #247BA0;
+    -fx-border-width: 2;
+
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #F9F8F8;
+    -fx-font-size: 16px;
+}
+
+#startGame:hover {
+    -fx-background-color: #247BA0;
+    -fx-border-color: #F9F8F8;
+    -fx-text-fill: #272838;
+    -fx-font-size: 20px;
+}
