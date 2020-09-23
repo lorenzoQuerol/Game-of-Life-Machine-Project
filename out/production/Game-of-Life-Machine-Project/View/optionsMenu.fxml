@@ -5,29 +5,69 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <Button fx:id="optionsDeck" layoutX="437.0" layoutY="288.0" mnemonicParsing="false" onAction="#changeSize" prefHeight="50.0" prefWidth="150.0" stylesheets="@stylesheets/buttonStyle.css" text="Edit Decks" textFill="#272838">
+      <Button fx:id="optionsDeck" layoutX="387.0" layoutY="288.0" mnemonicParsing="false" onAction="#changeSize" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Edit Decks" textFill="#272838">
          <font>
             <Font name="Droid Serif Bold Italic" size="20.0" />
          </font></Button>
-      <Button fx:id="optionsCash" layoutX="437.0" layoutY="369.0" mnemonicParsing="false" onAction="#changeCash" prefHeight="50.0" prefWidth="150.0" stylesheets="@stylesheets/buttonStyle.css" text="Edit Cash" textAlignment="CENTER" textFill="#272838">
+      <Button fx:id="optionsCash" layoutX="387.0" layoutY="369.0" mnemonicParsing="false" onAction="#changeCash" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Edit Cash" textAlignment="CENTER" textFill="#272838">
          <font>
             <Font name="Droid Serif Bold Italic" size="20.0" />
          </font></Button>
-      <Button fx:id="optionsBack" layoutX="437.0" layoutY="453.0" mnemonicParsing="false" onAction="#optionReturn" prefHeight="50.0" prefWidth="150.0" stylesheets="@stylesheets/buttonStyle.css" text="Back" textAlignment="CENTER" textFill="#272838">
+      <Button fx:id="optionsBack" layoutX="387.0" layoutY="454.0" mnemonicParsing="false" onAction="#optionReturn" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Back" textAlignment="CENTER" textFill="#272838">
          <font>
             <Font name="Droid Serif Bold Italic" size="20.0" />
          </font></Button>
       <CubicCurve controlX1="-135.14749145507812" controlX2="7.852508544921875" controlY1="-227.1474609375" controlY2="-33.1474609375" endX="150.0" fill="#67597a" layoutX="151.0" layoutY="589.0" startX="-150.0" stroke="#67597a" />
       <CubicCurve controlX1="50.8525390625" controlX2="131.8525390625" controlY1="-19.0" controlY2="-267.0" endX="150.0" fill="#67d029" layoutX="879.0" layoutY="595.0" startX="-150.0" stroke="#67d029" />
-      <Label layoutX="262.0" layoutY="44.0" prefHeight="200.0" prefWidth="500.0" style="-fx-alignment: center;" text="Options" textAlignment="CENTER" textFill="#eb9486">
-         <font>
-            <Font name="Comic Sans MS" size="80.0" />
-         </font></Label>
       <Circle fill="#4914ab" layoutX="51.0" layoutY="59.0" radius="100.0" stroke="#4914ab" strokeType="INSIDE" />
       <Circle fill="#cf5c36" layoutX="871.0" layoutY="277.0" radius="100.0" stroke="#cf5c36" strokeType="INSIDE" />
       <Circle fill="#406e8e" layoutX="971.0" layoutY="224.0" radius="100.0" stroke="#406e8e" strokeType="INSIDE" />
       <Ellipse fill="#1291a6" layoutX="135.0" layoutY="159.0" radiusX="100.0" radiusY="80.0" stroke="#1291a6" strokeType="INSIDE" />
+      <HBox layoutX="333.0" layoutY="118.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ff85e9" text="O" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #7891ff" text="P" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #79de78" text="T" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+
+            <Label alignment="CENTER" prefWidth="50.0" style="-fx-background-color: #f0e47d" text="I" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ffcf40" text="O" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #cf5c36" text="N" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #67597a" text="S" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="96.0" />
+               </font>
+            </Label>
+
+         </children>
+      </HBox>
    </children>
 </Pane>
