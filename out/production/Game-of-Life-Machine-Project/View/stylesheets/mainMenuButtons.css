@@ -1,0 +1,40 @@
+#playGame, #playGame:hover,
+#optionsMenu, #optionsMenu:hover,
+#exitGame, #exitGame:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 24px;
+}
+
+#playGame {
+    -fx-background-color: #79de78;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#playGame:hover {
+    -fx-background-color: #5ca75b;
+}
+
+#optionsMenu {
+    -fx-background-color: #7891ff;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#optionsMenu:hover {
+    -fx-background-color: #5263ac;
+}
+
+#exitGame {
+    -fx-background-color: #cf5c36;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#exitGame:hover {
+    -fx-background-color: #863c24;
+}

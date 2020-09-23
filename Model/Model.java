@@ -3,8 +3,13 @@ package Model;
 import java.util.Scanner;
 
 public class Model {
-
-
+    public static void main(String[] args) {
+        
+        Board b = new Board();
+        b.initializeData();
+        for (Space s : b.getMainPath())
+            System.out.println(s);
+    }
 //    public static void main(String[] args) {
 //        int startCash;
 //

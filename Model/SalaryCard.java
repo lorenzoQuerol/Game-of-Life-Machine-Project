@@ -24,8 +24,8 @@ public class SalaryCard {
         this.tax = tax;
     }
 
-    public int computeSalary (int salary, int tax) {
-        return (salary-tax);
+    public int computeSalary() {
+        return (this.salary - this.tax);
     }
 
     @Override

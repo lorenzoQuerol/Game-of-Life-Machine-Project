@@ -8,11 +8,12 @@ public class Player {
     // Instance variables for a player object
     private int cash;
     private String name;
-    private String pathStart;
+    private String currentPath;
 
     private boolean isMarried;
     private boolean isGraduate;
     private boolean isRetired;
+    private boolean isFinished;   
 
     private CareerCard career;
     private SalaryCard salary;
@@ -50,8 +51,8 @@ public class Player {
      * Sets the player's starting point in the game (i.e. player starts on the college path or career path).
      * @param pathStart The player's path choice when the game starts
      */
-    public void setPathStart(String pathStart) {
-        this.pathStart = pathStart;
+    public void setCurrentPath(String currentPath) {
+        this.currentPath = currentPath;
     }
     
     /**
@@ -70,6 +71,10 @@ public class Player {
         this.isGraduate = isGraduate;
     }
     
+    public void setFinished(boolean isFinished) {
+        this.isFinished = isFinished;
+    }
+
     /**
      * Sets the player's career card.
      * @param career The player's current career
@@ -125,13 +130,41 @@ public class Player {
     public int getCash() {
         return cash;
     }
+    
+    public boolean getIsMarried() {
+        return isMarried;
+    }
 
+    public boolean getIsGraduate() {
+        return isGraduate;
+    }
+
+    public boolean getIsRetired() {
+        return isRetired;
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
+    }
+        
     /**
      * Gets the player's space.
      * @return The player's current position on the board
      */
     public int getSpace () {
         return space;
+    }
+
+    public String getCurrentPath() {
+        return currentPath;
+    }
+
+    public SalaryCard getSalaryCard() {
+        return salary;
+    }
+
+    public CareerCard getCareerCard() {
+        return career;
     }
 
     /**
@@ -264,6 +297,24 @@ public class Player {
         }
     }
 
+    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd, Scanner in) {
+        System.out.println("Job Search! Would you like to change your current career and salary? (Y/N)");
+        System.out.print("Choice: ");
+        String choice = in.nextLine();
+
+        switch (choice) {
+            case "Y":
+                this.career = c;
+                this.salary = s;
+                break;
+
+            case "N":
+                cd.deck.addFirst(c);
+                sd.deck.addFirst(s);
+                break;
+        }
+    }
+
     public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
         boolean hasBlueCard = false;
 
@@ -286,12 +337,68 @@ public class Player {
             this.cash -= 15000;
     }
 
-    public void receiveSalaryCard (SalaryCard s) {
-        this.salary = s;
+    public void receiveSalaryCard (SalaryCard s1, SalaryCard s2, SalaryDeck sd, Scanner in) {
+        System.out.println("Choose a Salary:");
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.print("Choice: ");
+
+        int choice = Integer.parseInt(in.nextLine());
+
+        if (choice == 1) {
+            this.salary = s1;
+            sd.deck.addFirst(s2); // returns the unchosen card back to the bottom of the original deck
+        } else {
+            this.salary = s2;
+            sd.deck.addFirst(s1);
+        }
     }
 
-    public void receiveHouseCard (HouseCard h) {
-        this.house = h;
+    public void receiveHouseCard (HouseCard h1, HouseCard h2, HouseDeck hd, Scanner in) {
+        System.out.println("Choose a House:");
+        System.out.println(h1);
+        System.out.println(h2);
+        System.out.print("Choice: ");
+        int choice = Integer.parseInt(in.nextLine());
+        int num = 0;
+
+        switch (choice) {
+            case 1:
+                System.out.println("Spin an even number or an odd number for your payment!");
+                num = this.spin();
+                if (num % 2 == 0) {
+                    h1.setFinalPayAmount(h1.payAmountEven);
+                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
+                        makeBankLoan(this);
+                
+                    this.cash -= h1.finalPayAmount;
+                    hd.deck.addFirst(h2);
+                } else {
+                    h1.setFinalPayAmount(h1.payAmountOdd);
+                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
+                        makeBankLoan(this);
+                    this.cash -= h1.finalPayAmount;
+                    hd.deck.addFirst(h2);
+                }
+                break;
+
+            case 2:
+                System.out.println("Spin an even number or an odd number for your payment!");
+                num = this.spin();
+                if (num % 2 == 0) {
+                    h2.setFinalPayAmount(h2.payAmountEven);
+                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
+                        makeBankLoan(this);
+                    this.cash -= h2.finalPayAmount;
+                    hd.deck.addFirst(h1);
+                } else {
+                    h2.setFinalPayAmount(h2.payAmountOdd);
+                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
+                        makeBankLoan(this); 
+                    this.cash -= h2.finalPayAmount;
+                    hd.deck.addFirst(h1);
+                }
+        }
     }
 
     public void makeBankLoan (Player p) {
@@ -344,6 +451,8 @@ public class Player {
         // 4. Repay to the Bank, all outstanding loans with interest.
         while (this.bankLoan != 0)
             settleBankLoan();
+
+        this.setFinished(true);
     }
 
     /**
