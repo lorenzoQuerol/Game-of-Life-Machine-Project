@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Label;
+
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,7 +41,7 @@ public class Controller implements Initializable {
     @FXML
     public void handleOptions() throws Exception {
         Stage optionStage = (Stage)optionsMenu.getScene().getWindow();
-        Parent optionView = FXMLLoader.load(getClass().getResource("View/optionsMenu.fxml"));
+        Parent optionView = FXMLLoader.load(getClass().getResource("View/editMenu.fxml"));
 
         Scene optionScene = new Scene(optionView);
         optionStage.setScene(optionScene);
@@ -48,7 +53,7 @@ public class Controller implements Initializable {
     }
 
     /*
-        ------------Play game controllers-----------
+        ------------Player selection controllers-----------
     */
 
     @FXML
@@ -85,77 +90,109 @@ public class Controller implements Initializable {
     }
 
     /*
+        ------------Start Game controllers---------
+    */
+
+    @FXML
+    private Button startGame, player1p, player2p, player3p;
+
+    @FXML
+    public void gameStart() throws Exception {
+        Stage startStage = (Stage)startGame.getScene().getWindow();
+        Parent startView = FXMLLoader.load(getClass().getResource("playerPath1.fxml"));
+
+        Scene startScene = new Scene(startView);
+        startStage.setScene(startScene);
+        startStage.show();
+    }
+
+    @FXML
+    public void secondPlayer() throws Exception {
+        Stage boardStage = (Stage)player1p.getScene().getWindow();
+        Parent boardView = FXMLLoader.load(getClass().getResource("playerPath2.fxml"));
+
+        Scene boardScene = new Scene(boardView);
+        boardStage.setScene(boardScene);
+        boardStage.show();
+    }
+
+    @FXML
+    public void thirdPlayer() throws Exception {
+        Stage boardStage = (Stage)player2p.getScene().getWindow();
+        Parent boardView = FXMLLoader.load(getClass().getResource("playerPath3.fxml"));
+
+        Scene boardScene = new Scene(boardView);
+        boardStage.setScene(boardScene);
+        boardStage.show();
+    }
+
+    /*
         -------------Options controllers------------
     */
 
     @FXML
-    private Button optionsBack, optionsCash, optionsDeck, deckSave, deckBack, cashSave, cashBack;
+    private Button editBack, editAtt, editSave;
+    @FXML
+    private Label acLabel, scLabel, ccLabel, cashLabel;
+    @FXML
+    private Slider acSlider, scSlider, ccSlider, cashSlider;
 
     @FXML
-    public void changeSize() throws Exception {
-        Stage deckStage = (Stage)optionsDeck.getScene().getWindow();
-        Parent deckView = FXMLLoader.load(getClass().getResource("View/editDeck.fxml"));
-
-        Scene deckScene = new Scene(deckView);
-        deckStage.setScene(deckScene);
-        deckStage.show();
+    public void adjustActionDeck() {
+        acLabel.setText(Integer.toString((int)acSlider.getValue()));
     }
 
     @FXML
-    public void savedDeck() throws Exception {
-        Stage dSave = (Stage)deckSave.getScene().getWindow();
-        Parent dView = FXMLLoader.load(getClass().getResource("View/optionsMenu.fxml"));
-
-        Scene dScene = new Scene(dView);
-        dSave.setScene(dScene);
-        dSave.show();
+    public void adjustSalaryDeck() {
+        scLabel.setText(Integer.toString((int)scSlider.getValue()));
     }
 
     @FXML
-    public void backDeck() throws Exception {
-        Stage dBack = (Stage)deckBack.getScene().getWindow();
-        Parent bView = FXMLLoader.load(getClass().getResource("View/optionsMenu.fxml"));
-
-        Scene bScene = new Scene(bView);
-        dBack.setScene(bScene);
-        dBack.show();
-    }
-
-
-    @FXML
-    public void changeCash() throws Exception {
-        Stage cashStage = (Stage)optionsCash.getScene().getWindow();
-        Parent cashView = FXMLLoader.load(getClass().getResource("View/editCashAmt.fxml"));
-
-        Scene cashScene = new Scene(cashView);
-        cashStage.setScene(cashScene);
-        cashStage.show();
+    public void adjustCareerDeck() {
+        ccLabel.setText(Integer.toString((int)ccSlider.getValue()));
     }
 
     @FXML
-    public void savedCash() throws Exception {
-        Stage cSave = (Stage)cashSave.getScene().getWindow();
-        Parent cView = FXMLLoader.load(getClass().getResource("View/optionsMenu.fxml"));
-
-        //insert code snippet to update cash amount
-        Scene cScene = new Scene(cView);
-        cSave.setScene(cScene);
-        cSave.show();
+    public void adjustCash() {
+        cashLabel.setText(Integer.toString((int)cashSlider.getValue()));
     }
 
     @FXML
-    public void backCash() throws Exception {
-        Stage cBack = (Stage)cashBack.getScene().getWindow();
-        Parent bView = FXMLLoader.load(getClass().getResource("View/optionsMenu.fxml"));
+    public void editAttributes() throws Exception {
+        Stage editStage = (Stage)editAtt.getScene().getWindow();
+        Parent editView = FXMLLoader.load(getClass().getResource("editableAttributes.fxml"));
 
-        Scene bScene = new Scene(bView);
-        cBack.setScene(bScene);
-        cBack.show();
+        Scene editScene = new Scene(editView);
+        editStage.setScene(editScene);
+        editStage.show();
+    }
+
+    @FXML
+    public void noEdit() throws Exception {
+        Stage doneStage = (Stage)editBack.getScene().getWindow();
+        Parent doneView = FXMLLoader.load(getClass().getResource("editMenu.fxml"));
+
+        Scene doneScene = new Scene(doneView);
+        doneStage.setScene(doneScene);
+        doneStage.show();
+    }
+
+    @FXML
+    public void editDone() throws Exception {
+
+        //update deck or cash values here
+
+        Stage doneStage = (Stage)editSave.getScene().getWindow();
+        Parent doneView = FXMLLoader.load(getClass().getResource("editMenu.fxml"));
+
+        Scene doneScene = new Scene(doneView);
+        doneStage.setScene(doneScene);
+        doneStage.show();
     }
 
     @FXML
     public void optionReturn() throws Exception {
-        Stage returnStage = (Stage)optionsBack.getScene().getWindow();
+        Stage returnStage = (Stage)editBack.getScene().getWindow();
         Parent returnView = FXMLLoader.load(getClass().getResource("View/mainMenu.fxml"));
 
         Scene returnScene = new Scene(returnView);
