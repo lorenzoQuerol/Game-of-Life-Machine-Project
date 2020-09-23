@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="editBack" layoutX="242.0" layoutY="471.0" mnemonicParsing="false" onAction="#noEdit" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Back" textAlignment="CENTER" textFill="#272838">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="20.0" />
+            </font></Button>
+        <Button fx:id="editSave" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" onAction="#editDone" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Save" textAlignment="CENTER" textFill="#272838">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="20.0" />
+            </font></Button>
+        <CubicCurve controlX1="-135.14749145507812" controlX2="7.852508544921875" controlY1="-227.1474609375" controlY2="-33.1474609375" endX="150.0" fill="#67597a" layoutX="151.0" layoutY="589.0" startX="-150.0" stroke="#67597a" />
+        <CubicCurve controlX1="50.8525390625" controlX2="131.8525390625" controlY1="-19.0" controlY2="-267.0" endX="150.0" fill="#67d029" layoutX="879.0" layoutY="595.0" startX="-150.0" stroke="#67d029" />
+        <Circle fill="#4914ab" layoutX="51.0" layoutY="59.0" radius="100.0" stroke="#4914ab" strokeType="INSIDE" />
+        <Circle fill="#cf5c36" layoutX="871.0" layoutY="277.0" radius="100.0" stroke="#cf5c36" strokeType="INSIDE" />
+        <Circle fill="#406e8e" layoutX="971.0" layoutY="224.0" radius="100.0" stroke="#406e8e" strokeType="INSIDE" />
+        <Ellipse fill="#1291a6" layoutX="135.0" layoutY="159.0" radiusX="100.0" radiusY="80.0" stroke="#1291a6" strokeType="INSIDE" />
+        <HBox layoutX="333.0" layoutY="79.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ff85e9" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #7891ff" text="P" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #79de78" text="T" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefWidth="50.0" style="-fx-background-color: #f0e47d" text="I" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ffcf40" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #cf5c36" text="N" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #67597a" text="S" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+            </children>
+        </HBox>
+      <Slider fx:id="acSlider" layoutX="412.0" layoutY="239.0" max="75.0" min="50.0" onMouseDragged="#adjustActionDeck" prefHeight="14.0" prefWidth="200.0" value="50.0" />
+      <Slider fx:id="scSlider" layoutX="412.0" layoutY="281.0" max="20.0" min="10.0" onMouseDragged="#adjustSalaryDeck" prefHeight="14.0" prefWidth="200.0" value="10.0" />
+      <Slider fx:id="ccSlider" layoutX="412.0" layoutY="324.0" max="11.0" min="7.0" onMouseDragged="#adjustCareerDeck" prefHeight="14.0" prefWidth="200.0" value="7.0" />
+      <Slider fx:id="cashSlider" blockIncrement="0.0" layoutX="412.0" layoutY="365.0" majorTickUnit="50000.0" max="350000.0" min="50000.0" minorTickCount="0" onMouseDragged="#adjustCash" onMouseReleased="#adjustCash" prefHeight="24.0" prefWidth="200.0" showTickMarks="true" snapToTicks="true" value="200000.0" />
+      <Label layoutX="242.0" layoutY="234.0" text="Action Deck Size" textFill="#ff85e9">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="242.0" layoutY="276.0" text="Salary Deck Size" textFill="#7891ff">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="242.0" layoutY="319.0" text="Career Deck Size" textFill="#f3df8a">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="247.0" layoutY="365.0" text="Starting Cash" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="acLabel" layoutX="636.0" layoutY="234.0" text="50" textFill="#ff85e9">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="scLabel" layoutX="638.0" layoutY="276.0" text="10" textFill="#7891ff">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="ccLabel" layoutX="643.0" layoutY="319.0" text="7" textFill="#f3df8a">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="cashLabel" layoutX="624.0" layoutY="365.0" text="200000" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+    </children>
+</Pane>
