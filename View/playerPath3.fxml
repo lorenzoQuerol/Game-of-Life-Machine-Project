@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="player3p" layoutX="242.0" layoutY="471.0" mnemonicParsing="false" onAction="#displayBoard" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Go To College" textAlignment="CENTER" textFill="#272838">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="20.0" />
+            </font></Button>
+        <Button fx:id="player3p" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" onAction="#displayBoard" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Start Career" textAlignment="CENTER" textFill="#272838">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="20.0" />
+            </font></Button>
+        <CubicCurve controlX1="-135.14749145507812" controlX2="7.852508544921875" controlY1="-227.1474609375" controlY2="-33.1474609375" endX="150.0" fill="#67597a" layoutX="151.0" layoutY="589.0" startX="-150.0" stroke="#67597a" />
+        <CubicCurve controlX1="50.8525390625" controlX2="131.8525390625" controlY1="-19.0" controlY2="-267.0" endX="150.0" fill="#67d029" layoutX="879.0" layoutY="595.0" startX="-150.0" stroke="#67d029" />
+        <Circle fill="#4914ab" layoutX="51.0" layoutY="59.0" radius="100.0" stroke="#4914ab" strokeType="INSIDE" />
+        <Circle fill="#cf5c36" layoutX="871.0" layoutY="277.0" radius="100.0" stroke="#cf5c36" strokeType="INSIDE" />
+        <Circle fill="#406e8e" layoutX="971.0" layoutY="224.0" radius="100.0" stroke="#406e8e" strokeType="INSIDE" />
+        <Ellipse fill="#1291a6" layoutX="135.0" layoutY="159.0" radiusX="100.0" radiusY="80.0" stroke="#1291a6" strokeType="INSIDE" />
+        <HBox layoutX="330.0" layoutY="180.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ff85e9" text="C" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #7891ff" text="H" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #79de78" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefWidth="50.0" style="-fx-background-color: #f0e47d" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ffcf40" text="S" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #cf5c36" text="E" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #67597a" text="!" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+
+            </children>
+        </HBox>
+        <Label layoutX="240.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #cf5c36;" text="Go to college and earn your degree!&#13;Gain an educational advantage!&#13;Results may vary :-)" textFill="#f9f8f8">
+            <font>
+                <Font name="Droid Serif" size="12.0" />
+            </font></Label>
+        <Label layoutX="527.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #8884ff;" text="Start your career and get working!&#13;Get a house! Start a family!&#13;Your 9-5 life awaits! :-D">
+            <font>
+                <Font name="Droid Serif" size="12.0" />
+            </font></Label>
+        <HBox layoutX="336.0" layoutY="41.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ff85e9" text="P" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #7891ff" text="L" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #79de78" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefWidth="50.0" style="-fx-background-color: #f0e47d" text="Y" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #ffcf40" text="E" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #cf5c36" text="R" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" prefHeight="118.0" prefWidth="50.0" style="-fx-background-color: #67597a" text="3" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="96.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </children>
+</Pane>
