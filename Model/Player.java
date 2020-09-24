@@ -172,7 +172,7 @@ public class Player {
      * @return The number of spaces the player traverses
      */
     public int spin () {
-        return (int)(Math.random() * (10-1) + 1);
+        return (int)(Math.random() * ((10-1)+1) + 1);
     }
     
     /**

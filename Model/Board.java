@@ -86,7 +86,7 @@ public class Board {
 
         int spin = p.spin();
         Space s = null;
-        int i = 1;
+        int i = 0;
         
         switch (p.getCurrentPath()) {
             case "mainPath":
@@ -104,26 +104,47 @@ public class Board {
             case "careerPath":
                 while (i <= spin && p.getSpace() < careerPath.length) {
                     p.setSpace(p.getSpace()+i);
-
-                    if (careerPath[p.getSpace()] instanceof MagentaSpace)
-                        break;
                     i++;     
                 }
-                s = careerPath[p.getSpace()];
+                if (i <= spin && p.getSpace() == careerPath.length-1) {
+                    p.setCurrentPath("mainPath");
+                    p.setSpace(9);
+
+                    while (i <= spin && p.getSpace() < mainPath.length) {
+                        p.setSpace(p.getSpace()+i);
+    
+                        if (mainPath[p.getSpace()] instanceof MagentaSpace)
+                            break;
+                        i++;
+                    }
+                    s = mainPath[p.getSpace()];
+                } else
+                    s = careerPath[p.getSpace()];
+                
                 break;
 
             case "changeCareerPath":
                 while (i <= spin && p.getSpace() < changeCareerPath.length) {
                     p.setSpace(p.getSpace()+i);
-
-                    if (changeCareerPath[p.getSpace()] instanceof MagentaSpace)
-                        break;
                     i++;     
+                }
+                if (i <= spin && p.getSpace() == changeCareerPath.length-1) {
+                    p.setCurrentPath("mainPath");
+                    p.setSpace(28);
+                    
+                    while (i <= spin && p.getSpace() < mainPath.length) {
+                        p.setSpace(p.getSpace()+i);
+    
+                        if (mainPath[p.getSpace()] instanceof MagentaSpace)
+                            break;
+                        i++;
+                    }
                 }
                 s = changeCareerPath[p.getSpace()];
                 break;
         }  
-        
+
+        System.out.println(p.getSpace());
         if (p.getSpace() == mainPath.length - 1)
             p.retire(players);
         else   
