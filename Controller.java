@@ -2,12 +2,19 @@ import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import javafx.event.ActionEvent;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Label;
+
+import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ChangeListener;
@@ -124,6 +131,161 @@ public class Controller implements Initializable {
         Scene boardScene = new Scene(boardView);
         boardStage.setScene(boardScene);
         boardStage.show();
+    }
+
+    @FXML
+    public void displayBoard() throws Exception {
+        Stage boardStage = (Stage)player3p.getScene().getWindow();
+        Parent boardView = FXMLLoader.load(getClass().getResource("gameBoard.fxml"));
+
+        Scene boardScene = new Scene(boardView);
+        boardStage.setScene(boardScene);
+        boardStage.show();
+
+    }
+
+    /*
+        ------------Board proper controllers------------
+    */
+
+    @FXML
+    private Label diceLabel, nameLabel, moneyLabel, jobLabel, salaryLabel, houseLabel;
+    @FXML
+    private Button rollSpin, nextPlayer, drawCard, actionDone;
+
+    @FXML
+    public void rollDice() {
+        int diceRoll;
+        
+        diceRoll = (int)(Math.random() * (10) + 1);
+        diceLabel.setText(Integer.toString(diceRoll));
+
+        rollSpin.setDisable(true);
+        drawCard.setDisable(false);
+
+        //should contain move instructions for pieces
+    }
+
+    @FXML
+    public void cardDraw() throws Exception{
+        //if else ladder can be placed here for space color identification
+        //i.e. if space is orange, call openAction, else if, call blueAction etc
+        drawCard.setDisable(true);
+
+        openAction();
+        openBlue();
+        openGreen();
+        nextPlayer.setDisable(false);
+    }
+
+    //Action card stuff HERE -------------------------------------
+    @FXML
+    private Label actionLabel;
+    @FXML
+    private Button payPlayer1, payPlayer2, payBank, collectBank;
+    
+    @FXML
+    public void openAction() throws Exception{
+        Stage actionP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("actionCardPop.fxml"));
+    
+        actionP.initStyle(StageStyle.UNDECORATED);
+        actionP.initModality(Modality.APPLICATION_MODAL);
+        actionP.setScene(new Scene(popCard, 600, 400));
+        actionP.setResizable(false);
+        actionP.showAndWait();
+    
+        //set label text can be placed here to display action card details
+        //visibility of pay/collect buttons can be done via if else based on action card chosen
+    }
+    
+    public void otherAction(ActionEvent e) {
+    
+        //backend value updates can be done here as well
+    
+        if(e.getSource() == payPlayer1) {
+            actionLabel.setText("You have paid player 1");
+        }
+        else if(e.getSource() == payPlayer2) {
+             actionLabel.setText("You have paid player 2");
+        }
+        else if(e.getSource() == payBank) {
+            actionLabel.setText("You have paid the bank");
+        }
+        else if(e.getSource() == collectBank) {
+            actionLabel.setText("The bank has paid you");
+        }
+    }
+
+    //Green space stuff here-----------------------------------
+    @FXML
+    private Label greenLabel;
+
+    @FXML
+    public void openGreen() throws Exception{
+        Stage greenP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("greenSpacePop.fxml"));
+
+        greenP.initStyle(StageStyle.UNDECORATED);
+        greenP.initModality(Modality.APPLICATION_MODAL);
+        greenP.setScene(new Scene(popCard, 600, 400));
+        greenP.setResizable(false);
+        greenP.showAndWait();
+
+        //set label text can be placed here to display green card details
+        //if else for data update
+    }
+
+    //Blue space stuff here----------------------------------
+    @FXML
+    private Label blueLabel;
+    @FXML
+    private Button payPlayer, payBankBlue, collectBankBlue, blueDone;
+
+    @FXML
+    public void openBlue() throws Exception{
+        Stage blueP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("blueCardPop.fxml"));
+
+        blueP.initStyle(StageStyle.UNDECORATED);
+        blueP.initModality(Modality.APPLICATION_MODAL);
+        blueP.setScene(new Scene(popCard, 600, 400));
+        blueP.setResizable(false);
+        blueP.showAndWait();
+
+        //set label text can be placed here to display green card details
+        //if else for data update
+    }
+
+    public void otherBlue(ActionEvent e) {
+
+        //backend value updates can be done here as well
+
+        if(e.getSource() == collectBankBlue) {
+            blueLabel.setText("It is your career! You get paid");
+        }
+        else if(e.getSource() == payBankBlue) {
+            blueLabel.setText("Nobody has this career. Pay the bank");
+        }
+        else if(e.getSource() == payPlayer) {
+            blueLabel.setText("You have paid the player");
+        }
+
+        blueDone.setDisable(false);
+    }
+
+    public void closeAction(ActionEvent e) {
+        Stage actionP = (Stage)((Node)e.getSource()).getScene().getWindow();
+        actionP.close();
+    }
+
+    @FXML
+    public void nextTurn() {
+        //update counter here
+        //if else to loop back if last player
+        
+        rollSpin.setDisable(false);
+        nextPlayer.setDisable(true);
     }
 
     /*
