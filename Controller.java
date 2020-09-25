@@ -586,6 +586,55 @@ public class Controller implements Initializable {
         rollSpin.setDisable(false);
         nextPlayer.setDisable(true);
     }
+
+    //Have a baby stuff HERE ------------------------------------
+    @FXML
+    private Label babyLabel;
+    @FXML
+    private Button babyRoll, babyCollect, babyCont;
+
+    @FXML
+    public void getBaby() throws Exception {
+        Stage babyP = new Stage();
+        Parent babyCard = FXMLLoader.load(getClass().getResource("View/haveBaby.fxml"));
+
+        babyP.initStyle(StageStyle.UNDECORATED);
+        babyP.initModality(Modality.APPLICATION_MODAL);
+        babyP.setScene(new Scene(babyCard, 600, 400));
+        babyP.setResizable(false);
+        babyP.showAndWait();
+    }
+
+    public void babyAction(ActionEvent e) {
+        int diceRoll;
+
+        if(e.getSource() == babyRoll) {
+            diceRoll = (int)(Math.random() * (2-1+1) + 1);
+
+            babyRoll.setDisable(true);
+            babyRoll.setVisible(false);
+
+            switch(diceRoll) {
+                case 1:
+                    babyLabel.setText("Congratulations!\nCollect $5000 from other players!");
+                    babyCollect.setText("Collect $5000");
+                    babyCollect.setDisable(false);
+                    break;
+                case 2:
+                    babyLabel.setText("TWINS!\nCollect $10000 from other players!");
+                    babyCollect.setText("Collect $10000");
+                    babyCollect.setDisable(false);
+                    break;
+            }
+        }
+        else if(e.getSource() == babyCollect) {
+            //update money here
+            babyCollect.setDisable(true);
+            babyCollect.setVisible(false);
+        }
+        babyCont.setVisible(true);
+        babyCont.setDisable(false);
+    }    
     
     /*
         -------------Options controllers------------
