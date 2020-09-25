@@ -180,101 +180,184 @@ public class Controller implements Initializable {
         nextPlayer.setDisable(false);
     }
 
-    //Action card stuff HERE -------------------------------------
-    @FXML
-    private Label actionLabel;
-    @FXML
-    private Button payPlayer1, payPlayer2, payBank, collectBank;
+  //Action card stuff HERE -------------------------------------
+  @FXML
+  private Label actionLabel;
+  @FXML
+  private Button actionDraw, actionDone, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
 
-    @FXML
-    public void openAction() throws Exception{
-        Stage actionP = new Stage();
-        Parent popCard = FXMLLoader.load(getClass().getResource("View/actionCardPop.fxml"));
+  @FXML
+  public void openAction() throws Exception{
+      Stage actionP = new Stage();
+      Parent popCard = FXMLLoader.load(getClass().getResource("View/actionCardPop.fxml"));
 
-        actionP.initStyle(StageStyle.UNDECORATED);
-        actionP.initModality(Modality.APPLICATION_MODAL);
-        actionP.setScene(new Scene(popCard, 600, 400));
-        actionP.setResizable(false);
-        actionP.showAndWait();
+      actionP.initStyle(StageStyle.UNDECORATED);
+      actionP.initModality(Modality.APPLICATION_MODAL);
 
-        //set label text can be placed here to display action card details
-        //visibility of pay/collect buttons can be done via if else based on action card chosen
-    }
+      actionP.setScene(new Scene(popCard, 600, 400));
+      actionP.setResizable(false);
 
-    public void otherAction(ActionEvent e) {
+      actionP.showAndWait();
+  }
 
-        //backend value updates can be done here as well
+  public void otherAction(ActionEvent e) {
+      if(e.getSource() == actionDraw) {
 
-        if(e.getSource() == payPlayer1) {
-            actionLabel.setText("You have paid player 1");
-        }
-        else if(e.getSource() == payPlayer2) {
-            actionLabel.setText("You have paid player 2");
-        }
-        else if(e.getSource() == payBank) {
-            actionLabel.setText("You have paid the bank");
-        }
-        else if(e.getSource() == collectBank) {
-            actionLabel.setText("The bank has paid you");
-        }
-    }
+          //card draw and conditional ladder for different action card types can be set here
+          actionDraw.setDisable(true);
+          actionDraw.setVisible(false);
 
-    //Green space stuff here-----------------------------------
-    @FXML
-    private Label greenLabel;
+          actionLabel.setText("Filed a lawsuit! Sue a motherfucker");
 
-    @FXML
-    public void openGreen() throws Exception{
-        Stage greenP = new Stage();
-        Parent popCard = FXMLLoader.load(getClass().getResource("View/greenSpacePop.fxml"));
+          collectPlayer1.setVisible(true);
+          collectPlayer1.setDisable(false);
+          collectPlayer2.setVisible(true);
+          collectPlayer2.setDisable(false);
+      }
 
-        greenP.initStyle(StageStyle.UNDECORATED);
-        greenP.initModality(Modality.APPLICATION_MODAL);
-        greenP.setScene(new Scene(popCard, 600, 400));
-        greenP.setResizable(false);
-        greenP.showAndWait();
+      else if(e.getSource() == payPlayer1) {
+          actionLabel.setText("You have paid player 1!");
 
-        //set label text can be placed here to display green card details
-        //if else for data update
-    }
+          payPlayer1.setDisable(true);
+          payPlayer2.setDisable(true);
 
-    //Blue space stuff here----------------------------------
-    @FXML
-    private Label blueLabel;
-    @FXML
-    private Button payPlayer, payBankBlue, collectBankBlue, blueDone;
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+      else if(e.getSource() == payPlayer2) {
+          actionLabel.setText("You have paid player 2!");
 
-    @FXML
-    public void openBlue() throws Exception{
-        Stage blueP = new Stage();
-        Parent popCard = FXMLLoader.load(getClass().getResource("View/blueCardPop.fxml"));
+          payPlayer1.setDisable(true);
+          payPlayer2.setDisable(true);
 
-        blueP.initStyle(StageStyle.UNDECORATED);
-        blueP.initModality(Modality.APPLICATION_MODAL);
-        blueP.setScene(new Scene(popCard, 600, 400));
-        blueP.setResizable(false);
-        blueP.showAndWait();
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+      else if(e.getSource() == collectPlayer1) {
+          actionLabel.setText("You have collected from player 1!");
 
-        //set label text can be placed here to display green card details
-        //if else for data update
-    }
+          collectPlayer1.setDisable(true);
+          collectPlayer2.setDisable(true);
 
-    public void otherBlue(ActionEvent e) {
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+      else if(e.getSource() == collectPlayer2) {
+          actionLabel.setText("You have collected from player 2!");
 
-        //backend value updates can be done here as well
+          collectPlayer1.setDisable(true);
+          collectPlayer2.setDisable(true);
 
-        if(e.getSource() == collectBankBlue) {
-            blueLabel.setText("It is your career! You get paid");
-        }
-        else if(e.getSource() == payBankBlue) {
-            blueLabel.setText("Nobody has this career. Pay the bank");
-        }
-        else if(e.getSource() == payPlayer) {
-            blueLabel.setText("You have paid the player");
-        }
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+      else if(e.getSource() == payBank) {
+          actionLabel.setText("You have paid the bank!");
 
-        blueDone.setDisable(false);
-    }
+          payBank.setDisable(true);
+
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+      else if(e.getSource() == collectBank) {
+          actionLabel.setText("You have collected from the bank!");
+
+          collectBank.setDisable(true);
+
+          actionDone.setVisible(true);
+          actionDone.setDisable(false);
+      }
+  }
+
+
+  //Blue space stuff HERE-------------------------------------
+  @FXML
+  private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
+  @FXML
+  private Label blueLabel;
+
+  @FXML
+  public void openBlue() throws Exception{
+      Stage blueP = new Stage();
+      Parent popCard = FXMLLoader.load(getClass().getResource("View/blueCardPop.fxml"));
+
+      blueP.initStyle(StageStyle.UNDECORATED);
+      blueP.initModality(Modality.APPLICATION_MODAL);
+      blueP.setScene(new Scene(popCard, 600, 400));
+      blueP.setResizable(false);
+      blueP.showAndWait();
+  }
+
+  public void otherBlue(ActionEvent e) {
+      if(e.getSource() == blueDraw) {
+
+          //card draw and conditional ladder can be set here
+          blueDraw.setDisable(true);
+          blueDraw.setVisible(false);
+
+          blueLabel.setText("Salary Tax Due\n Pay the Tax Collector");
+
+          payPlayer.setText("Pay Enzo");
+          payPlayer.setVisible(true);
+          payPlayer.setDisable(false);
+      }
+      else if(e.getSource() == collectBankBlue) {
+          blueLabel.setText("It is your career! You get paid");
+
+          collectBankBlue.setDisable(true);
+
+          blueDone.setVisible(true);
+          blueDone.setDisable(false);
+      }
+      else if(e.getSource() == payBankBlue) {
+          blueLabel.setText("Nobody has this career. Pay the bank");
+
+          payBankBlue.setDisable(true);
+
+          blueDone.setVisible(true);
+          blueDone.setDisable(false);
+      }
+      else if(e.getSource() == payPlayer) {
+          blueLabel.setText("You have paid the player");
+
+          payPlayer.setDisable(true);
+
+          blueDone.setVisible(true);
+          blueDone.setDisable(false);
+      }
+  }
+
+
+  //Green space stuff here-----------------------------------
+  @FXML
+  private Label greenLabel;
+  @FXML
+  private Button greenWhat, greenDone;
+
+  @FXML
+  public void openGreen() throws Exception{
+      Stage greenP = new Stage();
+      Parent popCard = FXMLLoader.load(getClass().getResource("View/greenSpacePop.fxml"));
+
+      greenP.initStyle(StageStyle.UNDECORATED);
+      greenP.initModality(Modality.APPLICATION_MODAL);
+      greenP.setScene(new Scene(popCard, 600, 400));
+      greenP.setResizable(false);
+      greenP.showAndWait();
+  }
+
+  public void greenAction(ActionEvent e) {
+      if(e.getSource() == greenWhat) {
+          //if else for the two green space types
+          greenLabel.setText("It's PAY DAY!!!");
+
+          greenWhat.setVisible(false);
+          greenWhat.setDisable(true);
+
+          greenDone.setVisible(true);
+          greenDone.setDisable(false);
+      }
+  }
 
     public void closeAction(ActionEvent e) {
         Stage actionP = (Stage)((Node)e.getSource()).getScene().getWindow();
