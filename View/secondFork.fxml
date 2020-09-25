@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="careerChange" layoutX="237.0" layoutY="279.0" mnemonicParsing="false" onAction="#chosenAction" text="Change Career">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="continuePath" layoutX="214.0" layoutY="330.0" mnemonicParsing="false" onAction="#chosenAction" text="Stay on Current Path">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAGENTA" height="200.0" layoutX="110.0" layoutY="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="380.0" />
+        <HBox layoutX="176.0" layoutY="51.0" prefHeight="66.0" prefWidth="249.0">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="C" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="H" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="102.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #67597A;" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="170.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: orange;" text="S" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="223.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #2d9734;" text="E" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+      <Button fx:id="forkContinue" disable="true" layoutX="259.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="forkLabel" alignment="CENTER" layoutX="209.0" layoutY="141.0" text="What will you do next?" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font></Label>
+    </children>
+</Pane>
