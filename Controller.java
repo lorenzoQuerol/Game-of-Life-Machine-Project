@@ -423,6 +423,103 @@ public class Controller implements Initializable {
       }
   }
 
+    //Get married space stuff HERE -------------------------------
+    @FXML
+    private Button marryEven, marryOdd, marryRoll, marryCont;
+    @FXML
+    private Label marryLabel;
+
+    @FXML
+    public void getMarried() throws Exception{
+        Stage marryP = new Stage();
+        Parent marryCard = FXMLLoader.load(getClass().getResource("View/marriedSpacePop.fxml"));
+
+        marryP.initStyle(StageStyle.UNDECORATED);
+        marryP.initModality(Modality.APPLICATION_MODAL);
+        marryP.setScene(new Scene(marryCard, 600, 400));
+        marryP.setResizable(false);
+        marryP.showAndWait();
+    }
+
+    public void marriageAction(ActionEvent e) {
+        int diceRoll;
+        marryRoll.setDisable(false);
+
+        if(e.getSource() == marryRoll){
+            diceRoll = (int)(Math.random() * (10) + 1);
+            marryLabel.setText(Integer.toString(diceRoll));
+
+            if(diceRoll % 2 == 0) {
+                marryEven.setDisable(false);
+            }
+            else {
+                marryOdd.setDisable(false);
+            }
+        }
+        else if(e.getSource() == marryOdd){
+
+            //set method to collect money from other players here
+
+            marryOdd.setDisable(true);
+            marryRoll.setVisible(false);
+            marryCont.setVisible(true);
+        }
+        else if(e.getSource() == marryEven){
+
+            //set method to collect money from other players here
+
+            marryEven.setDisable(true);
+            marryRoll.setVisible(false);
+            marryCont.setVisible(true);
+        }
+    }
+
+
+    //Job Search stuff HERE -----------------------------------------
+    @FXML
+    private Button bRetain, bChange, jobDraw, jobDone;
+    @FXML
+    private Label jobDescription, salaryDescription;
+
+    @FXML
+    public void jobHunt() throws Exception{
+        Stage jobP = new Stage();
+        Parent jobCard = FXMLLoader.load(getClass().getResource("View/jobSearch.fxml"));
+
+        jobP.initStyle(StageStyle.UNDECORATED);
+        jobP.initModality(Modality.APPLICATION_MODAL);
+        jobP.setScene(new Scene(jobCard, 600, 400));
+        jobP.setResizable(false);
+        jobP.showAndWait();
+    }
+
+    public void huntAction(ActionEvent e) {
+        if(e.getSource() == jobDraw) {
+
+            //draw career and salary card method call
+            bChange.setDisable(false);
+            bRetain.setDisable(false);
+            jobDraw.setDisable(true);
+            jobDraw.setVisible(false);
+        }
+        else if(e.getSource() == bRetain){
+
+            //set method to update values here
+            bChange.setDisable(true);
+            bRetain.setDisable(true);
+            jobDone.setVisible(true);
+            jobDone.setDisable(false);
+        }
+        else if(e.getSource() == bChange){
+
+            //set method to update values here
+            bChange.setDisable(true);
+            bRetain.setDisable(true);
+            jobDone.setVisible(true);
+            jobDone.setDisable(false);
+        }
+    }
+      
     public void closeAction(ActionEvent e) {
         Stage actionP = (Stage)((Node)e.getSource()).getScene().getWindow();
         actionP.close();
@@ -436,7 +533,7 @@ public class Controller implements Initializable {
         rollSpin.setDisable(false);
         nextPlayer.setDisable(true);
     }
-
+    
     /*
         -------------Options controllers------------
     */
