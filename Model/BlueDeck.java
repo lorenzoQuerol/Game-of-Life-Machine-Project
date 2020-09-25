@@ -9,7 +9,7 @@ public class BlueDeck extends Deck<BlueCard> {
     }
 
     @Override
-    public void generateDeck() {
+    public void generateDeck(int amount) {
         
         for (int i = 0; i < 7; i++)
             temp.add(new BlueCard(BlueCard.BLUE[i], CareerCard.CAREER[i]));

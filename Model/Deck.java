@@ -15,7 +15,8 @@ abstract class Deck<C> {
     }
 
 
-    public abstract void generateDeck();
+    public abstract void generateDeck(int amount);
+//    public abstract void generateDeck(int amount);
 
     public int getDeckSize() {
         return deck.size(); 
