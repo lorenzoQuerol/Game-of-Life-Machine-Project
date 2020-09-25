@@ -17,11 +17,13 @@ import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    @FXML
     Model model = Model.getInstance();
 
     /*
@@ -58,14 +60,17 @@ public class Controller implements Initializable {
         ------------Player selection controllers-----------
     */
 
-    @FXML
-    private Button playerBack, player2, player3;
+    @FXML private Button playerBack, player2, player3;
+    @FXML private TextField textFieldP1, textFieldP2, textFieldP3;
 
     @FXML
     public void twoPlayerGame() throws Exception {
 
         model.setNumPlayers(2);
         System.out.println("Players set to: " + model.getNumPlayers());
+
+        for (int i = 0; i < model.getNumPlayers(); i++)
+            model.getB().getPlayers().add(new Player(model.getStarterCash()));
 
         Stage twoP = (Stage)player2.getScene().getWindow();
         Parent twoView = FXMLLoader.load(getClass().getResource("View/twoPlayers.fxml"));
@@ -81,6 +86,9 @@ public class Controller implements Initializable {
         model.setNumPlayers(3);
         System.out.println("Players set to: " + model.getNumPlayers());
 
+        for (int i = 0; i < model.getNumPlayers(); i++)
+            model.getB().getPlayers().add(new Player(model.getStarterCash()));
+
         Stage threeP = (Stage)player3.getScene().getWindow();
         Parent threeView = FXMLLoader.load(getClass().getResource("View/threePlayers.fxml"));
 
@@ -91,6 +99,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void playerReturn() throws Exception {
+
         Stage pReturn = (Stage)playerBack.getScene().getWindow();
         Parent pRView = FXMLLoader.load(getClass().getResource("View/mainMenu.fxml"));
 
@@ -103,42 +112,97 @@ public class Controller implements Initializable {
         ------------Start Game controllers---------
     */
 
-    @FXML private Button startGame, player1p, player2p, P3_player2p, player3p;
-    @FXML private TextField textFieldP1, textFieldP2, textFieldP3;
+    @FXML private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
+
 
     @FXML
     public void gameStart() throws Exception {
+
+        model.getB().initializeData(model.getNumAction(), model.getNumCareer(), model.getNumSalary(), 0, 0);
+        model.getB().getPlayers().get(0).setName(textFieldP1.getText());
+        model.getB().getPlayers().get(1).setName(textFieldP2.getText());
+
+        if (model.getNumPlayers() == 3)
+            model.getB().getPlayers().get(2).setName(textFieldP3.getText());
+
         Stage startStage = (Stage)startGame.getScene().getWindow();
         Parent startView = FXMLLoader.load(getClass().getResource("View/playerPath1.fxml"));
-
         Scene startScene = new Scene(startView);
         startStage.setScene(startScene);
         startStage.show();
     }
 
     @FXML
-    public void secondPlayer() throws Exception {
-        Parent boardView;
-        Stage boardStage = (Stage)player1p.getScene().getWindow();
-        boardView = FXMLLoader.load(getClass().getResource("View/playerPath2.fxml"));
+    public void secondPlayer(ActionEvent event) throws Exception {
+
+        if (event.getSource().equals(P1_mainPath))
+            model.getB().getPlayers().get(0).setCurrentPath("mainPath");
+        else if (event.getSource().equals(P1_careerPath))
+            model.getB().getPlayers().get(0).setCurrentPath("CareerPath");
+
+        Stage boardStage = (Stage)P1_mainPath.getScene().getWindow();
+        Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath2.fxml"));
         Scene boardScene = new Scene(boardView);
         boardStage.setScene(boardScene);
         boardStage.show();
     }
 
     @FXML
-    public void thirdPlayer() throws Exception {
-        Stage boardStage = (Stage)player2p.getScene().getWindow();
+    public void countPlayers(ActionEvent event) throws Exception {
+        if (model.getNumPlayers() == 2)
+            displayBoard(event);
+        else
+            thirdPlayer(event);
+    }
+
+    @FXML
+    public void thirdPlayer(ActionEvent event) throws Exception {
+
+        if (event.getSource().equals(P2_mainPath))
+            model.getB().getPlayers().get(1).setCurrentPath("mainPath");
+        else if (event.getSource().equals(P2_careerPath))
+            model.getB().getPlayers().get(1).setCurrentPath("CareerPath");
+
+        Stage boardStage = (Stage)P2_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath3.fxml"));
-
         Scene boardScene = new Scene(boardView);
         boardStage.setScene(boardScene);
         boardStage.show();
     }
 
     @FXML
-    public void displayBoard() throws Exception {
-        Stage boardStage = (Stage)player2p.getScene().getWindow();
+    public void displayBoard(ActionEvent event) throws Exception {
+
+        if (event.getSource().equals(P2_mainPath))
+            model.getB().getPlayers().get(1).setCurrentPath("mainPath");
+        else if (event.getSource().equals(P2_careerPath))
+            model.getB().getPlayers().get(1).setCurrentPath("CareerPath");
+
+        System.out.println(model.getB().getPlayers().get(0).getName() + " : " +  model.getB().getPlayers().get(0).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(1).getName() + " : " +  model.getB().getPlayers().get(1).getCurrentPath());
+
+        Stage boardStage = (Stage)P2_mainPath.getScene().getWindow();
+        Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
+
+        Scene boardScene = new Scene(boardView);
+        boardStage.setScene(boardScene);
+        boardStage.show();
+    }
+
+    // this accepts from third player
+    @FXML
+    public void copy_displayBoard(ActionEvent event) throws Exception {
+
+        if (event.getSource().equals(P3_mainPath))
+            model.getB().getPlayers().get(2).setCurrentPath("mainPath");
+        else if (event.getSource().equals(P3_careerPath))
+            model.getB().getPlayers().get(2).setCurrentPath("CareerPath");
+
+        System.out.println(model.getB().getPlayers().get(0).getName() + " : " +  model.getB().getPlayers().get(0).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(1).getName() + " : " +  model.getB().getPlayers().get(1).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(2).getName() + " : " +  model.getB().getPlayers().get(2).getCurrentPath());
+
+        Stage boardStage = (Stage)P3_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
         Scene boardScene = new Scene(boardView);

@@ -8,15 +8,16 @@ public class ActionDeck extends Deck<ActionCard> {
      * Constructor for an action card deck object. It creates a temporary
      * array list, as well as a deque for pushing action card objects into.
      */
+
     public ActionDeck() {
         super();
     }
-    
+
     /**
      * Generates and shuffles a new action card deck.
      */
     @Override
-    public void generateDeck() {
+    public void generateDeck(int amount) {
         /*
         The temporary array list is used to generate the action deck values into
         its respective proportions per type of action card.
@@ -24,15 +25,29 @@ public class ActionDeck extends Deck<ActionCard> {
         "Collect from bank" and "Pay the bank" action cards each comprise 40% (20 cards each) of the deck
         "Collect from player" and "Pay the player" action cards each comprise 10% (5 cards each) of the deck
         */
-        for(int i = 0; i < 20; i++) { //MAKE IT FLUID ///////////////////////////////////////////////
+        int fortyPercent = (int) (amount * 0.4);
+        int tenPercent = (int) (amount * 0.1);
+
+        for(int i = 0; i < fortyPercent; i++) {
             temp.add(new ActionCard(ActionCard.ACTIONCARD[0]));
             temp.add(new ActionCard(ActionCard.ACTIONCARD[1]));
         }
-        for(int j = 0; j < 5; j++) {  //MAKE IT FLUID ///////////////////////////////////////////////
+
+        for(int j = 0; j < tenPercent; j++) {
             temp.add(new ActionCard(ActionCard.ACTIONCARD[2]));
             temp.add(new ActionCard(ActionCard.ACTIONCARD[3]));
         }
-        
+
+        int k = 0;
+        // This fills up the card stack to the specified AMOUNT if the stack comes short of cards from previous loops
+        while (temp.size() <= amount) {
+            temp.add(new ActionCard(ActionCard.ACTIONCARD[k]));
+            if (k == 3)
+                k = 0;
+            else
+                k++;
+        }
+
         /*
         The newly instantiated action card objects are then assigned randomly generated action types that depends on 
         the name of the card. It then assigns the pay value that the programmers specified for the card.
@@ -136,5 +151,6 @@ public class ActionDeck extends Deck<ActionCard> {
         deck of action cards in the future.
         */
         temp.clear();
-    } 
+    }
+
 }

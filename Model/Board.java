@@ -17,7 +17,7 @@ public class Board {
     private SalaryDeck salaryDeck;
     private HouseDeck houseDeck;
 
-    public Board () { 
+    public Board () {
         players = new ArrayList<Player>();
         actionDeck = new ActionDeck();
         careerDeck = new CareerDeck();
@@ -29,12 +29,12 @@ public class Board {
         changeCareerPath = new Space[8];
     }
     
-    public void initializeData () {
-        actionDeck.generateDeck();
-        careerDeck.generateDeck();
-        blueDeck.generateDeck();
-        salaryDeck.generateDeck();
-        houseDeck.generateDeck();
+    public void initializeData (int numAction, int numCareer, int numSalary, int fill1, int fill2) {
+        actionDeck.generateDeck(numAction);
+        careerDeck.generateDeck(numCareer);
+        salaryDeck.generateDeck(numSalary);
+        blueDeck.generateDeck(fill1);
+        houseDeck.generateDeck(fill2);
 
         mainPath[8] = new MagentaSpace(8, MagentaSpace.MAGENTA[0]);
         mainPath[15] = new MagentaSpace(15, MagentaSpace.MAGENTA[1]);

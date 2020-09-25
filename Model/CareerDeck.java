@@ -4,15 +4,23 @@ import java.util.Collections;
 
 public class CareerDeck extends Deck<CareerCard> {
 
+
 	public CareerDeck () {
 		super();
 	}
 
 	@Override
-	public void generateDeck() {
-		for (int i = 0; i < CareerCard.CAREER.length; i++)
+	public void generateDeck(int amount) {
+		int i = 0;
+
+		while (i <= amount) {
 			temp.add(new CareerCard(CareerCard.CAREER[i]));
-		
+			if (i == CareerCard.CAREER.length-1)
+				i = 0;
+			else
+				i++;
+		}
+
 		for (CareerCard card : temp) {
 			switch (card.getName()) {
 				case "Lawyer":
@@ -53,7 +61,7 @@ public class CareerDeck extends Deck<CareerCard> {
 			
 		temp.clear();
 	}
-} 
+}
 
 	
 	

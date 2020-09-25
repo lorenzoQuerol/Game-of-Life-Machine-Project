@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="startGame" layoutX="437.0" layoutY="421.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" stylesheets="@stylesheets/buttonStyle.css" text="Start Game" textAlignment="CENTER" textFill="#272838">
+        <Button fx:id="startGame" layoutX="437.0" layoutY="421.0" mnemonicParsing="false" onAction="#gameStart" prefHeight="50.0" prefWidth="150.0" stylesheets="@stylesheets/buttonStyle.css" text="Start Game" textAlignment="CENTER" textFill="#272838">
             <font>
                 <Font name="Droid Serif Bold Italic" size="20.0" />
             </font></Button>

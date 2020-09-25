@@ -13,7 +13,7 @@ public class Model {
     private int numPlayers;
 
     private Model () {
-         b = new Board();
+        this.b = new Board();
     }
 
     public static Model getInstance()
