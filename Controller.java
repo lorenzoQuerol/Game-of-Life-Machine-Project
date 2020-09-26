@@ -578,6 +578,53 @@ public class Controller implements Initializable {
         actionP.close();
     }
 
+    //College choice stuff HERE --------------------------------
+    @FXML
+    private Label jobLabel1, jobLabel2, wageLabel1, wageLabel2;
+    @FXML
+    private Button career1, career2, salary1, salary2, showThem, collegeCont;
+
+    @FXML
+    public void chooseCareer() throws Exception {
+        Stage pickP = new Stage();
+        Parent pickCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
+
+        pickP.initStyle(StageStyle.UNDECORATED);
+        pickP.initModality(Modality.APPLICATION_MODAL);
+        pickP.setScene(new Scene(pickCard, 600, 400));
+        pickP.setResizable(false);
+        pickP.showAndWait();
+    }
+
+    public void careerAction(ActionEvent e) {
+        if(e.getSource() == showThem) {
+            //update label text
+            showThem.setVisible(false);
+
+            career1.setVisible(true);
+            career2.setVisible(true);
+            salary1.setVisible(true);
+            salary2.setVisible(true);
+        }
+        else if(e.getSource() == career1) {
+            career1.setDisable(true);
+            career2.setDisable(true);
+        }
+        else if(e.getSource() == career2) {
+            career1.setDisable(true);
+            career2.setDisable(true);
+        }
+        else if(e.getSource() == salary1) {
+            salary1.setDisable(true);
+            salary2.setDisable(true);
+        }
+        else if(e.getSource() == salary2) {
+            salary1.setDisable(true);
+            salary2.setDisable(true);
+        }
+        collegeCont.setVisible(true);
+    }
+        
     @FXML
     public void nextTurn() {
         //update counter here
