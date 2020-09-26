@@ -216,7 +216,7 @@ public class Controller implements Initializable {
     @FXML
     private Label diceLabel, nameLabel, moneyLabel, jobLabel, salaryLabel, houseLabel;
     @FXML
-    private Button rollSpin, nextPlayer, drawCard, actionDone;
+    private Button rollSpin, nextPlayer, drawCard;
 
     @FXML
     public void rollDice(ActionEvent event) {
