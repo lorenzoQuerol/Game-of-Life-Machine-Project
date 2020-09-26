@@ -753,9 +753,6 @@ public class Controller implements Initializable {
         actionP.close();
     }
 
-
-    @FXML // FUNCTIONAL
-
     //College choice stuff HERE --------------------------------
     @FXML
     private Label jobLabel1, jobLabel2, wageLabel1, wageLabel2;

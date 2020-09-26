@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="babyRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#babyAction" text="Roll">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font></Button>
+        <Button fx:id="babyCollect" disable="true" layoutX="244.0" layoutY="281.0" mnemonicParsing="false" onAction="#babyAction" text="Collect $5000">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAGENTA" height="200.0" layoutX="110.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="380.0" />
+        <HBox layoutX="176.0" layoutY="61.0" prefHeight="65.0" prefWidth="249.0">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font></Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="H" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="102.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #67597A;" text="B" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="170.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: orange;" text="B" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #3E505B;" text="Y" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <Label fx:id="babyLabel" layoutX="161.0" layoutY="168.0" text="How many will you have I wonder?" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="babyCont" layoutX="258.0" layoutY="336.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>

@@ -9,7 +9,7 @@ public class ActionCard {
     public static final String[] COLLECTBANK = {"Tax Refund", "Sell an Item", "Bonus Payday", "Setup School", "Write a Book"};
     public static final String[] PAYBANK = {"Buy an Item", "Visit a Place", "Hiking", "Watch a Show", "Win a Competition", "Traffic Violation"};
     public static final String[] PAYPLAYER = {"Lawsuit", "Christmas Bonus"};
-    public static final String[] COLLECTPLAYER = {"File a Lawsuit", "It's your Birthday1!"};
+    public static final String[] COLLECTPLAYER = {"File a Lawsuit", "It's your Birthday!"};
 
     // Instance variables for an action card
     private String name;

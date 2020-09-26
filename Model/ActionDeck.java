@@ -153,5 +153,4 @@ public class ActionDeck extends Deck<ActionCard> {
         */
         temp.clear();
     }
-
 }
