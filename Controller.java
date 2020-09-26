@@ -220,10 +220,15 @@ public class Controller implements Initializable {
     private Button rollSpin, nextPlayer, drawCard, actionDone;
 
     @FXML
-    public void rollDice() {
+    public void rollDice(ActionEvent event) {
         int diceRoll;
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
+        ActionDeck actionDeck = model.getB().getActionDeck();
+        BlueDeck blueDeck = model.getB().getBlueDeck();
+        CareerDeck careerDeck = model.getB().getCareerDeck();
+        SalaryDeck salaryDeck = model.getB().getSalaryDeck();
+        HouseDeck houseDeck = model.getB().getHouseDeck();
 
         nameLabel.setText(players.get(counter).getName());
         moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
@@ -236,15 +241,17 @@ public class Controller implements Initializable {
 
         //TakeTurn method should be here (but still buggy af)
         //should contain move instructions for pieces
+        players.get(counter).setSpaceType(model.getB().takeTurn(players.get(counter), diceRoll, event, actionDeck, careerDeck, blueDeck, salaryDeck, houseDeck));
     }
 
     @FXML
     public void cardDraw() throws Exception{
+
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         int space = players.get(counter).getSpace();
         Space[] main = model.getB().getMainPath();
-        Space[] career = model.getB().getcareerPath();
+        Space[] career = model.getB().getCareerPath();
         Space[] changeCareer = model.getB().getChangeCareerPath();
 
         //if else ladder can be placed here for space color identification
@@ -301,85 +308,113 @@ public class Controller implements Initializable {
       actionP.showAndWait();
   }
 
-  public void otherAction(ActionEvent e) {
+// under construction
+  public void otherAction(ActionEvent event) {
       ArrayList<Player> players = model.getB().getPlayers();
       int counter = model.getB().getCounter();
+      Board b = model.getB();
 
-      if(e.getSource() == actionDraw) {
+      if(event.getSource() == actionDraw) {
 
-          //card draw and conditional ladder for different action card types can be set here
-
+          ActionCard actionCard = players.get(counter).receiveActionCard(b.getActionDeck().drawCard(), event, players);
+          System.out.println(actionCard);
           actionDraw.setDisable(true);
           actionDraw.setVisible(false);
 
-          actionLabel.setText("Filed a lawsuit! Sue a motherfucker");
+          actionLabel.setText(actionCard.getName());
+          switch (actionCard.getName()) {
+              case "Collect From Bank":
+                  actionLabel.setText("Collect From Bank!");
+                  collectBank.setVisible(true);
+                  collectBank.setDisable(false);
 
-          collectPlayer1.setVisible(true);
-          collectPlayer1.setDisable(false);
-          collectPlayer2.setVisible(true);
-          collectPlayer2.setDisable(false);
-      }
+                  collectBank.setVisible(false);
+                  collectBank.setDisable(true);
 
-      else if(e.getSource() == payPlayer1) {
-          actionLabel.setText("You have paid player 1!");
+                  actionLabel.setText(actionCard.getActionType() + "! Collect $" + actionCard.getPayAmount());
+                  actionDone.setVisible(true);
+                  actionDone.setDisable(false);
+                  break;
 
-          payPlayer1.setDisable(true);
-          payPlayer2.setDisable(true);
+              case "Collect from Player":
+                  if (model.getNumPlayers() == 2) {
+                      collectPlayer2.setVisible(false);
+                      if (event.getSource().equals(collectPlayer1)) {
+                          actionLabel.setText("You have collected from player!");
+                          collectPlayer1.setDisable(true);
+                          actionDone.setVisible(true);
+                          actionDone.setDisable(false);
+                      }
+                  } else {
+                      if (event.getSource().equals(collectPlayer1)) {
+                          actionLabel.setText("You have collected from player 1!");
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
-      }
-      else if(e.getSource() == payPlayer2) {
-          actionLabel.setText("You have paid player 2!");
+                          collectPlayer1.setDisable(true);
+                          collectPlayer2.setDisable(true);
 
-          payPlayer1.setDisable(true);
-          payPlayer2.setDisable(true);
+                          actionDone.setVisible(true);
+                          actionDone.setDisable(false);
+                      } else {
+                          actionLabel.setText("You have collected from  player 2!");
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
-      }
-      else if(e.getSource() == collectPlayer1) {
-          actionLabel.setText("You have collected from player 1!");
+                          collectPlayer2.setDisable(true);
+                          collectPlayer1.setDisable(true);
 
-          collectPlayer1.setDisable(true);
-          collectPlayer2.setDisable(true);
+                          actionDone.setVisible(true);
+                          actionDone.setDisable(false);
+                      }
+                  }
+                  break;
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
-      }
-      else if(e.getSource() == collectPlayer2) {
-          actionLabel.setText("You have collected from player 2!");
+              case "Pay the Bank":
+                  actionLabel.setText("Pay the Bank!");
+                  payBank.setVisible(true);
+                  payBank.setDisable(false);
 
-          collectPlayer1.setDisable(true);
-          collectPlayer2.setDisable(true);
+                  payBank.setVisible(false);
+                  payBank.setDisable(true);
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
-      }
-      else if(e.getSource() == payBank) {
-          actionLabel.setText("You have paid the bank!");
+                  actionLabel.setText(actionCard.getActionType() + "! Pay $" + actionCard.getPayAmount());
+                  actionDone.setVisible(true);
+                  actionDone.setDisable(false);
+                  break;
 
-          payBank.setDisable(true);
+              case "Pay the Player":
+                  if (model.getNumPlayers() == 2) {
+                      actionDone.setVisible(true);
+                      payPlayer2.setVisible(false);
+                      if (event.getSource().equals(payPlayer1)) {
+                          actionLabel.setText("You have paid player!");
+                          payPlayer1.setDisable(true);
+                          actionDone.setDisable(false);
+                      }
+                  } else {
+                      if (event.getSource().equals(payPlayer1)) {
+                          actionLabel.setText("You have paid player 1!");
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
-      }
-      else if(e.getSource() == collectBank) {
-          actionLabel.setText("You have collected from the bank!");
+                          payPlayer1.setDisable(true);
+                          payPlayer2.setDisable(true);
 
-          collectBank.setDisable(true);
+                          actionDone.setVisible(true);
+                          actionDone.setDisable(false);
+                      } else {
+                          actionLabel.setText("You have paid player 2!");
 
-          actionDone.setVisible(true);
-          actionDone.setDisable(false);
+                          payPlayer2.setDisable(true);
+                          payPlayer1.setDisable(true);
+
+                          actionDone.setVisible(true);
+                          actionDone.setDisable(false);
+                      }
+                  }
+                  break;
+          }
       }
   }
 
-
   //Blue space stuff HERE-------------------------------------
-  @FXML
-  private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
-  @FXML
-  private Label blueLabel;
+  @FXML private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
+  @FXML private Label blueLabel;
 
   @FXML
   public void openBlue() throws Exception{
@@ -686,16 +721,26 @@ public class Controller implements Initializable {
     public void nextTurn() {
 
         if (model.getNumPlayers() == 2) {
-            if (model.getB().getCounter() == 1)
+            if (model.getB().getCounter() == 1) {
                 model.getB().setCounter(0);
-            else
+                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
+                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+            } else {
                 model.getB().setCounter(model.getB().getCounter() + 1);
+                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
+                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+            }
 
         } else if (model.getNumPlayers() == 3) {
-            if (model.getB().getCounter() == 2)
+            if (model.getB().getCounter() == 2) {
                 model.getB().setCounter(0);
-            else
+                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
+                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+            } else {
                 model.getB().setCounter(model.getB().getCounter() + 1);
+                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
+                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+            }
         }
 
         rollSpin.setDisable(false);
@@ -783,69 +828,6 @@ public class Controller implements Initializable {
         returnStage.setScene(returnScene);
         returnStage.show();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -17,7 +17,7 @@ public class ActionDeck extends Deck<ActionCard> {
      * Generates and shuffles a new action card deck.
      */
     @Override
-    public void generateDeck(int amount) {
+    public void generateDeck(int amount) throws InterruptedException {
         /*
         The temporary array list is used to generate the action deck values into
         its respective proportions per type of action card.
@@ -25,6 +25,7 @@ public class ActionDeck extends Deck<ActionCard> {
         "Collect from bank" and "Pay the bank" action cards each comprise 40% (20 cards each) of the deck
         "Collect from player" and "Pay the player" action cards each comprise 10% (5 cards each) of the deck
         */
+
         int fortyPercent = (int) (amount * 0.4);
         int tenPercent = (int) (amount * 0.1);
 
@@ -40,7 +41,7 @@ public class ActionDeck extends Deck<ActionCard> {
 
         int k = 0;
         // This fills up the card stack to the specified AMOUNT if the stack comes short of cards from previous loops
-        while (temp.size() <= amount) {
+        while (temp.size() < amount) {
             temp.add(new ActionCard(ActionCard.ACTIONCARD[k]));
             if (k == 3)
                 k = 0;

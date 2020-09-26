@@ -13,7 +13,6 @@ public class Main extends Application {
         primaryStage.setTitle("That's Life!");
         primaryStage.setScene(new Scene(root, 1024, 576));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

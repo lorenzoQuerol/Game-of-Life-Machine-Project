@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.event.ActionEvent;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +24,7 @@ public class Player {
     private int bankLoan;
 
     private int space;
+    private Space spaceType;
 
     /**
      * Constructor for a Player object. It assigns the starter cash amount for
@@ -49,7 +52,7 @@ public class Player {
 
     /**
      * Sets the player's starting point in the game (i.e. player starts on the college path or career path).
-     * @param pathStart The player's path choice when the game starts
+     * @param currentPath The player's path choice when the game starts
      */
     public void setCurrentPath(String currentPath) {
         this.currentPath = currentPath;
@@ -115,6 +118,10 @@ public class Player {
         this.space = space;
     }
 
+    public void setSpaceType(Space spaceType) {
+        this.spaceType = spaceType;
+    }
+
     /**
      * Gets the player's name.
      * @return The name of the player
@@ -155,6 +162,10 @@ public class Player {
         return space;
     }
 
+    public Space getSpaceType() {
+        return spaceType;
+    }
+
     public String getCurrentPath() {
         return currentPath;
     }
@@ -179,10 +190,10 @@ public class Player {
      * This method allows the player to receive an action card and manipulate the player's statistics
      * based on the description of the chosen card.
      * @param a The action card deck
-     * @param in The input scanner
+
      * @param players The list of current players
      */
-    public void receiveActionCard (ActionCard a, Scanner in, ArrayList<Player> players) {
+    public ActionCard receiveActionCard (ActionCard a, ActionEvent event, ArrayList<Player> players) {
         String choice;
         
         /*
@@ -191,7 +202,7 @@ public class Player {
         */ 
         switch (a.getActionType()) { 
             case "Lawsuit":
-                System.out.println("You have been filed for a Lawsuit!");  
+                System.out.println("File a Lawsuit card was drawn");
                 if (!bankLoanNeeded(this, a.getPayAmount())) 
                     this.cash += (a.getPayAmount());
                 else {
@@ -199,19 +210,27 @@ public class Player {
                         makeBankLoan(this);
                     this.cash += (a.getPayAmount());
                 }
-
+// ACTIONEVENT NOW
                 System.out.println("Choose a Player to Pay: ");
                 displayOtherPlayers(players);
-                choice = in.nextLine();
+                if (players.size() == 2) {
+                    for (Player x : players) {
 
-                for (Player x : players) {
-                    if (x.getName().contains(choice)) 
-                        x.cash += (a.getPayAmount() * -1);                 
+                    }
+                } else {
+                    for (Player x : players) {
+
+                    }
                 }
+
+//                for (Player x : players) {
+//                    if (x.getName().contains(choice))
+//                        x.cash += (a.getPayAmount() * -1);
+//                }
                 break;
 
             case "Christmas Bonus":
-                System.out.println("You paid everyone " + (a.getPayAmount() * -1 + "!"));
+                System.out.println("Christmas Bonus card was drawn");
 
                 for (Player x : players) {
                     if (x.getName() == this.name) { // If it reads the name of the current player, skip
@@ -231,28 +250,28 @@ public class Player {
                 break;
 
             case "File a Lawsuit":
-                System.out.println("You Filed a Lawsuit Against Someone!");
+                System.out.println("You Filed a Lawsuit Against Someone card was drawn");
                 this.cash += a.getPayAmount();
                 
                 System.out.println("Choose a Player to File a Lawsuit Against: ");
                 displayOtherPlayers(players);
-                choice = in.nextLine();
+
                 
-                for (Player x : players) {
-                    if (x.getName().contains(choice)) {
-                        if (!bankLoanNeeded(x, a.getPayAmount())) 
-                            x.cash += (a.getPayAmount() * -1);
-                        else {
-                            while (bankLoanNeeded(x, a.getPayAmount()))
-                                makeBankLoan(x);
-                            x.cash += (a.getPayAmount() * -1);
-                        }
-                    }
-                }
+//                for (Player x : players) {
+//                    if (x.getName().contains(choice)) {
+//                        if (!bankLoanNeeded(x, a.getPayAmount()))
+//                            x.cash += (a.getPayAmount() * -1);
+//                        else {
+//                            while (bankLoanNeeded(x, a.getPayAmount()))
+//                                makeBankLoan(x);
+//                            x.cash += (a.getPayAmount() * -1);
+//                        }
+//                    }
+//                }
                 break;
 
             case "It's your Birthday!":
-                System.out.println("It's your birthday! Everyone gifts you " + (a.getPayAmount() + "!"));
+                System.out.println("It's your birthday! card was drawn");
 
                 for (Player x : players) {
                     if (x.getName() == this.name) 
@@ -278,41 +297,41 @@ public class Player {
                     this.cash += (a.getPayAmount());
                 }
         }
+        return a;
     }
 
-    public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, Scanner in) {
+    public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, ActionEvent event) {
         System.out.println("Choose a career:");
         System.out.println(c1);
         System.out.println(c2);
         System.out.print("Choice: ");
 
-        String choice = in.nextLine(); 
-
-        if (choice == c1.getName()) {
-            this.career = c1;
-            cd.deck.addFirst(c2); // returns the unchosen card back to the bottom of the original deck
-        } else {
-            this.career = c2;
-            cd.deck.addFirst(c1);
-        }
+//        String choice = in.nextLine();
+//
+//        if (choice == c1.getName()) {
+//            this.career = c1;
+//            cd.deck.addFirst(c2); // returns the unchosen card back to the bottom of the original deck
+//        } else {
+//            this.career = c2;
+//            cd.deck.addFirst(c1);
+//        }
     }
 
-    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd, Scanner in) {
+    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd, ActionEvent event) {
         System.out.println("Job Search! Would you like to change your current career and salary? (Y/N)");
         System.out.print("Choice: ");
-        String choice = in.nextLine();
 
-        switch (choice) {
-            case "Y":
-                this.career = c;
-                this.salary = s;
-                break;
-
-            case "N":
-                cd.deck.addFirst(c);
-                sd.deck.addFirst(s);
-                break;
-        }
+//        switch (choice) {
+//            case "Y":
+//                this.career = c;
+//                this.salary = s;
+//                break;
+//
+//            case "N":
+//                cd.deck.addFirst(c);
+//                sd.deck.addFirst(s);
+//                break;
+//        }
     }
 
     public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
@@ -337,68 +356,68 @@ public class Player {
             this.cash -= 15000;
     }
 
-    public void receiveSalaryCard (SalaryCard s1, SalaryCard s2, SalaryDeck sd, Scanner in) {
+    public void receiveSalaryCard (SalaryCard s1, SalaryCard s2, SalaryDeck sd, ActionEvent event) {
         System.out.println("Choose a Salary:");
         System.out.println(s1);
         System.out.println(s2);
         System.out.print("Choice: ");
 
-        int choice = Integer.parseInt(in.nextLine());
 
-        if (choice == 1) {
-            this.salary = s1;
-            sd.deck.addFirst(s2); // returns the unchosen card back to the bottom of the original deck
-        } else {
-            this.salary = s2;
-            sd.deck.addFirst(s1);
-        }
+
+//        if (choice == 1) {
+//            this.salary = s1;
+//            sd.deck.addFirst(s2); // returns the unchosen card back to the bottom of the original deck
+//        } else {
+//            this.salary = s2;
+//            sd.deck.addFirst(s1);
+//        }
     }
 
-    public void receiveHouseCard (HouseCard h1, HouseCard h2, HouseDeck hd, Scanner in) {
+    public void receiveHouseCard (HouseCard h1, HouseCard h2, HouseDeck hd) {
         System.out.println("Choose a House:");
         System.out.println(h1);
         System.out.println(h2);
         System.out.print("Choice: ");
-        int choice = Integer.parseInt(in.nextLine());
+
         int num = 0;
 
-        switch (choice) {
-            case 1:
-                System.out.println("Spin an even number or an odd number for your payment!");
-                num = this.spin();
-                if (num % 2 == 0) {
-                    h1.setFinalPayAmount(h1.payAmountEven);
-                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
-                        makeBankLoan(this);
-                
-                    this.cash -= h1.finalPayAmount;
-                    hd.deck.addFirst(h2);
-                } else {
-                    h1.setFinalPayAmount(h1.payAmountOdd);
-                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
-                        makeBankLoan(this);
-                    this.cash -= h1.finalPayAmount;
-                    hd.deck.addFirst(h2);
-                }
-                break;
-
-            case 2:
-                System.out.println("Spin an even number or an odd number for your payment!");
-                num = this.spin();
-                if (num % 2 == 0) {
-                    h2.setFinalPayAmount(h2.payAmountEven);
-                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
-                        makeBankLoan(this);
-                    this.cash -= h2.finalPayAmount;
-                    hd.deck.addFirst(h1);
-                } else {
-                    h2.setFinalPayAmount(h2.payAmountOdd);
-                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
-                        makeBankLoan(this); 
-                    this.cash -= h2.finalPayAmount;
-                    hd.deck.addFirst(h1);
-                }
-        }
+//        switch (choice) {
+//            case 1:
+//                System.out.println("Spin an even number or an odd number for your payment!");
+//                num = this.spin();
+//                if (num % 2 == 0) {
+//                    h1.setFinalPayAmount(h1.payAmountEven);
+//                    while (bankLoanNeeded(this, h1.finalPayAmount))
+//                        makeBankLoan(this);
+//
+//                    this.cash -= h1.finalPayAmount;
+//                    hd.deck.addFirst(h2);
+//                } else {
+//                    h1.setFinalPayAmount(h1.payAmountOdd);
+//                    while (bankLoanNeeded(this, h1.finalPayAmount))
+//                        makeBankLoan(this);
+//                    this.cash -= h1.finalPayAmount;
+//                    hd.deck.addFirst(h2);
+//                }
+//                break;
+//
+//            case 2:
+//                System.out.println("Spin an even number or an odd number for your payment!");
+//                num = this.spin();
+//                if (num % 2 == 0) {
+//                    h2.setFinalPayAmount(h2.payAmountEven);
+//                    while (bankLoanNeeded(this, h2.finalPayAmount))
+//                        makeBankLoan(this);
+//                    this.cash -= h2.finalPayAmount;
+//                    hd.deck.addFirst(h1);
+//                } else {
+//                    h2.setFinalPayAmount(h2.payAmountOdd);
+//                    while (bankLoanNeeded(this, h2.finalPayAmount))
+//                        makeBankLoan(this);
+//                    this.cash -= h2.finalPayAmount;
+//                    hd.deck.addFirst(h1);
+//                }
+//        }
     }
 
     public void makeBankLoan (Player p) {

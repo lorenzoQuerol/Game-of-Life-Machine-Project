@@ -15,7 +15,7 @@ abstract class Deck<C> {
     }
 
 
-    public abstract void generateDeck(int amount);
+    public abstract void generateDeck(int amount) throws InterruptedException;
 //    public abstract void generateDeck(int amount);
 
     public int getDeckSize() {
