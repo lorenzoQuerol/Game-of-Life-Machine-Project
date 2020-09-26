@@ -10,7 +10,7 @@ public class SalaryDeck extends Deck<SalaryCard> {
     }
 
     @Override
-    public void generateDeck(int amount) {
+    public void generateDeck(int amount) throws InterruptedException {
         int tempSalary = 0;
         int tempTax = 0;
 
@@ -18,7 +18,7 @@ public class SalaryDeck extends Deck<SalaryCard> {
             tempSalary = 10000 * (int) (Math.random() * ((15-5)+1) + 5);
             tempTax = (int) (tempSalary * 0.1);
             temp.add(new SalaryCard(tempSalary, tempTax));
-        } 
+        }
 
         Collections.shuffle(temp);
         Collections.shuffle(temp);

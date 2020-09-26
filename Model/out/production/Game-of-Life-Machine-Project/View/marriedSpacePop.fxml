@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="marryRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#marriageAction" text="Roll">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font></Button>
+        <Button fx:id="marryEven" disable="true" layoutX="365.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" text="Collect $10000">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="marryOdd" disable="true" layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" text="Collect $5000">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAGENTA" height="200.0" layoutX="110.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="380.0" />
+        <HBox layoutX="176.0" layoutY="61.0" prefHeight="65.0" prefWidth="249.0">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="M" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font></Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="R" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="102.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #67597A;" text="R" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="I" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="170.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: orange;" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            <Label alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #3E505B;" text="G" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="223.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #2d9734;" text="E" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="250.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="100.0" />
+      <Label fx:id="marryLabel" layoutX="292.0" layoutY="166.0" text="0" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="marryCont" layoutX="258.0" layoutY="336.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>
