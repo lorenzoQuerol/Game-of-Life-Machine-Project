@@ -799,6 +799,36 @@ public class Controller implements Initializable {
         }
         collegeCont.setVisible(true);
     }
+
+    //Winner screen stuff HERE --------------------------------
+    @FXML
+    private Label winnerName, winnerCash, winnerMarriage, winnerKids;
+    @FXML
+    private Button winnerWinner, winnerDone;
+
+    @FXML
+    public void displayWinner() throws Exception {
+        Stage winnerP = new Stage();
+        Parent winnerCard = FXMLLoader.load(getClass().getResource("View/winnerPop.fxml"));
+
+        winnerP.initStyle(StageStyle.UNDECORATED);
+        winnerP.initModality(Modality.APPLICATION_MODAL);
+        winnerP.setScene(new Scene(winnerCard, 600, 400));
+        winnerP.setResizable(false);
+        winnerP.showAndWait();
+    }
+
+    public void winnerStats(ActionEvent e) {
+        if(e.getSource() == winnerWinner) {
+            winnerName.setText("Player Name: *insert here*");
+            winnerCash.setText("Cash Remaining: $999999");
+            winnerMarriage.setText("Got Married? : Yes");
+            winnerKids.setText("Children: 2");
+
+            winnerWinner.setVisible(false);
+            winnerDone.setVisible(true);
+        }
+    }    
         
     @FXML
     public void nextTurn() {
