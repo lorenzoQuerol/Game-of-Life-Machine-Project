@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <HBox layoutX="42.0" layoutY="20.0" prefHeight="66.0" prefWidth="516.0">
+            <children>
+                <Label alignment="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891ff;" text="C" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="278.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: magenta;" text="N" textFill="#f9f8f8">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="281.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: ORANGE;" text="R" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="T" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="U" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="88.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: magenta;" text="L" textFill="#f9f8f8">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="112.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="A" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="163.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: ORANGE;" text="T" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="119.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="I" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="42.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="O" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="68.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: magenta;" text="N" textFill="#f9f8f8">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="91.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="S" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="135.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: YELLOW;" text="!" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#15a5b2" height="200.0" layoutX="98.0" layoutY="107.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="404.0" />
+        <Label fx:id="winnerMarriage" layoutX="119.0" layoutY="200.0" prefHeight="38.0" prefWidth="305.0" text="Got Married? :" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="winnerCash" layoutX="119.0" layoutY="166.0" prefHeight="38.0" prefWidth="305.0" text="Cash Remaining:" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="winnerName" layoutX="119.0" layoutY="128.0" prefHeight="38.0" prefWidth="305.0" text="Player Name:" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="14.0" />
+            </font>
+        </Label>
+        <Button fx:id="winnerWinner" layoutX="238.0" layoutY="347.0" mnemonicParsing="false" onAction="#winnerStats" text="Show my Stats">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+      <Label fx:id="winnerKids" layoutX="119.0" layoutY="238.0" prefHeight="38.0" prefWidth="305.0" text="Children:" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="winnerDone" layoutX="254.0" layoutY="347.0" mnemonicParsing="false" onAction="#closeAction" text="End Game" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>
