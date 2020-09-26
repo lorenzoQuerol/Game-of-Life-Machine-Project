@@ -16,6 +16,7 @@ public class Board {
     private BlueDeck blueDeck;
     private SalaryDeck salaryDeck;
     private HouseDeck houseDeck;
+    private int counter;
 
     public Board () {
         players = new ArrayList<Player>();
@@ -77,11 +78,9 @@ public class Board {
      * Allows the player to take a turn (e.g. spin a number and get a card).
      * @param p The current player
      * @param in Input Scanner
-     * @param actionDeck The action card deck
-     * @param gameOver The status of the game
-     * @return A boolean value if the game is over
+     * @param ad The action card deck
      */
-    public void takeTurn (Player p, Scanner in, ActionDeck ad, 
+    public void takeTurn (Player p, Scanner in, ActionDeck ad,
     CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
 
         int spin = p.spin();
@@ -151,7 +150,7 @@ public class Board {
             checkSpace(s, p, in, ad, cd, bd, sd, hd);
     }
 
-    public void checkSpace (Space s, Player p, Scanner in, ActionDeck ad, 
+    public void checkSpace (Space s, Player p, Scanner in, ActionDeck ad,
     CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
 
         if (s instanceof OrangeSpace) 
@@ -227,6 +226,14 @@ public class Board {
         }      
     }
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
     public ArrayList<Player> getPlayers() {
         return players;
     }
@@ -255,4 +262,11 @@ public class Board {
         return mainPath;
     }
 
+    public Space[] getcareerPath() {
+        return careerPath;
+    }
+
+    public Space[] getChangeCareerPath() {
+        return changeCareerPath;
+    }
 }
