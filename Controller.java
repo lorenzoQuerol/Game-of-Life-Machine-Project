@@ -753,7 +753,57 @@ public class Controller implements Initializable {
         actionP.close();
     }
 
+
     @FXML // FUNCTIONAL
+
+    //College choice stuff HERE --------------------------------
+    @FXML
+    private Label jobLabel1, jobLabel2, wageLabel1, wageLabel2;
+    @FXML
+    private Button career1, career2, salary1, salary2, showThem, collegeCont;
+
+    @FXML
+    public void chooseCareer() throws Exception {
+        Stage pickP = new Stage();
+        Parent pickCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
+
+        pickP.initStyle(StageStyle.UNDECORATED);
+        pickP.initModality(Modality.APPLICATION_MODAL);
+        pickP.setScene(new Scene(pickCard, 600, 400));
+        pickP.setResizable(false);
+        pickP.showAndWait();
+    }
+
+    public void careerAction(ActionEvent e) {
+        if(e.getSource() == showThem) {
+            //update label text
+            showThem.setVisible(false);
+
+            career1.setVisible(true);
+            career2.setVisible(true);
+            salary1.setVisible(true);
+            salary2.setVisible(true);
+        }
+        else if(e.getSource() == career1) {
+            career1.setDisable(true);
+            career2.setDisable(true);
+        }
+        else if(e.getSource() == career2) {
+            career1.setDisable(true);
+            career2.setDisable(true);
+        }
+        else if(e.getSource() == salary1) {
+            salary1.setDisable(true);
+            salary2.setDisable(true);
+        }
+        else if(e.getSource() == salary2) {
+            salary1.setDisable(true);
+            salary2.setDisable(true);
+        }
+        collegeCont.setVisible(true);
+    }
+        
+    @FXML
     public void nextTurn() {
 
         if (model.getNumPlayers() == 2) {
@@ -782,6 +832,55 @@ public class Controller implements Initializable {
         rollSpin.setDisable(false);
         nextPlayer.setDisable(true);
     }
+
+    //Have a baby stuff HERE ------------------------------------
+    @FXML
+    private Label babyLabel;
+    @FXML
+    private Button babyRoll, babyCollect, babyCont;
+
+    @FXML
+    public void getBaby() throws Exception {
+        Stage babyP = new Stage();
+        Parent babyCard = FXMLLoader.load(getClass().getResource("View/haveBaby.fxml"));
+
+        babyP.initStyle(StageStyle.UNDECORATED);
+        babyP.initModality(Modality.APPLICATION_MODAL);
+        babyP.setScene(new Scene(babyCard, 600, 400));
+        babyP.setResizable(false);
+        babyP.showAndWait();
+    }
+
+    public void babyAction(ActionEvent e) {
+        int diceRoll;
+
+        if(e.getSource() == babyRoll) {
+            diceRoll = (int)(Math.random() * (2-1+1) + 1);
+
+            babyRoll.setDisable(true);
+            babyRoll.setVisible(false);
+
+            switch(diceRoll) {
+                case 1:
+                    babyLabel.setText("Congratulations!\nCollect $5000 from other players!");
+                    babyCollect.setText("Collect $5000");
+                    babyCollect.setDisable(false);
+                    break;
+                case 2:
+                    babyLabel.setText("TWINS!\nCollect $10000 from other players!");
+                    babyCollect.setText("Collect $10000");
+                    babyCollect.setDisable(false);
+                    break;
+            }
+        }
+        else if(e.getSource() == babyCollect) {
+            //update money here
+            babyCollect.setDisable(true);
+            babyCollect.setVisible(false);
+        }
+        babyCont.setVisible(true);
+        babyCont.setDisable(false);
+    }    
     
     /*
         Options Controllers (FUNCTIONAL)
