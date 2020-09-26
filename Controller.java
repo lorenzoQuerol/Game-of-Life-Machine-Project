@@ -19,6 +19,7 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -113,7 +114,6 @@ public class Controller implements Initializable {
     */
 
     @FXML private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
-
 
     @FXML
     public void gameStart() throws Exception {
@@ -222,33 +222,70 @@ public class Controller implements Initializable {
     @FXML
     public void rollDice() {
         int diceRoll;
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
 
-        diceRoll = (int)(Math.random() * (10) + 1);
+        nameLabel.setText(players.get(counter).getName());
+        moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
+
+        diceRoll = players.get(counter).spin();
         diceLabel.setText(Integer.toString(diceRoll));
 
         rollSpin.setDisable(true);
         drawCard.setDisable(false);
 
+        //TakeTurn method should be here (but still buggy af)
         //should contain move instructions for pieces
     }
 
     @FXML
     public void cardDraw() throws Exception{
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        int space = players.get(counter).getSpace();
+        Space[] main = model.getB().getMainPath();
+        Space[] career = model.getB().getcareerPath();
+        Space[] changeCareer = model.getB().getChangeCareerPath();
+
         //if else ladder can be placed here for space color identification
         //i.e. if space is orange, call openAction, else if, call blueAction etc
         drawCard.setDisable(true);
 
-        openAction();
-        openBlue();
-        openGreen();
+        switch (players.get(counter).getCurrentPath()) {
+            case "mainPath":
+                if (main[space] instanceof OrangeSpace)
+                    openAction();
+                else if (main[space] instanceof BlueSpace)
+                    openBlue();
+                else if (main[space] instanceof GreenSpace)
+                    openGreen();
+                break;
+
+            case "careerPath":
+                if (career[space] instanceof OrangeSpace)
+                    openAction();
+                else if (career[space] instanceof BlueSpace)
+                    openBlue();
+                else if (career[space] instanceof GreenSpace)
+                    openGreen();
+                break;
+
+            case "changeCareerPath":
+                if (changeCareer[space] instanceof OrangeSpace)
+                    openAction();
+                else if (changeCareer[space] instanceof BlueSpace)
+                    openBlue();
+                else if (changeCareer[space] instanceof GreenSpace)
+                    openGreen();
+                break;
+        }
+
         nextPlayer.setDisable(false);
     }
 
   //Action card stuff HERE -------------------------------------
-  @FXML
-  private Label actionLabel;
-  @FXML
-  private Button actionDraw, actionDone, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
+  @FXML private Label actionLabel;
+  @FXML private Button actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
 
   @FXML
   public void openAction() throws Exception{
@@ -265,9 +302,13 @@ public class Controller implements Initializable {
   }
 
   public void otherAction(ActionEvent e) {
+      ArrayList<Player> players = model.getB().getPlayers();
+      int counter = model.getB().getCounter();
+
       if(e.getSource() == actionDraw) {
 
           //card draw and conditional ladder for different action card types can be set here
+
           actionDraw.setDisable(true);
           actionDraw.setVisible(false);
 
@@ -393,10 +434,8 @@ public class Controller implements Initializable {
 
 
   //Green space stuff here-----------------------------------
-  @FXML
-  private Label greenLabel;
-  @FXML
-  private Button greenWhat, greenDone;
+  @FXML private Label greenLabel;
+  @FXML private Button greenWhat, greenDone;
 
   @FXML
   public void openGreen() throws Exception{
@@ -412,6 +451,7 @@ public class Controller implements Initializable {
 
   public void greenAction(ActionEvent e) {
       if(e.getSource() == greenWhat) {
+
           //if else for the two green space types
           greenLabel.setText("It's PAY DAY!!!");
 
@@ -527,8 +567,19 @@ public class Controller implements Initializable {
 
     @FXML
     public void nextTurn() {
-        //update counter here
-        //if else to loop back if last player
+
+        if (model.getNumPlayers() == 2) {
+            if (model.getB().getCounter() == 1)
+                model.getB().setCounter(0);
+            else
+                model.getB().setCounter(model.getB().getCounter() + 1);
+
+        } else if (model.getNumPlayers() == 3) {
+            if (model.getB().getCounter() == 2)
+                model.getB().setCounter(0);
+            else
+                model.getB().setCounter(model.getB().getCounter() + 1);
+        }
 
         rollSpin.setDisable(false);
         nextPlayer.setDisable(true);
