@@ -1,23 +1,19 @@
 import Model.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
-import javafx.event.ActionEvent;
-
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -35,8 +31,8 @@ public class Controller implements Initializable {
     private Button optionsMenu, playGame;
 
     @FXML
-    public void handlePlay() throws Exception{
-        Stage playerStage = (Stage)playGame.getScene().getWindow();
+    public void handlePlay() throws Exception {
+        Stage playerStage = (Stage) playGame.getScene().getWindow();
         Parent playerView = FXMLLoader.load(getClass().getResource("View/playerChoose.fxml"));
 
         Scene playerScene = new Scene(playerView);
@@ -46,7 +42,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void handleOptions() throws Exception {
-        Stage optionStage = (Stage)optionsMenu.getScene().getWindow();
+        Stage optionStage = (Stage) optionsMenu.getScene().getWindow();
         Parent optionView = FXMLLoader.load(getClass().getResource("View/editMenu.fxml"));
         Scene optionScene = new Scene(optionView);
         optionStage.setScene(optionScene);
@@ -61,8 +57,10 @@ public class Controller implements Initializable {
         ------------Player selection controllers-----------
     */
 
-    @FXML private Button playerBack, player2, player3;
-    @FXML private TextField textFieldP1, textFieldP2, textFieldP3;
+    @FXML
+    private Button playerBack, player2, player3;
+    @FXML
+    private TextField textFieldP1, textFieldP2, textFieldP3;
 
     @FXML
     public void twoPlayerGame() throws Exception {
@@ -73,7 +71,7 @@ public class Controller implements Initializable {
         for (int i = 0; i < model.getNumPlayers(); i++)
             model.getB().getPlayers().add(new Player(model.getStarterCash()));
 
-        Stage twoP = (Stage)player2.getScene().getWindow();
+        Stage twoP = (Stage) player2.getScene().getWindow();
         Parent twoView = FXMLLoader.load(getClass().getResource("View/twoPlayers.fxml"));
 
         Scene twoScene = new Scene(twoView);
@@ -90,7 +88,7 @@ public class Controller implements Initializable {
         for (int i = 0; i < model.getNumPlayers(); i++)
             model.getB().getPlayers().add(new Player(model.getStarterCash()));
 
-        Stage threeP = (Stage)player3.getScene().getWindow();
+        Stage threeP = (Stage) player3.getScene().getWindow();
         Parent threeView = FXMLLoader.load(getClass().getResource("View/threePlayers.fxml"));
 
         Scene threeScene = new Scene(threeView);
@@ -101,7 +99,7 @@ public class Controller implements Initializable {
     @FXML
     public void playerReturn() throws Exception {
 
-        Stage pReturn = (Stage)playerBack.getScene().getWindow();
+        Stage pReturn = (Stage) playerBack.getScene().getWindow();
         Parent pRView = FXMLLoader.load(getClass().getResource("View/mainMenu.fxml"));
 
         Scene pRScene = new Scene(pRView);
@@ -113,7 +111,8 @@ public class Controller implements Initializable {
         ------------Start Game controllers---------
     */
 
-    @FXML private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
+    @FXML
+    private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
 
     @FXML
     public void gameStart() throws Exception {
@@ -125,7 +124,7 @@ public class Controller implements Initializable {
         if (model.getNumPlayers() == 3)
             model.getB().getPlayers().get(2).setName(textFieldP3.getText());
 
-        Stage startStage = (Stage)startGame.getScene().getWindow();
+        Stage startStage = (Stage) startGame.getScene().getWindow();
         Parent startView = FXMLLoader.load(getClass().getResource("View/playerPath1.fxml"));
         Scene startScene = new Scene(startView);
         startStage.setScene(startScene);
@@ -140,7 +139,7 @@ public class Controller implements Initializable {
         else if (event.getSource().equals(P1_careerPath))
             model.getB().getPlayers().get(0).setCurrentPath("CareerPath");
 
-        Stage boardStage = (Stage)P1_mainPath.getScene().getWindow();
+        Stage boardStage = (Stage) P1_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath2.fxml"));
         Scene boardScene = new Scene(boardView);
         boardStage.setScene(boardScene);
@@ -163,7 +162,7 @@ public class Controller implements Initializable {
         else if (event.getSource().equals(P2_careerPath))
             model.getB().getPlayers().get(1).setCurrentPath("CareerPath");
 
-        Stage boardStage = (Stage)P2_mainPath.getScene().getWindow();
+        Stage boardStage = (Stage) P2_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath3.fxml"));
         Scene boardScene = new Scene(boardView);
         boardStage.setScene(boardScene);
@@ -178,10 +177,10 @@ public class Controller implements Initializable {
         else if (event.getSource().equals(P2_careerPath))
             model.getB().getPlayers().get(1).setCurrentPath("CareerPath");
 
-        System.out.println(model.getB().getPlayers().get(0).getName() + " : " +  model.getB().getPlayers().get(0).getCurrentPath());
-        System.out.println(model.getB().getPlayers().get(1).getName() + " : " +  model.getB().getPlayers().get(1).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(0).getName() + " : " + model.getB().getPlayers().get(0).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(1).getName() + " : " + model.getB().getPlayers().get(1).getCurrentPath());
 
-        Stage boardStage = (Stage)P2_mainPath.getScene().getWindow();
+        Stage boardStage = (Stage) P2_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
         Scene boardScene = new Scene(boardView);
@@ -198,11 +197,11 @@ public class Controller implements Initializable {
         else if (event.getSource().equals(P3_careerPath))
             model.getB().getPlayers().get(2).setCurrentPath("CareerPath");
 
-        System.out.println(model.getB().getPlayers().get(0).getName() + " : " +  model.getB().getPlayers().get(0).getCurrentPath());
-        System.out.println(model.getB().getPlayers().get(1).getName() + " : " +  model.getB().getPlayers().get(1).getCurrentPath());
-        System.out.println(model.getB().getPlayers().get(2).getName() + " : " +  model.getB().getPlayers().get(2).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(0).getName() + " : " + model.getB().getPlayers().get(0).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(1).getName() + " : " + model.getB().getPlayers().get(1).getCurrentPath());
+        System.out.println(model.getB().getPlayers().get(2).getName() + " : " + model.getB().getPlayers().get(2).getCurrentPath());
 
-        Stage boardStage = (Stage)P3_mainPath.getScene().getWindow();
+        Stage boardStage = (Stage) P3_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
         Scene boardScene = new Scene(boardView);
@@ -239,264 +238,311 @@ public class Controller implements Initializable {
         rollSpin.setDisable(true);
         drawCard.setDisable(false);
 
-        //TakeTurn method should be here (but still buggy af)
         //should contain move instructions for pieces
         players.get(counter).setSpaceType(model.getB().takeTurn(players.get(counter), diceRoll, event, actionDeck, careerDeck, blueDeck, salaryDeck, houseDeck));
     }
 
     @FXML
-    public void cardDraw() throws Exception{
+    public void cardDraw() throws Exception {
 
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         int space = players.get(counter).getSpace();
-        Space[] main = model.getB().getMainPath();
-        Space[] career = model.getB().getCareerPath();
-        Space[] changeCareer = model.getB().getChangeCareerPath();
 
         //if else ladder can be placed here for space color identification
         //i.e. if space is orange, call openAction, else if, call blueAction etc
         drawCard.setDisable(true);
 
-        switch (players.get(counter).getCurrentPath()) {
-            case "mainPath":
-                if (main[space] instanceof OrangeSpace)
-                    openAction();
-                else if (main[space] instanceof BlueSpace)
-                    openBlue();
-                else if (main[space] instanceof GreenSpace)
-                    openGreen();
+        switch (model.getB().checkSpace(players.get(counter))) {
+            case "orange":
+                openAction();
                 break;
-
-            case "careerPath":
-                if (career[space] instanceof OrangeSpace)
-                    openAction();
-                else if (career[space] instanceof BlueSpace)
-                    openBlue();
-                else if (career[space] instanceof GreenSpace)
-                    openGreen();
+            case "blue":
+                openBlue();
                 break;
-
-            case "changeCareerPath":
-                if (changeCareer[space] instanceof OrangeSpace)
-                    openAction();
-                else if (changeCareer[space] instanceof BlueSpace)
-                    openBlue();
-                else if (changeCareer[space] instanceof GreenSpace)
-                    openGreen();
+            case "green":
+                openGreen();
                 break;
         }
-
         nextPlayer.setDisable(false);
     }
 
-  //Action card stuff HERE -------------------------------------
-  @FXML private Label actionLabel;
-  @FXML private Button actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
+  /*
+        Action Card Controllers
+  */
 
-  @FXML
-  public void openAction() throws Exception{
-      Stage actionP = new Stage();
-      Parent popCard = FXMLLoader.load(getClass().getResource("View/actionCardPop.fxml"));
+    @FXML
+    private Label actionLabel;
+    @FXML
+    private Button actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
 
-      actionP.initStyle(StageStyle.UNDECORATED);
-      actionP.initModality(Modality.APPLICATION_MODAL);
+    @FXML // FUNCTIONAL
+    public void openAction() throws Exception {
+        Stage actionP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("View/actionCardPop.fxml"));
 
-      actionP.setScene(new Scene(popCard, 600, 400));
-      actionP.setResizable(false);
+        actionP.initStyle(StageStyle.UNDECORATED);
+        actionP.initModality(Modality.APPLICATION_MODAL);
 
-      actionP.showAndWait();
-  }
+        actionP.setScene(new Scene(popCard, 600, 400));
+        actionP.setResizable(false);
 
-// under construction
-  public void otherAction(ActionEvent event) {
-      ArrayList<Player> players = model.getB().getPlayers();
-      int counter = model.getB().getCounter();
-      Board b = model.getB();
+        actionP.showAndWait();
+    }
 
-      if(event.getSource() == actionDraw) {
+    @FXML // FUNCTIONAL
+    public void otherAction(ActionEvent event) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
 
-          ActionCard actionCard = players.get(counter).receiveActionCard(b.getActionDeck().drawCard(), event, players);
-          System.out.println(actionCard);
-          actionDraw.setDisable(true);
-          actionDraw.setVisible(false);
+        ActionCard actionCard = b.getActionDeck().getDeck().peek();
+        System.out.println(actionCard);
 
-          actionLabel.setText(actionCard.getName());
-          switch (actionCard.getName()) {
-              case "Collect From Bank":
-                  actionLabel.setText("Collect From Bank!");
-                  collectBank.setVisible(true);
-                  collectBank.setDisable(false);
+        if (event.getSource() == actionDraw) {
+            actionDraw.setVisible(false);
+            switch (actionCard.getName()) {
+                    case "Collect From Bank":
+                        actionLabel.setText(actionCard.getName());
+                        collectBank.setVisible(true);
+                        collectBank.setDisable(false);
 
-                  collectBank.setVisible(false);
-                  collectBank.setDisable(true);
+                        collectBank.setVisible(false);
+                        collectBank.setDisable(true);
 
-                  actionLabel.setText(actionCard.getActionType() + "! Collect $" + actionCard.getPayAmount());
-                  actionDone.setVisible(true);
-                  actionDone.setDisable(false);
-                  break;
+                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
+                        actionLabel.setText(actionCard.getActionType() + "! Collect $" + actionCard.getPayAmount());
+                        actionDone.setVisible(true);
+                        actionDone.setDisable(false);
+                        break;
 
-              case "Collect from Player":
-                  if (model.getNumPlayers() == 2) {
-                      collectPlayer2.setVisible(false);
-                      if (event.getSource().equals(collectPlayer1)) {
-                          actionLabel.setText("You have collected from player!");
-                          collectPlayer1.setDisable(true);
-                          actionDone.setVisible(true);
-                          actionDone.setDisable(false);
-                      }
-                  } else {
-                      if (event.getSource().equals(collectPlayer1)) {
-                          actionLabel.setText("You have collected from player 1!");
+                    case "Pay the Bank":
+                        actionLabel.setText(actionCard.getName());
+                        payBank.setVisible(true);
+                        payBank.setDisable(false);
 
-                          collectPlayer1.setDisable(true);
-                          collectPlayer2.setDisable(true);
+                        payBank.setVisible(false);
+                        payBank.setDisable(true);
 
-                          actionDone.setVisible(true);
-                          actionDone.setDisable(false);
-                      } else {
-                          actionLabel.setText("You have collected from  player 2!");
+                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
+                        actionLabel.setText(actionCard.getActionType() + "! Pay $" + (-1 * actionCard.getPayAmount()));
+                        actionDone.setVisible(true);
+                        actionDone.setDisable(false);
+                        break;
 
-                          collectPlayer2.setDisable(true);
-                          collectPlayer1.setDisable(true);
+                    case "Collect from Player":
+                    case "Pay the Player":
+                        if (model.getNumPlayers() == 2) {
+                            if (b.getCounter() == 0) {
+                                collectPlayer1.setVisible(false);
+                                collectPlayer1.setDisable(true);
+                                collectPlayer2.setVisible(true);
+                                collectPlayer2.setDisable(false);
+                            } else {
+                                collectPlayer1.setVisible(true);
+                                collectPlayer1.setDisable(false);
+                                collectPlayer2.setVisible(false);
+                                collectPlayer2.setDisable(true);
+                            }
+                        } else {
+                                collectPlayer1.setVisible(true);
+                                collectPlayer1.setDisable(false);
+                                collectPlayer2.setVisible(true);
+                                collectPlayer2.setDisable(false);
+                                actionDone.setVisible(false);
+                                actionDone.setDisable(true);
+                        }
+            }
 
-                          actionDone.setVisible(true);
-                          actionDone.setDisable(false);
-                      }
-                  }
-                  break;
+        } else {
+            actionLabel.setText(actionCard.getName());
+            if (model.getNumPlayers() == 2) {
+                if (event.getSource().equals(collectPlayer1) || event.getSource().equals(collectPlayer2)) {
+                    players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
+                    if (b.getCounter() == 0 && actionCard.getName() == "Collect from Player") {
+                        if (b.getCounter() == 0) {
+                            actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                        } else {
+                            actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(0).getName() + "!");
+                        }
+                    } else {
+                        if (b.getCounter() == 0) {
+                            actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                        } else {
+                            actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(0).getName() + "!");
+                        }
+                    }
 
-              case "Pay the Bank":
-                  actionLabel.setText("Pay the Bank!");
-                  payBank.setVisible(true);
-                  payBank.setDisable(false);
+                    collectPlayer1.setDisable(true);
+                    actionDone.setVisible(true);
+                    actionDone.setDisable(false);
+                }
+            } else {
+                switch (b.getCounter()) {
+                    case 0:
+                        if (event.getSource().equals(collectPlayer1)) {
+                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        } else if (event.getSource().equals(collectPlayer2)) {
+                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount()  + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        }
+                        break;
+                    case 1:
+                        if (event.getSource().equals(collectPlayer1)) {
+                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        } else if (event.getSource().equals(collectPlayer2)) {
+                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        }
+                        break;
+                    case 2:
+                        if (event.getSource().equals(collectPlayer1)) {
+                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + actionCard.getPayAmount() + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        } else if (event.getSource().equals(collectPlayer2)) {
+                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().drawCard(), players);
+                            if (actionCard.getName() == "Collect from Player")
+                                actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
+                            else
+                                actionLabel.setText("You have paid " + actionCard.getPayAmount() + " to " + players.get(1).getName() + "!");
+                            collectPlayer1.setVisible(false);
+                            collectPlayer2.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        }
+                        break;
+                }
+            }
+        }
+    }
 
-                  payBank.setVisible(false);
-                  payBank.setDisable(true);
+    /*
+          Blue Card Controllers
+    */
+    @FXML
+    private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
+    @FXML
+    private Label blueLabel;
 
-                  actionLabel.setText(actionCard.getActionType() + "! Pay $" + actionCard.getPayAmount());
-                  actionDone.setVisible(true);
-                  actionDone.setDisable(false);
-                  break;
+    @FXML
+    public void openBlue() throws Exception {
+        Stage blueP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("View/blueCardPop.fxml"));
 
-              case "Pay the Player":
-                  if (model.getNumPlayers() == 2) {
-                      actionDone.setVisible(true);
-                      payPlayer2.setVisible(false);
-                      if (event.getSource().equals(payPlayer1)) {
-                          actionLabel.setText("You have paid player!");
-                          payPlayer1.setDisable(true);
-                          actionDone.setDisable(false);
-                      }
-                  } else {
-                      if (event.getSource().equals(payPlayer1)) {
-                          actionLabel.setText("You have paid player 1!");
+        blueP.initStyle(StageStyle.UNDECORATED);
+        blueP.initModality(Modality.APPLICATION_MODAL);
+        blueP.setScene(new Scene(popCard, 600, 400));
+        blueP.setResizable(false);
+        blueP.showAndWait();
+    }
 
-                          payPlayer1.setDisable(true);
-                          payPlayer2.setDisable(true);
+    public void otherBlue(ActionEvent e) {
+        if (e.getSource() == blueDraw) {
 
-                          actionDone.setVisible(true);
-                          actionDone.setDisable(false);
-                      } else {
-                          actionLabel.setText("You have paid player 2!");
+            //card draw and conditional ladder can be set here
+            blueDraw.setDisable(true);
+            blueDraw.setVisible(false);
 
-                          payPlayer2.setDisable(true);
-                          payPlayer1.setDisable(true);
+            blueLabel.setText("Salary Tax Due\n Pay the Tax Collector");
 
-                          actionDone.setVisible(true);
-                          actionDone.setDisable(false);
-                      }
-                  }
-                  break;
-          }
-      }
-  }
+            payPlayer.setText("Pay Enzo");
+            payPlayer.setVisible(true);
+            payPlayer.setDisable(false);
+        } else if (e.getSource() == collectBankBlue) {
+            blueLabel.setText("It is your career! You get paid");
 
-  //Blue space stuff HERE-------------------------------------
-  @FXML private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
-  @FXML private Label blueLabel;
+            collectBankBlue.setDisable(true);
 
-  @FXML
-  public void openBlue() throws Exception{
-      Stage blueP = new Stage();
-      Parent popCard = FXMLLoader.load(getClass().getResource("View/blueCardPop.fxml"));
+            blueDone.setVisible(true);
+            blueDone.setDisable(false);
+        } else if (e.getSource() == payBankBlue) {
+            blueLabel.setText("Nobody has this career. Pay the bank");
 
-      blueP.initStyle(StageStyle.UNDECORATED);
-      blueP.initModality(Modality.APPLICATION_MODAL);
-      blueP.setScene(new Scene(popCard, 600, 400));
-      blueP.setResizable(false);
-      blueP.showAndWait();
-  }
+            payBankBlue.setDisable(true);
 
-  public void otherBlue(ActionEvent e) {
-      if(e.getSource() == blueDraw) {
+            blueDone.setVisible(true);
+            blueDone.setDisable(false);
+        } else if (e.getSource() == payPlayer) {
+            blueLabel.setText("You have paid the player");
 
-          //card draw and conditional ladder can be set here
-          blueDraw.setDisable(true);
-          blueDraw.setVisible(false);
+            payPlayer.setDisable(true);
 
-          blueLabel.setText("Salary Tax Due\n Pay the Tax Collector");
-
-          payPlayer.setText("Pay Enzo");
-          payPlayer.setVisible(true);
-          payPlayer.setDisable(false);
-      }
-      else if(e.getSource() == collectBankBlue) {
-          blueLabel.setText("It is your career! You get paid");
-
-          collectBankBlue.setDisable(true);
-
-          blueDone.setVisible(true);
-          blueDone.setDisable(false);
-      }
-      else if(e.getSource() == payBankBlue) {
-          blueLabel.setText("Nobody has this career. Pay the bank");
-
-          payBankBlue.setDisable(true);
-
-          blueDone.setVisible(true);
-          blueDone.setDisable(false);
-      }
-      else if(e.getSource() == payPlayer) {
-          blueLabel.setText("You have paid the player");
-
-          payPlayer.setDisable(true);
-
-          blueDone.setVisible(true);
-          blueDone.setDisable(false);
-      }
-  }
+            blueDone.setVisible(true);
+            blueDone.setDisable(false);
+        }
+    }
 
 
-  //Green space stuff here-----------------------------------
-  @FXML private Label greenLabel;
-  @FXML private Button greenWhat, greenDone;
+    /*
+          Green Card Controllers
+    */
+    @FXML
+    private Label greenLabel;
+    @FXML
+    private Button greenWhat, greenDone;
 
-  @FXML
-  public void openGreen() throws Exception{
-      Stage greenP = new Stage();
-      Parent popCard = FXMLLoader.load(getClass().getResource("View/greenSpacePop.fxml"));
+    @FXML
+    public void openGreen() throws Exception {
+        Stage greenP = new Stage();
+        Parent popCard = FXMLLoader.load(getClass().getResource("View/greenSpacePop.fxml"));
 
-      greenP.initStyle(StageStyle.UNDECORATED);
-      greenP.initModality(Modality.APPLICATION_MODAL);
-      greenP.setScene(new Scene(popCard, 600, 400));
-      greenP.setResizable(false);
-      greenP.showAndWait();
-  }
+        greenP.initStyle(StageStyle.UNDECORATED);
+        greenP.initModality(Modality.APPLICATION_MODAL);
+        greenP.setScene(new Scene(popCard, 600, 400));
+        greenP.setResizable(false);
+        greenP.showAndWait();
+    }
 
-  public void greenAction(ActionEvent e) {
-      if(e.getSource() == greenWhat) {
+    public void greenAction(ActionEvent e) {
+        if (e.getSource() == greenWhat) {
 
-          //if else for the two green space types
-          greenLabel.setText("It's PAY DAY!!!");
+            //if else for the two green space types
+            greenLabel.setText("It's PAY DAY!!!");
 
-          greenWhat.setVisible(false);
-          greenWhat.setDisable(true);
+            greenWhat.setVisible(false);
+            greenWhat.setDisable(true);
 
-          greenDone.setVisible(true);
-          greenDone.setDisable(false);
-      }
-  }
+            greenDone.setVisible(true);
+            greenDone.setDisable(false);
+        }
+    }
 
     //Get married space stuff HERE -------------------------------
     @FXML
@@ -505,7 +551,7 @@ public class Controller implements Initializable {
     private Label marryLabel;
 
     @FXML
-    public void getMarried() throws Exception{
+    public void getMarried() throws Exception {
         Stage marryP = new Stage();
         Parent marryCard = FXMLLoader.load(getClass().getResource("View/marriedSpacePop.fxml"));
 
@@ -520,26 +566,23 @@ public class Controller implements Initializable {
         int diceRoll;
         marryRoll.setDisable(false);
 
-        if(e.getSource() == marryRoll){
-            diceRoll = (int)(Math.random() * (10) + 1);
+        if (e.getSource() == marryRoll) {
+            diceRoll = (int) (Math.random() * (10) + 1);
             marryLabel.setText(Integer.toString(diceRoll));
 
-            if(diceRoll % 2 == 0) {
+            if (diceRoll % 2 == 0) {
                 marryEven.setDisable(false);
-            }
-            else {
+            } else {
                 marryOdd.setDisable(false);
             }
-        }
-        else if(e.getSource() == marryOdd){
+        } else if (e.getSource() == marryOdd) {
 
             //set method to collect money from other players here
 
             marryOdd.setDisable(true);
             marryRoll.setVisible(false);
             marryCont.setVisible(true);
-        }
-        else if(e.getSource() == marryEven){
+        } else if (e.getSource() == marryEven) {
 
             //set method to collect money from other players here
 
@@ -549,7 +592,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     //Job Search stuff HERE -----------------------------------------
     @FXML
     private Button bRetain, bChange, jobDraw, jobDone;
@@ -557,7 +599,7 @@ public class Controller implements Initializable {
     private Label jobDescription, salaryDescription;
 
     @FXML
-    public void jobHunt() throws Exception{
+    public void jobHunt() throws Exception {
         Stage jobP = new Stage();
         Parent jobCard = FXMLLoader.load(getClass().getResource("View/jobSearch.fxml"));
 
@@ -569,19 +611,17 @@ public class Controller implements Initializable {
     }
 
     public void huntAction(ActionEvent e) {
-        if(e.getSource() == jobDraw) {
+        if (e.getSource() == jobDraw) {
 
             //draw career and salary card method call
             bChange.setDisable(false);
             bRetain.setDisable(false);
-        }
-        else if(e.getSource() == bRetain){
+        } else if (e.getSource() == bRetain) {
 
             //set method to update values here
             bChange.setDisable(true);
             bRetain.setDisable(true);
-        }
-        else if(e.getSource() == bChange){
+        } else if (e.getSource() == bChange) {
 
             //set method to update values here
             bChange.setDisable(true);
@@ -590,7 +630,7 @@ public class Controller implements Initializable {
         jobDone.setVisible(true);
         jobDone.setDisable(false);
     }
-    
+
     //Buy house space stuff HERE --------------------------------
     @FXML
     private Label mobileHomeLabel, cabinLabel, apartmentLabel, villaLabel, condoLabel;
@@ -612,8 +652,8 @@ public class Controller implements Initializable {
     public void houseAction(ActionEvent e) {
         int diceRoll;
 
-        if(e.getSource() == houseRoll) {
-            diceRoll = (int)(Math.random() * (10) + 1);
+        if (e.getSource() == houseRoll) {
+            diceRoll = (int) (Math.random() * (10) + 1);
 
             houseRoll.setDisable(true);
             houseRoll.setVisible(false);
@@ -625,40 +665,35 @@ public class Controller implements Initializable {
             bApartment.setDisable(false);
             bVilla.setDisable(false);
             bCondo.setDisable(false);
-        }
-        else if(e.getSource() == bMobileHome) {
+        } else if (e.getSource() == bMobileHome) {
 
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
-        }
-        else if(e.getSource() == bCabin) {
+        } else if (e.getSource() == bCabin) {
 
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
-        }
-        else if(e.getSource() == bApartment) {
+        } else if (e.getSource() == bApartment) {
 
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
-        }
-        else if(e.getSource() == bVilla) {
+        } else if (e.getSource() == bVilla) {
 
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
-        }
-        else if(e.getSource() == bCondo) {
+        } else if (e.getSource() == bCondo) {
 
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
@@ -689,8 +724,9 @@ public class Controller implements Initializable {
         chooseP.showAndWait();
     }
 
+    @FXML
     public void chosenAction(ActionEvent e) {
-        if(e.getSource() == careerChange) {
+        if (e.getSource() == careerChange) {
 
             //position update on game piece here
             forkLabel.setText("Your new career is Engineer!\nSalary: 90000");
@@ -698,8 +734,7 @@ public class Controller implements Initializable {
             careerChange.setDisable(true);
             continuePath.setVisible(false);
             continuePath.setDisable(true);
-        }
-        else if(e.getSource() == continuePath) {
+        } else if (e.getSource() == continuePath) {
 
             //position update on game piece here
             forkLabel.setText("So I guess it's time to start a family huh");
@@ -712,12 +747,13 @@ public class Controller implements Initializable {
         forkContinue.setDisable(false);
     }
 
+    @FXML //FUNCTIONAL
     public void closeAction(ActionEvent e) {
-        Stage actionP = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage actionP = (Stage) ((Node) e.getSource()).getScene().getWindow();
         actionP.close();
     }
 
-    @FXML
+    @FXML // FUNCTIONAL
     public void nextTurn() {
 
         if (model.getNumPlayers() == 2) {
@@ -748,7 +784,7 @@ public class Controller implements Initializable {
     }
     
     /*
-        -------------Options controllers------------
+        Options Controllers (FUNCTIONAL)
     */
 
     @FXML
@@ -760,28 +796,28 @@ public class Controller implements Initializable {
 
     @FXML
     public void adjustActionDeck() {
-        acLabel.setText(Integer.toString((int)acSlider.getValue()));
+        acLabel.setText(Integer.toString((int) acSlider.getValue()));
     }
 
     @FXML
     public void adjustSalaryDeck() {
-        scLabel.setText(Integer.toString((int)scSlider.getValue()));
+        scLabel.setText(Integer.toString((int) scSlider.getValue()));
     }
 
     @FXML
     public void adjustCareerDeck() {
-        ccLabel.setText(Integer.toString((int)ccSlider.getValue()));
+        ccLabel.setText(Integer.toString((int) ccSlider.getValue()));
     }
 
     @FXML
     public void adjustCash() {
-        cashLabel.setText(Integer.toString((int)cashSlider.getValue()));
+        cashLabel.setText(Integer.toString((int) cashSlider.getValue()));
     }
 
     @FXML
     public void editAttributes() throws Exception {
 
-        Stage editStage = (Stage)editAtt.getScene().getWindow();
+        Stage editStage = (Stage) editAtt.getScene().getWindow();
         Parent editView = FXMLLoader.load(getClass().getResource("View/editableAttributes.fxml"));
 
         Scene editScene = new Scene(editView);
@@ -791,7 +827,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void noEdit() throws Exception {
-        Stage doneStage = (Stage)editBack.getScene().getWindow();
+        Stage doneStage = (Stage) editBack.getScene().getWindow();
         Parent doneView = FXMLLoader.load(getClass().getResource("View/editMenu.fxml"));
 
         Scene doneScene = new Scene(doneView);
@@ -802,16 +838,16 @@ public class Controller implements Initializable {
     @FXML
     public void editDone() throws Exception {
 
-        model.setStarterCash((int)cashSlider.getValue());
-        model.setNumCareer((int)ccSlider.getValue());
-        model.setNumSalary((int)scSlider.getValue());
-        model.setNumAction((int)acSlider.getValue());
+        model.setStarterCash((int) cashSlider.getValue());
+        model.setNumCareer((int) ccSlider.getValue());
+        model.setNumSalary((int) scSlider.getValue());
+        model.setNumAction((int) acSlider.getValue());
         System.out.println("Starter cash set to: " + model.getStarterCash());
         System.out.println("Career Deck set to: " + model.getNumCareer());
         System.out.println("Salary Deck set to: " + model.getNumSalary());
         System.out.println("Action Deck set to:  " + model.getNumAction());
 
-        Stage doneStage = (Stage)editSave.getScene().getWindow();
+        Stage doneStage = (Stage) editSave.getScene().getWindow();
         Parent doneView = FXMLLoader.load(getClass().getResource("View/editMenu.fxml"));
 
         Scene doneScene = new Scene(doneView);
@@ -821,7 +857,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void optionReturn() throws Exception {
-        Stage returnStage = (Stage)editBack.getScene().getWindow();
+        Stage returnStage = (Stage) editBack.getScene().getWindow();
         Parent returnView = FXMLLoader.load(getClass().getResource("View/mainMenu.fxml"));
 
         Scene returnScene = new Scene(returnView);
