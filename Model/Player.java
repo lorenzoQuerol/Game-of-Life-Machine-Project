@@ -1,7 +1,9 @@
 package Model;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -193,9 +195,9 @@ public class Player {
 
      * @param players The list of current players
      */
-    public ActionCard receiveActionCard (ActionCard a, ActionEvent event, ArrayList<Player> players) {
+    public void receiveActionCard (Player p, ActionCard a, ArrayList<Player> players) {
         String choice;
-        
+
         /*
         Certain action cards require the interaction of the current player with other players in the game.
         e.g. the player's cash is increased by the amount that was deducted from another player, and vice versa.
@@ -210,23 +212,8 @@ public class Player {
                         makeBankLoan(this);
                     this.cash += (a.getPayAmount());
                 }
-// ACTIONEVENT NOW
-                System.out.println("Choose a Player to Pay: ");
-                displayOtherPlayers(players);
-                if (players.size() == 2) {
-                    for (Player x : players) {
 
-                    }
-                } else {
-                    for (Player x : players) {
-
-                    }
-                }
-
-//                for (Player x : players) {
-//                    if (x.getName().contains(choice))
-//                        x.cash += (a.getPayAmount() * -1);
-//                }
+                p.setCash(p.getCash() + (a.getPayAmount() * -1));
                 break;
 
             case "Christmas Bonus":
@@ -252,22 +239,7 @@ public class Player {
             case "File a Lawsuit":
                 System.out.println("You Filed a Lawsuit Against Someone card was drawn");
                 this.cash += a.getPayAmount();
-                
-                System.out.println("Choose a Player to File a Lawsuit Against: ");
-                displayOtherPlayers(players);
-
-                
-//                for (Player x : players) {
-//                    if (x.getName().contains(choice)) {
-//                        if (!bankLoanNeeded(x, a.getPayAmount()))
-//                            x.cash += (a.getPayAmount() * -1);
-//                        else {
-//                            while (bankLoanNeeded(x, a.getPayAmount()))
-//                                makeBankLoan(x);
-//                            x.cash += (a.getPayAmount() * -1);
-//                        }
-//                    }
-//                }
+                p.setCash(p.getCash() + (a.getPayAmount() * -1));
                 break;
 
             case "It's your Birthday!":
@@ -297,7 +269,6 @@ public class Player {
                     this.cash += (a.getPayAmount());
                 }
         }
-        return a;
     }
 
     public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, ActionEvent event) {
@@ -475,19 +446,6 @@ public class Player {
     }
 
     /**
-     * Helper Method: This displays other players in the game. It skips outputting
-     * the current player.
-     * @param players The current players of the game
-     */
-    public void displayOtherPlayers (ArrayList<Player> players) {
-        for (Player x : players) {
-            if (x.getName() == this.name) 
-                continue;
-            System.out.println(x.getName());
-        }
-    }
-
-    /**
      * Checks the player's current cash if it is less than the payment due.
      * @param payment A value that is due to be paid
      * @return A boolean value if the player's cash is less than what he/she is paying for
@@ -501,6 +459,6 @@ public class Player {
      */
     @Override
     public String toString() {
-        return this.name + " | " + "Cash: " + this.cash;
+        return this.name;
     }
 }

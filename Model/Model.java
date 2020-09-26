@@ -10,7 +10,7 @@ public class Model {
     private int numCareer;
     private int numPlayers;
 
-    private Model () {
+    private Model() {
         this.b = new Board();
         this.starterCash = 200000;
         this.numAction = 50;
@@ -18,8 +18,7 @@ public class Model {
         this.numSalary = 10;
     }
 
-    public static Model getInstance()
-    {
+    public static Model getInstance() {
         if (model == null)
             model = new Model();
 
