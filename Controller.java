@@ -539,27 +539,144 @@ public class Controller implements Initializable {
             //draw career and salary card method call
             bChange.setDisable(false);
             bRetain.setDisable(false);
-            jobDraw.setDisable(true);
-            jobDraw.setVisible(false);
         }
         else if(e.getSource() == bRetain){
 
             //set method to update values here
             bChange.setDisable(true);
             bRetain.setDisable(true);
-            jobDone.setVisible(true);
-            jobDone.setDisable(false);
         }
         else if(e.getSource() == bChange){
 
             //set method to update values here
             bChange.setDisable(true);
             bRetain.setDisable(true);
-            jobDone.setVisible(true);
-            jobDone.setDisable(false);
         }
+        jobDone.setVisible(true);
+        jobDone.setDisable(false);
     }
-      
+    
+    //Buy house space stuff HERE --------------------------------
+    @FXML
+    private Label mobileHomeLabel, cabinLabel, apartmentLabel, villaLabel, condoLabel;
+    @FXML
+    private Button bMobileHome, bCabin, bApartment, bVilla, bCondo, houseRoll, houseCont;
+
+    @FXML
+    public void buyHouse() throws Exception {
+        Stage houseP = new Stage();
+        Parent hCard = FXMLLoader.load(getClass().getResource("View/buyHouse.fxml"));
+
+        houseP.initStyle(StageStyle.UNDECORATED);
+        houseP.initModality(Modality.APPLICATION_MODAL);
+        houseP.setScene(new Scene(hCard, 600, 400));
+        houseP.setResizable(false);
+        houseP.showAndWait();
+    }
+
+    public void houseAction(ActionEvent e) {
+        int diceRoll;
+
+        if(e.getSource() == houseRoll) {
+            diceRoll = (int)(Math.random() * (10) + 1);
+
+            houseRoll.setDisable(true);
+            houseRoll.setVisible(false);
+
+            //if else for odd or even pricing. dont forget setText on the labels
+
+            bMobileHome.setDisable(false);
+            bCabin.setDisable(false);
+            bApartment.setDisable(false);
+            bVilla.setDisable(false);
+            bCondo.setDisable(false);
+        }
+        else if(e.getSource() == bMobileHome) {
+
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+        }
+        else if(e.getSource() == bCabin) {
+
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+        }
+        else if(e.getSource() == bApartment) {
+
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+        }
+        else if(e.getSource() == bVilla) {
+
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+        }
+        else if(e.getSource() == bCondo) {
+
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+        }
+
+        houseCont.setVisible(true);
+        houseCont.setDisable(false);
+    }
+
+    //Path selection space stuff HERE ---------------------------
+    @FXML
+    private Label forkLabel;
+    @FXML
+    private Button careerChange, continuePath, forkContinue;
+
+    @FXML
+    public void chooseAgain() throws Exception {
+        Stage chooseP = new Stage();
+        Parent chooseCard = FXMLLoader.load(getClass().getResource("View/secondFork.fxml"));
+
+        chooseP.initStyle(StageStyle.UNDECORATED);
+        chooseP.initModality(Modality.APPLICATION_MODAL);
+        chooseP.setScene(new Scene(chooseCard, 600, 400));
+        chooseP.setResizable(false);
+        chooseP.showAndWait();
+    }
+
+    public void chosenAction(ActionEvent e) {
+        if(e.getSource() == careerChange) {
+
+            //position update on game piece here
+            forkLabel.setText("Your new career is Engineer!\nSalary: 90000");
+            careerChange.setVisible(false);
+            careerChange.setDisable(true);
+            continuePath.setVisible(false);
+            continuePath.setDisable(true);
+        }
+        else if(e.getSource() == continuePath) {
+
+            //position update on game piece here
+            forkLabel.setText("So I guess it's time to start a family huh");
+            careerChange.setVisible(false);
+            careerChange.setDisable(true);
+            continuePath.setVisible(false);
+            continuePath.setDisable(true);
+        }
+        forkContinue.setVisible(true);
+        forkContinue.setDisable(false);
+    }
+
     public void closeAction(ActionEvent e) {
         Stage actionP = (Stage)((Node)e.getSource()).getScene().getWindow();
         actionP.close();
