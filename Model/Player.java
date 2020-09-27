@@ -17,7 +17,6 @@ public class Player {
     private boolean isMarried;
     private boolean isGraduate;
     private boolean isRetired;
-    private boolean isFinished;   
 
     private CareerCard career;
     private SalaryCard salary;
@@ -27,6 +26,7 @@ public class Player {
 
     private int space;
     private Space spaceType;
+    private int place;
 
     /**
      * Constructor for a Player object. It assigns the starter cash amount for
@@ -74,10 +74,6 @@ public class Player {
      */
     public void setGraduate(boolean isGraduate) {
         this.isGraduate = isGraduate;
-    }
-    
-    public void setFinished(boolean isFinished) {
-        this.isFinished = isFinished;
     }
 
     /**
@@ -152,10 +148,6 @@ public class Player {
         return isRetired;
     }
 
-    public boolean getIsFinished() {
-        return isFinished;
-    }
-        
     /**
      * Gets the player's space.
      * @return The player's current position on the board
@@ -178,6 +170,18 @@ public class Player {
 
     public CareerCard getCareerCard() {
         return career;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setRetired(boolean retired) {
+        isRetired = retired;
     }
 
     /**
@@ -271,38 +275,17 @@ public class Player {
         }
     }
 
-    public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, ActionEvent event) {
-        System.out.println("Choose a career:");
-        System.out.println(c1);
-        System.out.println(c2);
-        System.out.print("Choice: ");
-
-//        String choice = in.nextLine();
-//
-//        if (choice == c1.getName()) {
-//            this.career = c1;
-//            cd.deck.addFirst(c2); // returns the unchosen card back to the bottom of the original deck
-//        } else {
-//            this.career = c2;
-//            cd.deck.addFirst(c1);
-//        }
+    public void receiveCareerCard (CareerCard c, CareerCard notChosen, CareerDeck cd) {
+        this.career = c;
+        cd.deck.addFirst(notChosen);
     }
 
-    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd, ActionEvent event) {
-        System.out.println("Job Search! Would you like to change your current career and salary? (Y/N)");
-        System.out.print("Choice: ");
-
-//        switch (choice) {
-//            case "Y":
-//                this.career = c;
-//                this.salary = s;
-//                break;
-//
-//            case "N":
-//                cd.deck.addFirst(c);
-//                sd.deck.addFirst(s);
-//                break;
-//        }
+    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd) {
+        System.out.println("Career and Salary Changed via Job Search");
+        cd.getDeck().addFirst(this.career);
+        sd.getDeck().addFirst(this.salary);
+        this.career = c;
+        this.salary = s;
     }
 
     public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
@@ -327,68 +310,42 @@ public class Player {
             this.cash -= 15000;
     }
 
-    public void receiveSalaryCard (SalaryCard s1, SalaryCard s2, SalaryDeck sd, ActionEvent event) {
-        System.out.println("Choose a Salary:");
-        System.out.println(s1);
-        System.out.println(s2);
-        System.out.print("Choice: ");
 
-
-
-//        if (choice == 1) {
-//            this.salary = s1;
-//            sd.deck.addFirst(s2); // returns the unchosen card back to the bottom of the original deck
-//        } else {
-//            this.salary = s2;
-//            sd.deck.addFirst(s1);
-//        }
+    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
+        this.salary = s;
+        sd.deck.addFirst(notChosen);
     }
 
-    public void receiveHouseCard (HouseCard h1, HouseCard h2, HouseDeck hd) {
-        System.out.println("Choose a House:");
-        System.out.println(h1);
-        System.out.println(h2);
-        System.out.print("Choice: ");
+    public void receiveHouseCard (int diceRoll, String houseName, HouseDeck hd) {
+        HouseCard house = null;
 
-        int num = 0;
+        for (HouseCard h : hd.temp) {
+            if (h.getName() == houseName)
+                house = h;
+        }
 
-//        switch (choice) {
-//            case 1:
-//                System.out.println("Spin an even number or an odd number for your payment!");
-//                num = this.spin();
-//                if (num % 2 == 0) {
-//                    h1.setFinalPayAmount(h1.payAmountEven);
-//                    while (bankLoanNeeded(this, h1.finalPayAmount))
-//                        makeBankLoan(this);
-//
-//                    this.cash -= h1.finalPayAmount;
-//                    hd.deck.addFirst(h2);
-//                } else {
-//                    h1.setFinalPayAmount(h1.payAmountOdd);
-//                    while (bankLoanNeeded(this, h1.finalPayAmount))
-//                        makeBankLoan(this);
-//                    this.cash -= h1.finalPayAmount;
-//                    hd.deck.addFirst(h2);
-//                }
-//                break;
-//
-//            case 2:
-//                System.out.println("Spin an even number or an odd number for your payment!");
-//                num = this.spin();
-//                if (num % 2 == 0) {
-//                    h2.setFinalPayAmount(h2.payAmountEven);
-//                    while (bankLoanNeeded(this, h2.finalPayAmount))
-//                        makeBankLoan(this);
-//                    this.cash -= h2.finalPayAmount;
-//                    hd.deck.addFirst(h1);
-//                } else {
-//                    h2.setFinalPayAmount(h2.payAmountOdd);
-//                    while (bankLoanNeeded(this, h2.finalPayAmount))
-//                        makeBankLoan(this);
-//                    this.cash -= h2.finalPayAmount;
-//                    hd.deck.addFirst(h1);
-//                }
-//        }
+        int key = hd.temp.indexOf(house);
+        this.house = hd.temp.get(key);
+        hd.temp.remove(key);
+
+        if (diceRoll % 2 == 0)
+            this.house.finalPayAmount = this.house.payAmountEven;
+        else
+            this.house.finalPayAmount = this.house.payAmountOdd;
+
+        while (bankLoanNeeded(this, house.finalPayAmount))
+            makeBankLoan(this);
+
+        this.cash -= house.finalPayAmount;
+    }
+
+    public void receiveSalary () {
+        this.setCash(this.getCash() + this.getSalaryCard().computeSalary());
+    }
+
+    public void receivePayRaise () {
+        this.getSalaryCard().setSalary((int)(this.getSalaryCard().getSalary() * 1.1));
+        this.getSalaryCard().setTax(this.getSalaryCard().getTax() + 2000);
     }
 
     public void makeBankLoan (Player p) {
@@ -403,6 +360,46 @@ public class Player {
         } else {
             this.cash -= this.bankLoan;
             this.bankLoan = 0;
+        }
+    }
+
+    public void haveBabies (int diceRoll, ArrayList<Player> players) {
+        if (this.isMarried) {
+            if (diceRoll % 2 == 0) {
+                this.numChildren = 2;
+                this.setCash(this.getCash() + 10000 * players.size());
+                for (Player p : players) {
+                    if (p == this)
+                        continue;
+                    p.setCash(p.getCash() - 10000);
+                }
+            } else {
+                this.numChildren = 1;
+                this.setCash(this.getCash() + 5000 * players.size());
+                for (Player p : players) {
+                    if (p == this)
+                        continue;
+                    p.setCash(p.getCash() - 5000);
+                }
+            }
+        }
+    }
+
+    public void marry (int diceRoll, ArrayList<Player> players) {
+        if (diceRoll % 2 == 0) {
+            this.setCash(this.getCash() + (10000 * players.size()));
+            for (Player p : players) {
+                if (p == this)
+                    continue;
+                p.setCash(p.getCash() - 10000);
+            }
+        } else {
+            this.setCash(this.getCash() + (5000 * players.size()));
+            for (Player p : players) {
+                if (p == this)
+                    continue;
+                p.setCash(p.getCash() - 5000);
+            }
         }
     }
 
@@ -442,7 +439,7 @@ public class Player {
         while (this.bankLoan != 0)
             settleBankLoan();
 
-        this.setFinished(true);
+        this.setRetired(true);
     }
 
     /**
