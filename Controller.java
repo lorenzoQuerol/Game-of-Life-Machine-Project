@@ -24,7 +24,7 @@ public class Controller implements Initializable {
     Model model = Model.getInstance();
 
     /*
-        ----------Main menu controllers-----------
+        Main Menu Controllers (DONE)
     */
 
     @FXML
@@ -54,7 +54,7 @@ public class Controller implements Initializable {
     }
 
     /*
-        ------------Player selection controllers-----------
+        Player Selection Controllers (DONE)
     */
 
     @FXML
@@ -108,7 +108,7 @@ public class Controller implements Initializable {
     }
 
     /*
-        ------------Start Game controllers---------
+        Start Game Controllers (DONE)
     */
 
     @FXML
@@ -210,7 +210,7 @@ public class Controller implements Initializable {
     }
 
     /*
-        ------------Board proper controllers------------
+        Board proper controllers (DONE)
     */
 
     @FXML
@@ -240,6 +240,7 @@ public class Controller implements Initializable {
 
         //should contain move instructions for pieces
         players.get(counter).setSpaceType(model.getB().takeTurn(players.get(counter), diceRoll, event, actionDeck, careerDeck, blueDeck, salaryDeck, houseDeck));
+
     }
 
     @FXML
@@ -247,7 +248,6 @@ public class Controller implements Initializable {
 
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
-        int space = players.get(counter).getSpace();
 
         //if else ladder can be placed here for space color identification
         //i.e. if space is orange, call openAction, else if, call blueAction etc
@@ -263,12 +263,15 @@ public class Controller implements Initializable {
             case "green":
                 openGreen();
                 break;
+            case "magenta":
+
+                break;
         }
         nextPlayer.setDisable(false);
     }
 
   /*
-        Action Card Controllers
+        Action Card Controllers (DONE)
   */
 
     @FXML
@@ -454,7 +457,7 @@ public class Controller implements Initializable {
     }
 
     /*
-          Blue Card Controllers
+          Blue Card Controllers (DONE)
     */
     @FXML
     private Button blueDone, blueDraw, payPlayer, payBankBlue, collectBankBlue;
@@ -474,34 +477,48 @@ public class Controller implements Initializable {
     }
 
     public void otherBlue(ActionEvent e) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        BlueCard blueCard = b.getBlueDeck().getDeck().peek();
+        System.out.println(blueCard);
+        String result = checkBlueCard(players.get(counter), blueCard, players);
         if (e.getSource() == blueDraw) {
-
             //card draw and conditional ladder can be set here
-            blueDraw.setDisable(true);
             blueDraw.setVisible(false);
+            blueDraw.setDisable(true);
+            switch (result) {
+                case "hasBlueCard":
+                    collectBankBlue.setVisible(true);
+                    collectBankBlue.setDisable(false);
+                    break;
+                case "noOne":
+                    payBankBlue.setVisible(true);
+                    payBankBlue.setDisable(false);
+                    break;
 
-            blueLabel.setText("Salary Tax Due\n Pay the Tax Collector");
-
-            payPlayer.setText("Pay Enzo");
-            payPlayer.setVisible(true);
-            payPlayer.setDisable(false);
+                default:
+                    payPlayer.setVisible(true);
+                    payPlayer.setDisable(false);
+            }
         } else if (e.getSource() == collectBankBlue) {
-            blueLabel.setText("It is your career! You get paid");
-
+            blueLabel.setText("It is your career! You get $15000!");
+            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
             collectBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payBankBlue) {
-            blueLabel.setText("Nobody has this career. Pay the bank");
-
+            blueLabel.setText("Nobody has this career. Pay the bank $15000!");
+            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
             payBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payPlayer) {
-            blueLabel.setText("You have paid the player");
-
+            blueLabel.setText("You have paid " + result + " $15000!");
+            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
             payPlayer.setDisable(true);
 
             blueDone.setVisible(true);
@@ -509,10 +526,28 @@ public class Controller implements Initializable {
         }
     }
 
+    @FXML
+    public String checkBlueCard (Player p, BlueCard b, ArrayList<Player> players){
+
+        // case 1: player's career matches blue card
+        if (b.getCareerLink() == p.getCareerCard().getName())
+            return "hasBlueCard";
+
+        // case 2: blue card matches another player's career
+        for (Player x : players) {
+            if (x.getCareerCard().getName() == b.getCareerLink()){
+                return x.getName();
+            }
+        }
+
+        // case 3: nobody's career in the game matches the blue card
+        return "noOne";
+    }
 
     /*
-          Green Card Controllers
+          Green Card Controllers (DONE)
     */
+
     @FXML
     private Label greenLabel;
     @FXML
@@ -531,10 +566,39 @@ public class Controller implements Initializable {
     }
 
     public void greenAction(ActionEvent e) {
-        if (e.getSource() == greenWhat) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
 
-            //if else for the two green space types
-            greenLabel.setText("It's PAY DAY!!!");
+        if (e.getSource() == greenWhat) {
+            switch (players.get(counter).getCurrentPath()) {
+                case "mainPath":
+                    if (players.get(counter).getSpace() == 17 || players.get(counter).getSpace() == 35)  {
+                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        players.get(counter).receiveSalary();
+                    } else if (players.get(counter).getSpace() == 29) {
+                        players.get(counter).receivePayRaise();
+                        greenLabel.setText("You get a pay raise! Your new salary is $" + players.get(counter).getSalaryCard().computeSalary() + "! (Tax included)");
+                    }
+                    break;
+
+                case "careerPath":
+                    if (players.get(counter).getSpace() == 8) {
+                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        players.get(counter).receiveSalary();
+                    } else if (players.get(counter).getSpace() == 3) {
+                        players.get(counter).receivePayRaise();
+                        greenLabel.setText("You get a pay raise! Your new salary is $" + players.get(counter).getSalaryCard().computeSalary() + "! (Tax included)");
+                    }
+                    break;
+
+                case "changeCareerPath":
+                    if (players.get(counter).getSpace() == 3) {
+                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        players.get(counter).receiveSalary();
+                    }
+                    break;
+            }
 
             greenWhat.setVisible(false);
             greenWhat.setDisable(true);
@@ -544,13 +608,15 @@ public class Controller implements Initializable {
         }
     }
 
-    //Get married space stuff HERE -------------------------------
+    /*
+        Get Married Controllers (DONE)
+     */
     @FXML
     private Button marryEven, marryOdd, marryRoll, marryCont;
     @FXML
     private Label marryLabel;
 
-    @FXML
+    @FXML // NOTE: This will be called when player lands on magenta space
     public void getMarried() throws Exception {
         Stage marryP = new Stage();
         Parent marryCard = FXMLLoader.load(getClass().getResource("View/marriedSpacePop.fxml"));
@@ -563,11 +629,15 @@ public class Controller implements Initializable {
     }
 
     public void marriageAction(ActionEvent e) {
-        int diceRoll;
+        int diceRoll = 0;
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
         marryRoll.setDisable(false);
 
         if (e.getSource() == marryRoll) {
-            diceRoll = (int) (Math.random() * (10) + 1);
+            diceRoll = players.get(counter).spin();
             marryLabel.setText(Integer.toString(diceRoll));
 
             if (diceRoll % 2 == 0) {
@@ -577,28 +647,28 @@ public class Controller implements Initializable {
             }
         } else if (e.getSource() == marryOdd) {
 
-            //set method to collect money from other players here
-
+            players.get(counter).marry(diceRoll, players);
             marryOdd.setDisable(true);
             marryRoll.setVisible(false);
             marryCont.setVisible(true);
         } else if (e.getSource() == marryEven) {
 
-            //set method to collect money from other players here
-
+            players.get(counter).marry(diceRoll, players);
             marryEven.setDisable(true);
             marryRoll.setVisible(false);
             marryCont.setVisible(true);
         }
     }
 
-    //Job Search stuff HERE -----------------------------------------
+    /*
+        Job Search Controllers (DONE)
+    */
     @FXML
     private Button bRetain, bChange, jobDraw, jobDone;
     @FXML
     private Label jobDescription, salaryDescription;
 
-    @FXML
+    @FXML // NOTE: This will be called from magenta space at index achuchu
     public void jobHunt() throws Exception {
         Stage jobP = new Stage();
         Parent jobCard = FXMLLoader.load(getClass().getResource("View/jobSearch.fxml"));
@@ -610,20 +680,30 @@ public class Controller implements Initializable {
         jobP.showAndWait();
     }
 
+    // FUNCTIONAL
     public void huntAction(ActionEvent e) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        CareerCard c = b.getCareerDeck().getDeck().peek();
+        SalaryCard s = b.getSalaryDeck().getDeck().peek();
+
         if (e.getSource() == jobDraw) {
 
-            //draw career and salary card method call
+            jobDescription.setText(c.getName());
+            salaryDescription.setText(Integer.toString(s.getSalary()));
+
             bChange.setDisable(false);
             bRetain.setDisable(false);
         } else if (e.getSource() == bRetain) {
 
-            //set method to update values here
             bChange.setDisable(true);
             bRetain.setDisable(true);
         } else if (e.getSource() == bChange) {
 
-            //set method to update values here
+            // set method to update values here
+            players.get(counter).jobSearch(b.getCareerDeck().drawCard(), b.getSalaryDeck().drawCard(), b.getCareerDeck(), b.getSalaryDeck());
             bChange.setDisable(true);
             bRetain.setDisable(true);
         }
@@ -631,13 +711,15 @@ public class Controller implements Initializable {
         jobDone.setDisable(false);
     }
 
-    //Buy house space stuff HERE --------------------------------
+    /*
+         Buy a House Controllers (DONE)
+    */
     @FXML
     private Label mobileHomeLabel, cabinLabel, apartmentLabel, villaLabel, condoLabel;
     @FXML
     private Button bMobileHome, bCabin, bApartment, bVilla, bCondo, houseRoll, houseCont;
 
-    @FXML
+    @FXML // NOTE: this will be called on magenta spaces
     public void buyHouse() throws Exception {
         Stage houseP = new Stage();
         Parent hCard = FXMLLoader.load(getClass().getResource("View/buyHouse.fxml"));
@@ -649,16 +731,32 @@ public class Controller implements Initializable {
         houseP.showAndWait();
     }
 
+    // FOR TESTING
     public void houseAction(ActionEvent e) {
-        int diceRoll;
-
+        int diceRoll = 0;
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
         if (e.getSource() == houseRoll) {
-            diceRoll = (int) (Math.random() * (10) + 1);
+            diceRoll = players.get(counter).spin();
 
             houseRoll.setDisable(true);
             houseRoll.setVisible(false);
 
             //if else for odd or even pricing. dont forget setText on the labels
+            if (diceRoll % 2 == 0) {
+                mobileHomeLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[0]);
+                cabinLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[1]);
+                apartmentLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[2]);
+                condoLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[3]);
+                villaLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[4]);
+            } else {
+                mobileHomeLabel.setText("Price: $" + HouseCard.HOUSE_ODD[0]);
+                cabinLabel.setText("Price: $" + HouseCard.HOUSE_ODD[1]);
+                apartmentLabel.setText("Price: $" + HouseCard.HOUSE_ODD[2]);
+                condoLabel.setText("Price: $" + HouseCard.HOUSE_ODD[3]);
+                villaLabel.setText("Price: $" + HouseCard.HOUSE_ODD[4]);
+            }
 
             bMobileHome.setDisable(false);
             bCabin.setDisable(false);
@@ -666,35 +764,35 @@ public class Controller implements Initializable {
             bVilla.setDisable(false);
             bCondo.setDisable(false);
         } else if (e.getSource() == bMobileHome) {
-
+            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[0], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
         } else if (e.getSource() == bCabin) {
-
+            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[1], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
         } else if (e.getSource() == bApartment) {
-
+            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[2], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
         } else if (e.getSource() == bVilla) {
-
+            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[4], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
         } else if (e.getSource() == bCondo) {
-
+            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[3], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
@@ -706,7 +804,9 @@ public class Controller implements Initializable {
         houseCont.setDisable(false);
     }
 
-    //Path selection space stuff HERE ---------------------------
+    /*
+        Change career path Controllers (DONE)
+     */
     @FXML
     private Label forkLabel;
     @FXML
@@ -726,17 +826,23 @@ public class Controller implements Initializable {
 
     @FXML
     public void chosenAction(ActionEvent e) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        CareerCard c = b.getCareerDeck().drawCard();
+        SalaryCard s = b.getSalaryDeck().drawCard();
+
         if (e.getSource() == careerChange) {
 
-            //position update on game piece here
-            forkLabel.setText("Your new career is Engineer!\nSalary: 90000");
+            forkLabel.setText("Your new career is " + c.getName() + "!" + "\nSalary: $" + s.getSalary());
+            players.get(counter).jobSearch(c, s, b.getCareerDeck(), b.getSalaryDeck());
             careerChange.setVisible(false);
             careerChange.setDisable(true);
             continuePath.setVisible(false);
             continuePath.setDisable(true);
         } else if (e.getSource() == continuePath) {
 
-            //position update on game piece here
             forkLabel.setText("So I guess it's time to start a family huh");
             careerChange.setVisible(false);
             careerChange.setDisable(true);
@@ -753,13 +859,15 @@ public class Controller implements Initializable {
         actionP.close();
     }
 
-    //College choice stuff HERE --------------------------------
+    /*
+        College Career Choice Controllers Theoretically FUNCTIONAL
+     */
     @FXML
     private Label jobLabel1, jobLabel2, wageLabel1, wageLabel2;
     @FXML
     private Button career1, career2, salary1, salary2, showThem, collegeCont;
 
-    @FXML
+    @FXML // NOTE: Will be called when player lands on first magenta space
     public void chooseCareer() throws Exception {
         Stage pickP = new Stage();
         Parent pickCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
@@ -771,9 +879,26 @@ public class Controller implements Initializable {
         pickP.showAndWait();
     }
 
+    @FXML // FOR TESTING
     public void careerAction(ActionEvent e) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        CareerCard c1 = b.getCareerDeck().drawCard();
+        CareerCard c2 = b.getCareerDeck().drawCard();
+        SalaryCard s1 = b.getSalaryDeck().drawCard();
+        SalaryCard s2 = b.getSalaryDeck().drawCard();
+        System.out.println(c1);
+        System.out.println(c2);
+        System.out.println(s1);
+        System.out.println(s2);
+
         if(e.getSource() == showThem) {
-            //update label text
+            jobLabel1.setText(c1.getName());
+            jobLabel2.setText(c2.getName());
+            wageLabel1.setText(Integer.toString(s1.getSalary()));
+            wageLabel2.setText(Integer.toString(s2.getSalary()));
             showThem.setVisible(false);
 
             career1.setVisible(true);
@@ -782,25 +907,32 @@ public class Controller implements Initializable {
             salary2.setVisible(true);
         }
         else if(e.getSource() == career1) {
+            players.get(counter).receiveCareerCard(c1, c2, b.getCareerDeck());
             career1.setDisable(true);
             career2.setDisable(true);
         }
         else if(e.getSource() == career2) {
+            players.get(counter).receiveCareerCard(c2, c1, b.getCareerDeck());
             career1.setDisable(true);
             career2.setDisable(true);
         }
         else if(e.getSource() == salary1) {
+            players.get(counter).receiveSalaryCard(s1, s2, b.getSalaryDeck());
             salary1.setDisable(true);
             salary2.setDisable(true);
         }
         else if(e.getSource() == salary2) {
+            players.get(counter).receiveSalaryCard(s2, s1, b.getSalaryDeck());
             salary1.setDisable(true);
             salary2.setDisable(true);
         }
         collegeCont.setVisible(true);
     }
 
-    //Winner screen stuff HERE --------------------------------
+    /*
+        Winner Screen Controllers
+    */
+
     @FXML
     private Label winnerName, winnerCash, winnerMarriage, winnerKids;
     @FXML
@@ -830,7 +962,7 @@ public class Controller implements Initializable {
         }
     }    
         
-    @FXML
+    @FXML // FUNCTIONAL
     public void nextTurn() {
 
         if (model.getNumPlayers() == 2) {
@@ -860,13 +992,15 @@ public class Controller implements Initializable {
         nextPlayer.setDisable(true);
     }
 
-    //Have a baby stuff HERE ------------------------------------
+    /*
+        Have a baby Controllers (DONE)
+    */
     @FXML
     private Label babyLabel;
     @FXML
     private Button babyRoll, babyCollect, babyCont;
 
-    @FXML
+    @FXML // NOTE: this will be called on a magenta space
     public void getBaby() throws Exception {
         Stage babyP = new Stage();
         Parent babyCard = FXMLLoader.load(getClass().getResource("View/haveBaby.fxml"));
@@ -879,10 +1013,13 @@ public class Controller implements Initializable {
     }
 
     public void babyAction(ActionEvent e) {
-        int diceRoll;
+        int diceRoll = 0;
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
 
         if(e.getSource() == babyRoll) {
-            diceRoll = (int)(Math.random() * (2-1+1) + 1);
+            diceRoll = (int)(Math.random() * ((2-1)+1) + 1);
 
             babyRoll.setDisable(true);
             babyRoll.setVisible(false);
@@ -901,7 +1038,7 @@ public class Controller implements Initializable {
             }
         }
         else if(e.getSource() == babyCollect) {
-            //update money here
+            players.get(counter).haveBabies(diceRoll, players);
             babyCollect.setDisable(true);
             babyCollect.setVisible(false);
         }
@@ -910,7 +1047,7 @@ public class Controller implements Initializable {
     }    
     
     /*
-        Options Controllers (FUNCTIONAL)
+        Options Controllers (DONE)
     */
 
     @FXML

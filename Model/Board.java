@@ -68,7 +68,7 @@ public class Board {
 
         for (int i = 0; i < mainPath.length; i++) {
             if (mainPath[i] == null) {
-                mainPath[i] = new OrangeSpace(i);
+                mainPath[i] = new OrangeSpace(i); // Change back to OrangeSpace once testing is done <3
             }
         }
 
