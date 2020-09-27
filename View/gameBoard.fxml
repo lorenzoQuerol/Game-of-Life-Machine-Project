@@ -86,7 +86,7 @@
             <Font name="Impact" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="652.0" layoutY="520.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="180.0" text="Settle Bank Loans">
+      <Button fx:id="settleLoans" layoutX="652.0" layoutY="520.0" mnemonicParsing="false" onAction="#payMyLoans" prefHeight="32.0" prefWidth="180.0" text="Settle Bank Loans">
          <font>
             <Font name="Droid Serif Bold Italic" size="16.0" />
          </font>
@@ -170,5 +170,10 @@
       <Circle fx:id="gamePiece2" blendMode="SRC_ATOP" fill="DODGERBLUE" layoutX="319.0" layoutY="465.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: red;" />
       <Circle fx:id="gamePiece1" blendMode="SRC_ATOP" fill="DODGERBLUE" layoutX="352.0" layoutY="465.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: yellow;" />
       <Circle fx:id="gamePiece3" blendMode="SRC_ATOP" fill="DODGERBLUE" layoutX="339.0" layoutY="498.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="leaveGame" layoutX="752.0" layoutY="61.0" mnemonicParsing="false" onAction="#endGame" prefHeight="32.0" prefWidth="167.0" text="To Infinity and Beyond!" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="12.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

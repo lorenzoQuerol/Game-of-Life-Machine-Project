@@ -294,12 +294,29 @@ public class Controller implements Initializable {
     }
 
     /*
+        Game over controller
+    */
+
+    @FXML
+    private Button leaveGame;
+
+    @FXML
+    public void endGame() throws Exception {
+        Stage endStage = (Stage)leaveGame.getScene().getWindow();
+        Parent endView = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+
+        Scene endScene = new Scene(endView);
+        endStage.setScene(endScene);
+        endStage.show();
+    }
+    
+    /*
         Board proper controllers (DONE)
     */
     @FXML
     private Label diceLabel, nameLabel, moneyLabel, jobLabel, salaryLabel, houseLabel;
     @FXML
-    private Button rollSpin, nextPlayer, drawCard;
+    private Button rollSpin, nextPlayer, drawCard, settleLoans;
     @FXML
     private Rectangle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11, space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22, space23, space24, space25, space26, space27, space28, space29, space30, space31, space32, space33, space34, space35, space36, space37, space38, space39, space40, space41;
     @FXML
@@ -1253,7 +1270,60 @@ public class Controller implements Initializable {
 
                 break;
         }
+
+        // boolean gameFinish = true;
+        // if(gameFinish) {
+        //     leaveGame.setVisible(true);
+        //     nextPlayer.setDisable(true);
+        // }
+        // else {
+        //     nextPlayer.setDisable(false);
+        // }
+
         nextPlayer.setDisable(false);
+    }
+
+    public void payMyLoans(ActionEvent e) {
+        //update money here
+
+    }
+
+    //Winner screen stuff HERE --------------------------------
+    @FXML
+    private Label winnerName, winnerCash, winnerKids, secondName, secondCash, secondKids, thirdName, thirdCash, thirdKids;
+    @FXML
+    private Button winnerDone, showWinner;
+
+    @FXML
+    public void displayWinner() throws Exception {
+        Stage winnerP = new Stage();
+        Parent winnerCard = FXMLLoader.load(getClass().getResource("View/showStats.fxml"));
+
+        winnerP.initStyle(StageStyle.UNDECORATED);
+        winnerP.initModality(Modality.APPLICATION_MODAL);
+        winnerP.setScene(new Scene(winnerCard, 600, 400));
+        winnerP.setResizable(false);
+        winnerP.showAndWait();
+    }
+
+    @FXML
+    public void displayStats(ActionEvent e) {
+        if(e.getSource() == showWinner) {
+            winnerName.setText("Player Name: Enzo");
+            winnerCash.setText("Cash Remaining: $9000000");
+            winnerKids.setText("Children: 2");
+
+            secondName.setText("Player Name: Shirley");
+            secondCash.setText("Cash Remaining: $5500000");
+            secondKids.setText("Children: 2");
+
+            thirdName.setText("Player Name: Gian");
+            thirdCash.setText("Cash Remaining: $2750000");
+            thirdKids.setText("Children: 1");
+
+            showWinner.setVisible(false);
+            winnerDone.setVisible(true);
+        }
     }
 
 /*
