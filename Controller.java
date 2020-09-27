@@ -1256,6 +1256,36 @@ public class Controller implements Initializable {
         nextPlayer.setDisable(false);
     }
 
+/*
+    Retirement controllers
+*/
+
+    @FXML
+    private Label retirementPay, childPay, houseValue, myDebt;
+    @FXML
+    private Button retiredPlayer, retireCont;
+
+    @FXML
+    public void retireMyself() throws Exception {
+    Stage retP = new Stage();
+    Parent retCard = FXMLLoader.load(getClass().getResource("View/settleDown.fxml"));
+
+    retP.initStyle(StageStyle.UNDECORATED);
+    retP.initModality(Modality.APPLICATION_MODAL);
+    retP.setScene(new Scene(retCard, 600, 400));
+    retP.setResizable(false);
+    retP.showAndWait();
+    }
+
+    public void retireAction(ActionEvent e) {
+    if(e.getSource() == retiredPlayer) {
+
+        //collect money here, pay debt here, isRetired
+        retiredPlayer.setVisible(false);
+        retireCont.setVisible(true);
+        }
+    
+    }
   /*
         Action Card Controllers (DONE)
   */
