@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -309,38 +310,71 @@ public class Controller implements Initializable {
     private static int countP2 = 0;
     private static int countP3 = 0;
 
-    private static int stopPinkP1 = 10;
-    private static int stopPinkP2 = 10;
-    private static int stopPinkP3 = 10;
+    private static int stopPinkP1 = 0;
+    private static int stopPinkP2 = 0;
+    private static int stopPinkP3 = 0;
+
+    @FXML
+    public void updateValues (MouseEvent mouseEvent) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        nameLabel.setText(players.get(counter).getName());
+        moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
+
+        try {
+            jobLabel.setText(players.get(counter).getCareerCard().getName());
+            salaryLabel.setText(Integer.toString(players.get(counter).getSalaryCard().getSalary()));
+        } catch (NullPointerException e) {
+            jobLabel.setText("None");
+            salaryLabel.setText("None");
+        }
+
+        try {
+            houseLabel.setText((players.get(counter).getHouse().getName()));
+        } catch (NullPointerException e) {
+            houseLabel.setText("None");
+        }
+    }
 
     @FXML
     public void rollDice(ActionEvent event) {
+
         int diceRoll;
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         Board b = model.getB();
         int countMove;
-        
-        ActionDeck actionDeck = model.getB().getActionDeck();
-        BlueDeck blueDeck = model.getB().getBlueDeck();
-        CareerDeck careerDeck = model.getB().getCareerDeck();
-        SalaryDeck salaryDeck = model.getB().getSalaryDeck();
-        HouseDeck houseDeck = model.getB().getHouseDeck();
-        System.out.println(b.getCounter());
 
-        nameLabel.setText(players.get(counter).getName());
-        moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
-        try {
-            jobLabel.setText(players.get(counter).getCareerCard().getName());
-            salaryLabel.setText(Integer.toString(players.get(counter).getSalaryCard().computeSalary()));
-            houseLabel.setText((players.get(counter).getHouse().getName()));
-        } catch (NullPointerException e) {
-            jobLabel.setText("None");
-            salaryLabel.setText("None");
-            houseLabel.setText("None");
+        if (players.get(counter).getSpace() == 0 && players.get(counter).getCurrentPath().equals("mainPath")) {
+            stopPinkP1 = 8;
+            stopPinkP2 = 8;
+            stopPinkP3 = 8;
+        } else if (players.get(counter).getSpace() == 0 && players.get(counter).getCurrentPath().equals("careerPath")) {
+            stopPinkP1 = 15;
+            stopPinkP2 = 15;
+            stopPinkP3 = 15;
+        } else if (players.get(counter).getSpace() == 19 && players.get(counter).getCurrentPath().equals("changeCareerPath")) {
+            stopPinkP1 = 30;
+            stopPinkP2 = 30;
+            stopPinkP3 = 30;
+        } else if (players.get(counter).getSpace() == 19 && players.get(counter).getCurrentPath().equals("mainPath")) {
+            stopPinkP1 = 21;
+            stopPinkP2 = 21;
+            stopPinkP3 = 21;
         }
 
-        diceRoll = players.get(counter).spin();
+        ArrayList<ActionCard> actionDeck = model.getB().getActionDeck().getTemp();
+        ArrayList<BlueCard> blueDeck = model.getB().getBlueDeck().getTemp();
+        ArrayList<CareerCard> careerDeck = model.getB().getCareerDeck().getTemp();
+        ArrayList<SalaryCard> salaryDeck = model.getB().getSalaryDeck().getTemp();
+        ArrayList<HouseCard> houseDeck = model.getB().getHouseDeck().getTemp();
+
+        System.out.println(b.getCounter());
+
+        diceRoll = 1;
+//        diceRoll = players.get(counter).spin();
         diceLabel.setText(Integer.toString(diceRoll));
 
         countMove = 0; // takes the current value of the current player's moves
@@ -372,24 +406,21 @@ public class Controller implements Initializable {
                 countP3 = stopPinkP3;
             }
         }
-
+        System.out.println("Count move: " + countMove);
         if(countMove <= 41) {
             switch(countMove) {
                 case 1:
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
                         gamePiece1.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
                         gamePiece2.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
                         gamePiece3.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
-                        stopPinkP3 = 15;
                     }
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){ // UNDER TESTING
                         gamePiece1.setLayoutX(space1a.getLayoutX() + (space1a.getWidth() / 2));
@@ -408,17 +439,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
                         gamePiece1.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
                         gamePiece2.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
                         gamePiece3.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space2a.getLayoutX() + (space2a.getWidth() / 2));
@@ -437,17 +465,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
                         gamePiece1.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
                         gamePiece2.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
                         gamePiece3.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space3a.getLayoutX() + (space3a.getWidth() / 2));
@@ -466,17 +491,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
                         gamePiece1.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
                         gamePiece2.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
                         gamePiece3.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space4a.getLayoutX() + (space4a.getWidth() / 2));
@@ -495,17 +517,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
                         gamePiece1.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
                         gamePiece2.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
                         gamePiece3.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space5a.getLayoutX() + (space5a.getWidth() / 2));
@@ -524,17 +543,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
                         gamePiece1.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
                         gamePiece2.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
                         gamePiece3.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space6a.getLayoutX() + (space6a.getWidth() / 2));
@@ -553,17 +569,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
                         gamePiece1.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
                         gamePiece2.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
                         gamePiece3.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
-                        stopPinkP3 = 15;
                     } //UNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTINGUNDER TESTING
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space7a.getLayoutX() + (space7a.getWidth() / 2));
@@ -582,17 +595,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
                         gamePiece1.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
                         gamePiece2.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
                         gamePiece3.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
-                        stopPinkP3 = 15;
                     }
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space8a.getLayoutX() + (space8a.getWidth() / 2));
@@ -611,37 +621,55 @@ public class Controller implements Initializable {
                     }
                     break;
                 case 9:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("careerPath"))){
                         gamePiece1.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
                         gamePiece1.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece2.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
                         gamePiece2.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("careerPath"))) {
                         gamePiece3.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
                         gamePiece3.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
-                        stopPinkP3 = 15;
+                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece1.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece1.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece2.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece3.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
                     }
                     break;
                 case 10:
                     if(b.getCounter()  == 0){
                         gamePiece1.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
                         gamePiece1.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
-                        stopPinkP1 = 15;
                     }
                     else if(b.getCounter()  == 1) {
                         gamePiece2.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
                         gamePiece2.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
-                        stopPinkP2 = 15;
                     }
                     else if(b.getCounter()  == 2) {
                         gamePiece3.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
                         gamePiece3.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
-                        stopPinkP3 = 15;
+                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece1.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece1.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece2.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece3.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
                     }
                     break;
                 case 11:
@@ -760,247 +788,247 @@ public class Controller implements Initializable {
                     }
                     break;
                 case 19:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
                         stopPinkP1 = 30;
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
                         stopPinkP2 = 30;
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
                         stopPinkP3 = 30;
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-//                        stopPinkP1 = 21;
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-//                        stopPinkP2 = 21;
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-//                        stopPinkP3 = 21;
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP1 = 21;
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP2 = 21;
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP3 = 21;
+                    }
                     break;
                 case 20:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
                         gamePiece1.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
                         gamePiece2.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
                         gamePiece3.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+                    }
                     break;
                 case 21:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
                         gamePiece1.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
                         gamePiece2.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
                         gamePiece3.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
-//                        stopPinkP1 = 30;
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space21.getLayoutX() + (space21a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space21.getLayoutY() + (space21a.getHeight() / 2));
-//                        stopPinkP2 = 30;
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
-//                        stopPinkP3 = 30;
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
+                        stopPinkP1 = 30;
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
+                        stopPinkP2 = 30;
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
+                        stopPinkP3 = 30;
+                    }
                     break;
                 case 22:
-                    if(b.getCounter()  == 0) {
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece1.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
                         gamePiece1.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
                         gamePiece2.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
                         gamePiece3.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0) {
-//                        gamePiece1.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece1.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+                    }
                     break;
                 case 23:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
                         gamePiece1.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
                         gamePiece2.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
                         gamePiece3.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+                    }
                     break;
                 case 24:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
                         gamePiece1.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
                         gamePiece2.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
                         gamePiece3.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+                    }
                     break;
                 case 25:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
                         gamePiece1.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
                         gamePiece2.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
                         gamePiece3.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+                    }
                     break;
                 case 26:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
                         gamePiece1.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
                         gamePiece2.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
                         gamePiece3.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+                    }
                     break;
                 case 27:
-                    if(b.getCounter()  == 0){
+                    if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
                         gamePiece1.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 1) {
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
                         gamePiece2.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
                     }
-                    else if(b.getCounter()  == 2) {
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
                         gamePiece3.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
                     }
-//                    else if(b.getCounter()  == 0){
-//                        gamePiece1.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
-//                        gamePiece1.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 1) {
-//                        gamePiece2.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
-//                        gamePiece2.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
-//                    }
-//                    else if(b.getCounter()  == 2) {
-//                        gamePiece3.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
-//                        gamePiece3.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
-//                    }
+                    else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
+                        gamePiece1.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+                        gamePiece1.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece2.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+                        gamePiece2.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+                    }
+                    else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("mainPath"))) {
+                        gamePiece3.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+                        gamePiece3.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+                    }
                     break;
                 case 28:
                     if(b.getCounter()  == 0){
@@ -1207,11 +1235,12 @@ public class Controller implements Initializable {
             }
         }
 
-        nextPlayer.setDisable(false);
+        nextPlayer.setDisable(true);
         rollSpin.setDisable(true);
         drawCard.setDisable(false);
         //should contain move instructions for pieces
-        players.get(counter).setSpaceType(model.getB().takeTurn(players.get(counter), diceRoll, event, actionDeck, careerDeck, blueDeck, salaryDeck, houseDeck));
+        players.get(counter).setSpaceType(b.takeTurn(players.get(counter), diceRoll));
+        System.out.println(players.get(counter).getSpaceType());
     }
 
     @FXML
@@ -1245,10 +1274,13 @@ public class Controller implements Initializable {
                         break;
                     case 19:
                         chooseAgain();
+                        break;
                     case 21:
                         getMarried();
+                        break;
                     case 30:
                         getBaby();
+                        break;
                     case 33:
                         buyHouse();
                         break;
@@ -1295,7 +1327,7 @@ public class Controller implements Initializable {
     @FXML
     private Label actionLabel;
     @FXML
-    private Button actionDone, actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
+    private Button actionDone, actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank, collectMoney;
 
     @FXML // FUNCTIONAL
     public void openAction() throws Exception {
@@ -1317,11 +1349,12 @@ public class Controller implements Initializable {
         int counter = model.getB().getCounter();
         Board b = model.getB();
 
-        ActionCard actionCard = b.getActionDeck().getDeck().peek();
+        ActionCard actionCard = b.getActionDeck().getTemp().get(b.getActionDeck().getTemp().size()-1);
         System.out.println(actionCard);
 
         if (event.getSource() == actionDraw) {
             actionDraw.setVisible(false);
+            actionLabel.setText(actionCard.getActionType());
             switch (actionCard.getName()) {
                     case "Collect From Bank":
                         actionLabel.setText(actionCard.getName());
@@ -1331,7 +1364,7 @@ public class Controller implements Initializable {
                         collectBank.setVisible(false);
                         collectBank.setDisable(true);
 
-                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
+                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                         actionLabel.setText(actionCard.getActionType() + "! Collect $" + actionCard.getPayAmount());
                         actionDone.setVisible(true);
                         actionDone.setDisable(false);
@@ -1345,42 +1378,81 @@ public class Controller implements Initializable {
                         payBank.setVisible(false);
                         payBank.setDisable(true);
 
-                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
+                        players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                         actionLabel.setText(actionCard.getActionType() + "! Pay $" + (-1 * actionCard.getPayAmount()));
                         actionDone.setVisible(true);
                         actionDone.setDisable(false);
                         break;
 
                     case "Collect from Player":
-                    case "Pay the Player":
-                        if (model.getNumPlayers() == 2) {
-                            if (b.getCounter() == 0) {
-                                collectPlayer1.setVisible(false);
-                                collectPlayer1.setDisable(true);
-                                collectPlayer2.setVisible(true);
-                                collectPlayer2.setDisable(false);
-                            } else {
-                                collectPlayer1.setVisible(true);
-                                collectPlayer1.setDisable(false);
-                                collectPlayer2.setVisible(false);
-                                collectPlayer2.setDisable(true);
-                            }
+                        if (actionCard.getActionType().equals("It's your Birthday!")) {
+                            players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+                            actionLabel.setText(actionCard.getActionType() + " Everyone pays you $" + (actionCard.getPayAmount()));
+                            actionDone.setVisible(true);
                         } else {
+                            if (model.getNumPlayers() == 2) {
+                                if (b.getCounter() == 0) {
+                                    payPlayer1.setVisible(false);
+                                    payPlayer2.setVisible(false);
+                                    collectPlayer1.setVisible(false);
+                                    collectPlayer2.setVisible(true);
+                                    actionDone.setVisible(false);
+                                } else {
+                                    payPlayer1.setVisible(false);
+                                    payPlayer2.setVisible(false);
+                                    collectPlayer1.setVisible(true);
+                                    collectPlayer2.setVisible(false);
+                                    actionDone.setVisible(false);
+                                }
+                            } else if (model.getNumPlayers() == 3) {
                                 collectPlayer1.setVisible(true);
-                                collectPlayer1.setDisable(false);
                                 collectPlayer2.setVisible(true);
-                                collectPlayer2.setDisable(false);
                                 actionDone.setVisible(false);
-                                actionDone.setDisable(true);
+                            }
+                        }
+                    case "Pay the Player":
+                        if (actionCard.getActionType().equals("Christmas Bonus")) {
+                            players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+                            actionLabel.setText(actionCard.getActionType() + "! Pay everyone $" + (-1 * actionCard.getPayAmount()));
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
+                        } else {
+                            if (model.getNumPlayers() == 2) {
+                                if (b.getCounter() == 0) {
+                                    collectPlayer1.setVisible(false);
+                                    collectPlayer2.setVisible(false);
+                                    payPlayer1.setVisible(false);
+                                    payPlayer2.setVisible(true);
+                                    actionDone.setVisible(false);
+                                } else {
+                                    collectPlayer1.setVisible(false);
+                                    collectPlayer2.setVisible(false);
+                                    payPlayer1.setVisible(true);
+                                    payPlayer2.setVisible(false);
+                                    actionDone.setVisible(false);
+                                }
+                            } else if (model.getNumPlayers() == 3) {
+                                collectPlayer1.setVisible(false);
+                                collectPlayer2.setVisible(false);
+                                payPlayer1.setVisible(true);
+                                payPlayer2.setVisible(true);
+                                actionDone.setVisible(false);
+                            }
                         }
             }
 
         } else {
-            actionLabel.setText(actionCard.getName());
+            actionLabel.setText(actionCard.getActionType());
             if (model.getNumPlayers() == 2) {
-                if (event.getSource().equals(collectPlayer1) || event.getSource().equals(collectPlayer2)) {
-                    players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().drawCard(), players);
-                    if (b.getCounter() == 0 && actionCard.getName() == "Collect from Player") {
+                if (event.getSource().equals(payPlayer1) || event.getSource().equals(payPlayer2)) {
+                    payPlayer1.setVisible(false);
+                    payPlayer2.setVisible(false);
+                    if (b.getCounter() == 0)
+                        players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+                    else
+                        players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+
+                    if (b.getCounter() == 0 && actionCard.getName().equals("Pay to Player")) {
                         if (b.getCounter() == 0) {
                             actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                         } else {
@@ -1394,7 +1466,7 @@ public class Controller implements Initializable {
                         }
                     }
 
-                    collectPlayer1.setDisable(true);
+                    payPlayer1.setDisable(true);
                     actionDone.setVisible(true);
                     actionDone.setDisable(false);
                 }
@@ -1402,21 +1474,23 @@ public class Controller implements Initializable {
                 switch (b.getCounter()) {
                     case 0:
                         if (event.getSource().equals(collectPlayer1)) {
-                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().drawCard(), players);
+                            collectPlayer1.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
                             actionDone.setDisable(false);
                         } else if (event.getSource().equals(collectPlayer2)) {
-                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().drawCard(), players);
+                            collectPlayer2.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount()  + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
@@ -1425,21 +1499,23 @@ public class Controller implements Initializable {
                         break;
                     case 1:
                         if (event.getSource().equals(collectPlayer1)) {
-                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().drawCard(), players);
+                            collectPlayer1.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
                             actionDone.setDisable(false);
                         } else if (event.getSource().equals(collectPlayer2)) {
-                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().drawCard(), players);
+                            collectPlayer2.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(2), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
@@ -1448,21 +1524,23 @@ public class Controller implements Initializable {
                         break;
                     case 2:
                         if (event.getSource().equals(collectPlayer1)) {
-                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().drawCard(), players);
+                            collectPlayer1.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + actionCard.getPayAmount() + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
                             actionDone.setDisable(false);
                         } else if (event.getSource().equals(collectPlayer2)) {
-                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().drawCard(), players);
+                            collectPlayer2.setVisible(false);
+                            players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             if (actionCard.getName() == "Collect from Player")
                                 actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
                             else
-                                actionLabel.setText("You have paid " + actionCard.getPayAmount() + " to " + players.get(1).getName() + "!");
+                                actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
                             collectPlayer1.setVisible(false);
                             collectPlayer2.setVisible(false);
                             actionDone.setVisible(true);
@@ -1703,34 +1781,39 @@ public class Controller implements Initializable {
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         Board b = model.getB();
+        ArrayList<CareerCard> cd = b.getCareerDeck().getTemp();
+        ArrayList<SalaryCard> sd = b.getSalaryDeck().getTemp();
 
-        CareerCard c = b.getCareerDeck().getDeck().peek();
-        SalaryCard s = b.getSalaryDeck().getDeck().peek();
+        CareerCard c = cd.get(cd.size()-1);
+        SalaryCard s = sd.get(sd.size()-1);
 
         if (e.getSource() == jobDraw) {
-
+            jobDone.setVisible(false);
             jobDescription.setText(c.getName());
             salaryDescription.setText(Integer.toString(s.getSalary()));
-
+            jobDraw.setVisible(false);
+            jobDraw.setDisable(true);
             bChange.setDisable(false);
             bRetain.setDisable(false);
         } else if (e.getSource() == bRetain) {
 
             bChange.setDisable(true);
             bRetain.setDisable(true);
+            jobDone.setVisible(true);
+            jobDone.setDisable(false);
         } else if (e.getSource() == bChange) {
 
             // set method to update values here
-            players.get(counter).jobSearch(b.getCareerDeck().drawCard(), b.getSalaryDeck().drawCard(), b.getCareerDeck(), b.getSalaryDeck());
             bChange.setDisable(true);
             bRetain.setDisable(true);
+            jobDone.setVisible(true);
+            jobDone.setDisable(false);
+            players.get(counter).jobSearch(cd.remove(cd.size()-1), sd.remove(sd.size()-1), cd, sd);
         }
-        jobDone.setVisible(true);
-        jobDone.setDisable(false);
     }
 
     /*
-         Buy a House Controllers (DONE)
+         Buy a House Controllers (DONE AND FUNCTIONAL)
     */
     @FXML
     private Label mobileHomeLabel, cabinLabel, apartmentLabel, villaLabel, condoLabel;
@@ -1854,23 +1937,23 @@ public class Controller implements Initializable {
         if (e.getSource() == careerChange) {
 
             forkLabel.setText("Your new career is " + c.getName() + "!" + "\nSalary: $" + s.getSalary());
-            players.get(counter).jobSearch(c, s, b.getCareerDeck(), b.getSalaryDeck());
+            players.get(counter).jobSearch(c, s, b.getCareerDeck().getTemp(), b.getSalaryDeck().getTemp());
             players.get(counter).setCurrentPath("changeCareerPath");
             players.get(counter).setSpace(0);
             careerChange.setVisible(false);
-            careerChange.setDisable(true);
             continuePath.setVisible(false);
-            continuePath.setDisable(true);
+
+            forkContinue.setVisible(true);
+            forkContinue.setDisable(false);
         } else if (e.getSource() == continuePath) {
 
             forkLabel.setText("So I guess it's time to start a family huh");
             careerChange.setVisible(false);
-            careerChange.setDisable(true);
             continuePath.setVisible(false);
-            continuePath.setDisable(true);
+
+            forkContinue.setVisible(true);
+            forkContinue.setDisable(false);
         }
-        forkContinue.setVisible(true);
-        forkContinue.setDisable(false);
     }
 
     @FXML //FUNCTIONAL
@@ -1907,20 +1990,11 @@ public class Controller implements Initializable {
         int counter = b.getCounter();
 
         if(e.getSource() == showThem) {
-            CareerCard c2 = b.getCareerDeck().getDeck().peek();
-            CareerCard tempC = b.getCareerDeck().drawCard();
-            CareerCard c1 = b.getCareerDeck().getDeck().peek();
-            b.getCareerDeck().getDeck().addLast(tempC);
+            CareerCard c1 = b.getCareerDeck().getTemp().get(b.getCareerDeck().getTemp().size()-1);
+            CareerCard c2 = b.getCareerDeck().getTemp().get(b.getCareerDeck().getTemp().size()-2);
 
-            SalaryCard s2 = b.getSalaryDeck().getDeck().peek();
-            SalaryCard tempS = b.getSalaryDeck().drawCard();
-            SalaryCard s1 = b.getSalaryDeck().getDeck().peek();
-            b.getSalaryDeck().getDeck().addLast(tempS);
-
-            System.out.println(c1);
-            System.out.println(s1);
-            System.out.println(c2);
-            System.out.println(s2);
+            SalaryCard s1 = b.getSalaryDeck().getTemp().get(b.getSalaryDeck().getTemp().size()-1);
+            SalaryCard s2 = b.getSalaryDeck().getTemp().get(b.getSalaryDeck().getTemp().size()-2);
 
             jobLabel1.setText(c1.getName());
             wageLabel1.setText(Integer.toString(s1.getSalary()));
@@ -1934,30 +2008,30 @@ public class Controller implements Initializable {
             salary2.setVisible(true);
         }
         else if(e.getSource() == career1) {
-            CareerCard c1 = b.getCareerDeck().drawCard();
-            CareerCard c2 = b.getCareerDeck().drawCard();
+            CareerCard c1 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
+            CareerCard c2 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
             players.get(counter).receiveCareerCard(c1, c2, b.getCareerDeck());
             career1.setDisable(true);
             career2.setDisable(true);
         }
         else if(e.getSource() == career2) {
-            CareerCard c1 = b.getCareerDeck().drawCard();
-            CareerCard c2 = b.getCareerDeck().drawCard();
-            players.get(counter).receiveCareerCard(c1, c2, b.getCareerDeck());
+            CareerCard c1 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
+            CareerCard c2 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
+            players.get(counter).receiveCareerCard(c2, c1, b.getCareerDeck());
             career1.setDisable(true);
             career2.setDisable(true);
         }
         else if(e.getSource() == salary1) {
-            SalaryCard s1 = b.getSalaryDeck().drawCard();
-            SalaryCard s2 = b.getSalaryDeck().drawCard();
+            SalaryCard s1 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
+            SalaryCard s2 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
             players.get(counter).receiveSalaryCard(s1, s2, b.getSalaryDeck());
             salary1.setDisable(true);
             salary2.setDisable(true);
         }
         else if(e.getSource() == salary2) {
-            SalaryCard s1 = b.getSalaryDeck().drawCard();
-            SalaryCard s2 = b.getSalaryDeck().drawCard();
-            players.get(counter).receiveSalaryCard(s1, s2, b.getSalaryDeck());
+            SalaryCard s1 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
+            SalaryCard s2 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
+            players.get(counter).receiveSalaryCard(s2, s1, b.getSalaryDeck());
             salary1.setDisable(true);
             salary2.setDisable(true);
         }
@@ -1999,15 +2073,20 @@ public class Controller implements Initializable {
         
     @FXML // FUNCTIONAL
     public void nextTurn() {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
         if (model.getNumPlayers() == 2) {
             if (model.getB().getCounter() == 1) {
                 model.getB().setCounter(0);
                 nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
                 moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+
             } else {
                 model.getB().setCounter(model.getB().getCounter() + 1);
                 nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
                 moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+
             }
 
         } else if (model.getNumPlayers() == 3) {
@@ -2015,10 +2094,12 @@ public class Controller implements Initializable {
                 model.getB().setCounter(0);
                 nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
                 moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+
             } else {
                 model.getB().setCounter(model.getB().getCounter() + 1);
                 nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
                 moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
+
             }
         }
 

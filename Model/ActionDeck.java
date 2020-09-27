@@ -30,8 +30,8 @@ public class ActionDeck extends Deck<ActionCard> {
         int tenPercent = (int) (amount * 0.1);
 
         for(int i = 0; i < fortyPercent; i++) {
-            temp.add(new ActionCard(ActionCard.ACTIONCARD[0]));
-            temp.add(new ActionCard(ActionCard.ACTIONCARD[1]));
+            temp.add(new ActionCard(ActionCard.ACTIONCARD[2]));
+            temp.add(new ActionCard(ActionCard.ACTIONCARD[3]));
         }
 
         for(int j = 0; j < tenPercent; j++) {
@@ -143,14 +143,5 @@ public class ActionDeck extends Deck<ActionCard> {
         */
         Collections.shuffle(temp);
         Collections.shuffle(temp);
-
-        for (ActionCard card: temp)
-            deck.push(card);
-
-        /*
-        This is necessary to reset the temporary array list before generating a new
-        deck of action cards in the future.
-        */
-        temp.clear();
     }
 }

@@ -22,11 +22,6 @@ public class SalaryDeck extends Deck<SalaryCard> {
 
         Collections.shuffle(temp);
         Collections.shuffle(temp);
-
-        for (SalaryCard card: temp) 
-            deck.push(card);
-
-        temp.clear();
     }
 }
 
