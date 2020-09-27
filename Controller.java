@@ -274,7 +274,7 @@ public class Controller implements Initializable {
     @FXML
     private Label actionLabel;
     @FXML
-    private Button actionDraw, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
+    private Button actionDraw, actionDone, payPlayer1, payPlayer2, collectPlayer1, collectPlayer2, payBank, collectBank;
 
     @FXML // FUNCTIONAL
     public void openAction() throws Exception {
