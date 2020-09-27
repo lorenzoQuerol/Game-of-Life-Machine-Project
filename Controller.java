@@ -111,8 +111,13 @@ public class Controller implements Initializable {
         Start Game Controllers (DONE)
     */
 
+
+    @FXML private Button startGame, player1p, player2p, P3_player2p, player3p, player1Job, player2Job, player3Job;
+    @FXML private TextField textFieldP1, textFieldP2, textFieldP3;
+=======
     @FXML
     private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
+
 
     @FXML
     public void gameStart() throws Exception {
@@ -132,6 +137,58 @@ public class Controller implements Initializable {
     }
 
     @FXML
+
+    public void secondPlayer(ActionEvent e) throws Exception {
+        if(e.getSource() == player1Job) {
+            Stage chooseP = new Stage();
+            Parent chooseCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
+
+            chooseP.initStyle(StageStyle.UNDECORATED);
+            chooseP.initModality(Modality.APPLICATION_MODAL);
+            chooseP.setScene(new Scene(chooseCard, 600, 400));
+            chooseP.setResizable(false);
+            chooseP.showAndWait();
+
+            Stage boardStage = (Stage)player1p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath2.fxml"));
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
+        else {
+            Stage boardStage = (Stage)player1p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath2.fxml"));
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
+    }
+
+    @FXML
+    public void thirdPlayer(ActionEvent e) throws Exception {
+        if(e.getSource() == player2Job) {
+            Stage chooseP = new Stage();
+            Parent chooseCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
+
+            chooseP.initStyle(StageStyle.UNDECORATED);
+            chooseP.initModality(Modality.APPLICATION_MODAL);
+            chooseP.setScene(new Scene(chooseCard, 600, 400));
+            chooseP.setResizable(false);
+            chooseP.showAndWait();
+
+            Stage boardStage = (Stage)player2p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath3.fxml"));
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
+        else {
+            Stage boardStage = (Stage)player2p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/playerPath3.fxml"));
+
     public void secondPlayer(ActionEvent event) throws Exception {
 
         if (event.getSource().equals(P1_mainPath))
@@ -183,13 +240,38 @@ public class Controller implements Initializable {
         Stage boardStage = (Stage) P2_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
-        Scene boardScene = new Scene(boardView);
-        boardStage.setScene(boardScene);
-        boardStage.show();
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
     }
 
     // this accepts from third player
     @FXML
+
+    public void displayBoard(ActionEvent e) throws Exception {
+        if(e.getSource() == player3Job) {
+            Stage chooseP = new Stage();
+            Parent chooseCard = FXMLLoader.load(getClass().getResource("View/collegeChoice.fxml"));
+
+            chooseP.initStyle(StageStyle.UNDECORATED);
+            chooseP.initModality(Modality.APPLICATION_MODAL);
+            chooseP.setScene(new Scene(chooseCard, 600, 400));
+            chooseP.setResizable(false);
+            chooseP.showAndWait();
+
+            Stage boardStage = (Stage)player3p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
+        else {
+            Stage boardStage = (Stage)player3p.getScene().getWindow();
+            Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
+
     public void copy_displayBoard(ActionEvent event) throws Exception {
 
         if (event.getSource().equals(P3_mainPath))
@@ -204,23 +286,44 @@ public class Controller implements Initializable {
         Stage boardStage = (Stage) P3_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
-        Scene boardScene = new Scene(boardView);
-        boardStage.setScene(boardScene);
-        boardStage.show();
+
+            Scene boardScene = new Scene(boardView);
+            boardStage.setScene(boardScene);
+            boardStage.show();
+        }
     }
 
     /*
         Board proper controllers (DONE)
     */
-
     @FXML
     private Label diceLabel, nameLabel, moneyLabel, jobLabel, salaryLabel, houseLabel;
     @FXML
-    private Button rollSpin, nextPlayer, drawCard, actionDone;
+    private Button rollSpin, nextPlayer, drawCard;
+    @FXML
+    private Rectangle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11, space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22, space23, space24, space25, space26, space27, space28, space29, space30, space31, space32, space33, space34, space35, space36, space37, space38, space39, space40, space41;
+    @FXML
+    private Rectangle space1a, space2a, space3a, space4a, space5a, space6a, space7a, space8a, space20a, space21a, space22a, space23a, space24a, space25a, space26a, space27a;
+    @FXML
+    private Circle gamePiece1, gamePiece2, gamePiece3;
+
+    private static int countP1 = 0;
+    private static int countP2 = 0;
+    private static int countP3 = 0;
+
+    private static int stopPinkP1 = 10;
+    private static int stopPinkP2 = 10;
+    private static int stopPinkP3 = 10;
+
+    private static int ctr = 0;
+
 
     @FXML
     public void rollDice(ActionEvent event) {
         int diceRoll;
+        int countMove;
+        diceRoll = (int)(Math.random() * (10 - 1 + 1) + 1);
+
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         ActionDeck actionDeck = model.getB().getActionDeck();
@@ -233,14 +336,897 @@ public class Controller implements Initializable {
         moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
 
         diceRoll = players.get(counter).spin();
+
         diceLabel.setText(Integer.toString(diceRoll));
+
+        countMove = 0;
+
+        if(ctr == 0) {
+            countMove = countP1;
+            countMove += diceRoll;
+            countP1 += diceRoll;
+//            if(countMove >= stopPinkP1 && player path is college path) {
+//                countMove = stopPinkP1;
+//                countP1 = stopPinkP1;
+//            }
+            if(countMove >= stopPinkP1) {
+                countMove = stopPinkP1;
+                countP1 = stopPinkP1;
+            }
+        }
+        else if(ctr == 1) {
+            countMove = countP2;
+            countMove += diceRoll;
+            countP2 += diceRoll;
+//            if(countMove >= stopPinkP2 && player path is college path) {
+//                countMove = stopPinkP2;
+//                countP2 = stopPinkP2;
+//            }
+            if(countMove >= stopPinkP2) {
+                countMove = stopPinkP2;
+                countP2 = stopPinkP2;
+            }
+        }
+        else if(ctr == 2) {
+            countMove = countP3;
+            countMove += diceRoll;
+            countP3 += diceRoll;
+//            if(countMove >= stopPinkP3 && player path is college path) {
+//                countMove = stopPinkP3;
+//                countP3 = stopPinkP3;
+//            }
+            if(countMove >= stopPinkP3) {
+                countMove = stopPinkP3;
+                countP3 = stopPinkP3;
+            }
+        }
+
+        if(countMove <= 41) {
+            switch(countMove) {
+                case 1:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
+                        gamePiece1.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
+                        gamePiece2.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space1.getLayoutX() + (space1.getWidth() / 2));
+                        gamePiece3.setLayoutY(space1.getLayoutY() + (space1.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0 && player path is college path){
+//                        gamePiece1.setLayoutX(space1a.getLayoutX() + (space1a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space1a.getLayoutY() + (space1a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1 && player path is college path) {
+//                        gamePiece2.setLayoutX(space1a.getLayoutX() + (space1a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space1a.getLayoutY() + (space1a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2 && player path is college path) {
+//                        gamePiece3.setLayoutX(space1a.getLayoutX() + (space1a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space1a.getLayoutY() + (space1a.getHeight() / 2));
+//                    }
+                    break;
+                case 2:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
+                        gamePiece1.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
+                        gamePiece2.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space2.getLayoutX() + (space2.getWidth() / 2));
+                        gamePiece3.setLayoutY(space2.getLayoutY() + (space2.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space2a.getLayoutX() + (space2a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space2a.getLayoutY() + (space2a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space2a.getLayoutX() + (space2a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space2a.getLayoutY() + (space2a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space2a.getLayoutX() + (space2a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space2a.getLayoutY() + (space2a.getHeight() / 2));
+//                    }
+                    break;
+                case 3:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
+                        gamePiece1.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
+                        gamePiece2.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space3.getLayoutX() + (space3.getWidth() / 2));
+                        gamePiece3.setLayoutY(space3.getLayoutY() + (space3.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                   else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space3a.getLayoutX() + (space3a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space3a.getLayoutY() + (space3a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space3a.getLayoutX() + (space3a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space3a.getLayoutY() + (space3a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space3a.getLayoutX() + (space3a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space3a.getLayoutY() + (space3a.getHeight() / 2));
+//                    }
+                    break;
+                case 4:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
+                        gamePiece1.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
+                        gamePiece2.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space4.getLayoutX() + (space4.getWidth() / 2));
+                        gamePiece3.setLayoutY(space4.getLayoutY() + (space4.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space4a.getLayoutX() + (space4a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space4a.getLayoutY() + (space4a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space4a.getLayoutX() + (space4a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space4a.getLayoutY() + (space4a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space4a.getLayoutX() + (space4a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space4a.getLayoutY() + (space4a.getHeight() / 2));
+//                    }
+                    break;
+                case 5:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
+                        gamePiece1.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
+                        gamePiece2.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space5.getLayoutX() + (space5.getWidth() / 2));
+                        gamePiece3.setLayoutY(space5.getLayoutY() + (space5.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space5a.getLayoutX() + (space5a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space5a.getLayoutY() + (space5a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space5a.getLayoutX() + (space5a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space5a.getLayoutY() + (space5a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space5a.getLayoutX() + (space5a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space5a.getLayoutY() + (space5a.getHeight() / 2));
+//                    }
+                    break;
+                case 6:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
+                        gamePiece1.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
+                        gamePiece2.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space6.getLayoutX() + (space6.getWidth() / 2));
+                        gamePiece3.setLayoutY(space6.getLayoutY() + (space6.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space6a.getLayoutX() + (space6a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space6a.getLayoutY() + (space6a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space6a.getLayoutX() + (space6a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space6a.getLayoutY() + (space6a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space6a.getLayoutX() + (space6a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space6a.getLayoutY() + (space6a.getHeight() / 2));
+//                    }
+                    break;
+                case 7:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
+                        gamePiece1.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
+                        gamePiece2.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space7.getLayoutX() + (space7.getWidth() / 2));
+                        gamePiece3.setLayoutY(space7.getLayoutY() + (space7.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space7a.getLayoutX() + (space7a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space7a.getLayoutY() + (space7a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space7a.getLayoutX() + (space7a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space7a.getLayoutY() + (space7a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space7a.getLayoutX() + (space7a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space7a.getLayoutY() + (space7a.getHeight() / 2));
+//                    }
+                    break;
+                case 8:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
+                        gamePiece1.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
+                        gamePiece2.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space8.getLayoutX() + (space8.getWidth() / 2));
+                        gamePiece3.setLayoutY(space8.getLayoutY() + (space8.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space8a.getLayoutX() + (space8a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space8a.getLayoutY() + (space8a.getHeight() / 2));
+//                        stopPinkP1 = 15;
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space8a.getLayoutX() + (space8a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space8a.getLayoutY() + (space8a.getHeight() / 2));
+//                        stopPinkP2 = 15;
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space8a.getLayoutX() + (space8a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space8a.getLayoutY() + (space8a.getHeight() / 2));
+//                        stopPinkP3 = 15;
+//                    }
+                    break;
+                case 9:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece1.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece2.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space9.getLayoutX() + (space9.getWidth() / 2));
+                        gamePiece3.setLayoutY(space9.getLayoutY() + (space9.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+                    break;
+                case 10:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece1.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
+                        stopPinkP1 = 15;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece2.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
+                        stopPinkP2 = 15;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space10.getLayoutX() + (space10.getWidth() / 2));
+                        gamePiece3.setLayoutY(space10.getLayoutY() + (space10.getHeight() / 2));
+                        stopPinkP3 = 15;
+                    }
+                    break;
+                case 11:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space11.getLayoutX() + (space11.getWidth() / 2));
+                        gamePiece1.setLayoutY(space11.getLayoutY() + (space11.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space11.getLayoutX() + (space11.getWidth() / 2));
+                        gamePiece2.setLayoutY(space11.getLayoutY() + (space11.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space11.getLayoutX() + (space11.getWidth() / 2));
+                        gamePiece3.setLayoutY(space11.getLayoutY() + (space11.getHeight() / 2));
+                    }
+                    break;
+                case 12:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space12.getLayoutX() + (space12.getWidth() / 2));
+                        gamePiece1.setLayoutY(space12.getLayoutY() + (space12.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space12.getLayoutX() + (space12.getWidth() / 2));
+                        gamePiece2.setLayoutY(space12.getLayoutY() + (space12.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space12.getLayoutX() + (space12.getWidth() / 2));
+                        gamePiece3.setLayoutY(space12.getLayoutY() + (space12.getHeight() / 2));
+                    }
+                    break;
+                case 13:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space13.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece1.setLayoutY(space13.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space13.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece2.setLayoutY(space13.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space13.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece3.setLayoutY(space13.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    break;
+                case 14:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space14.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece1.setLayoutY(space14.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space14.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece2.setLayoutY(space14.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space14.getLayoutX() + (space14.getWidth() / 2));
+                        gamePiece3.setLayoutY(space14.getLayoutY() + (space14.getHeight() / 2));
+                    }
+                    break;
+                case 15:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space15.getLayoutX() + (space15.getWidth() / 2));
+                        gamePiece1.setLayoutY(space15.getLayoutY() + (space15.getHeight() / 2));
+                        stopPinkP1 = 19;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space15.getLayoutX() + (space15.getWidth() / 2));
+                        gamePiece2.setLayoutY(space15.getLayoutY() + (space15.getHeight() / 2));
+                        stopPinkP2 = 19;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space15.getLayoutX() + (space15.getWidth() / 2));
+                        gamePiece3.setLayoutY(space15.getLayoutY() + (space15.getHeight() / 2));
+                        stopPinkP3 = 19;
+                    }
+                    break;
+                case 16:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space16.getLayoutX() + (space16.getWidth() / 2));
+                        gamePiece1.setLayoutY(space16.getLayoutY() + (space16.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space16.getLayoutX() + (space16.getWidth() / 2));
+                        gamePiece2.setLayoutY(space16.getLayoutY() + (space16.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space16.getLayoutX() + (space16.getWidth() / 2));
+                        gamePiece3.setLayoutY(space16.getLayoutY() + (space16.getHeight() / 2));
+                    }
+                    break;
+                case 17:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space17.getLayoutX() + (space17.getWidth() / 2));
+                        gamePiece1.setLayoutY(space17.getLayoutY() + (space17.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space17.getLayoutX() + (space17.getWidth() / 2));
+                        gamePiece2.setLayoutY(space17.getLayoutY() + (space17.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space17.getLayoutX() + (space17.getWidth() / 2));
+                        gamePiece3.setLayoutY(space17.getLayoutY() + (space17.getHeight() / 2));
+                    }
+                    break;
+                case 18:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space18.getLayoutX() + (space18.getWidth() / 2));
+                        gamePiece1.setLayoutY(space18.getLayoutY() + (space18.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space18.getLayoutX() + (space18.getWidth() / 2));
+                        gamePiece2.setLayoutY(space18.getLayoutY() + (space18.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space18.getLayoutX() + (space18.getWidth() / 2));
+                        gamePiece3.setLayoutY(space18.getLayoutY() + (space18.getHeight() / 2));
+                    }
+                    break;
+                case 19:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP1 = 30;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP2 = 30;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+                        gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+                        stopPinkP3 = 30;
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+//                        stopPinkP1 = 21;
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+//                        stopPinkP2 = 21;
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
+//                        stopPinkP3 = 21;
+//                    }
+                    break;
+                case 20:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
+                        gamePiece1.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
+                        gamePiece2.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space20.getLayoutX() + (space20.getWidth() / 2));
+                        gamePiece3.setLayoutY(space20.getLayoutY() + (space20.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space20a.getLayoutX() + (space20a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space20a.getLayoutY() + (space20a.getHeight() / 2));
+//                    }
+                    break;
+                case 21:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
+                        gamePiece1.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
+                        gamePiece2.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space21.getLayoutX() + (space21.getWidth() / 2));
+                        gamePiece3.setLayoutY(space21.getLayoutY() + (space21.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
+//                        stopPinkP1 = 30;
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space21.getLayoutX() + (space21a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space21.getLayoutY() + (space21a.getHeight() / 2));
+//                        stopPinkP2 = 30;
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space21a.getLayoutX() + (space21a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space21a.getLayoutY() + (space21a.getHeight() / 2));
+//                        stopPinkP3 = 30;
+//                    }
+                    break;
+                case 22:
+                    if(ctr == 0) {
+                        gamePiece1.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
+                        gamePiece1.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
+                        gamePiece2.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space22.getLayoutX() + (space22.getWidth() / 2));
+                        gamePiece3.setLayoutY(space22.getLayoutY() + (space22.getHeight() / 2));
+                    }
+//                    else if(ctr == 0) {
+//                        gamePiece1.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space22a.getLayoutX() + (space22a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space22a.getLayoutY() + (space22a.getHeight() / 2));
+//                    }
+                    break;
+                case 23:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
+                        gamePiece1.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
+                        gamePiece2.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space23.getLayoutX() + (space23.getWidth() / 2));
+                        gamePiece3.setLayoutY(space23.getLayoutY() + (space23.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space23a.getLayoutX() + (space23a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space23a.getLayoutY() + (space23a.getHeight() / 2));
+//                    }
+                    break;
+                case 24:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
+                        gamePiece1.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
+                        gamePiece2.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space24.getLayoutX() + (space24.getWidth() / 2));
+                        gamePiece3.setLayoutY(space24.getLayoutY() + (space24.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space24a.getLayoutX() + (space24a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space24a.getLayoutY() + (space24a.getHeight() / 2));
+//                    }
+                    break;
+                case 25:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
+                        gamePiece1.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
+                        gamePiece2.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space25.getLayoutX() + (space25.getWidth() / 2));
+                        gamePiece3.setLayoutY(space25.getLayoutY() + (space25.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space25a.getLayoutX() + (space25a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space25a.getLayoutY() + (space25a.getHeight() / 2));
+//                    }
+                    break;
+                case 26:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
+                        gamePiece1.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
+                        gamePiece2.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space26.getLayoutX() + (space26.getWidth() / 2));
+                        gamePiece3.setLayoutY(space26.getLayoutY() + (space26.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space26a.getLayoutX() + (space26a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space26a.getLayoutY() + (space26a.getHeight() / 2));
+//                    }
+                    break;
+                case 27:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
+                        gamePiece1.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
+                        gamePiece2.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space27.getLayoutX() + (space27.getWidth() / 2));
+                        gamePiece3.setLayoutY(space27.getLayoutY() + (space27.getHeight() / 2));
+                    }
+//                    else if(ctr == 0){
+//                        gamePiece1.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+//                        gamePiece1.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 1) {
+//                        gamePiece2.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+//                        gamePiece2.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+//                    }
+//                    else if(ctr == 2) {
+//                        gamePiece3.setLayoutX(space27a.getLayoutX() + (space27a.getWidth() / 2));
+//                        gamePiece3.setLayoutY(space27a.getLayoutY() + (space27a.getHeight() / 2));
+//                    }
+                    break;
+                case 28:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space28.getLayoutX() + (space28.getWidth() / 2));
+                        gamePiece1.setLayoutY(space28.getLayoutY() + (space28.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space28.getLayoutX() + (space28.getWidth() / 2));
+                        gamePiece2.setLayoutY(space28.getLayoutY() + (space28.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space28.getLayoutX() + (space28.getWidth() / 2));
+                        gamePiece3.setLayoutY(space28.getLayoutY() + (space28.getHeight() / 2));
+                    }
+                    break;
+                case 29:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space29.getLayoutX() + (space29.getWidth() / 2));
+                        gamePiece1.setLayoutY(space29.getLayoutY() + (space29.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space29.getLayoutX() + (space29.getWidth() / 2));
+                        gamePiece2.setLayoutY(space29.getLayoutY() + (space29.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space29.getLayoutX() + (space29.getWidth() / 2));
+                        gamePiece3.setLayoutY(space29.getLayoutY() + (space29.getHeight() / 2));
+                    }
+                    break;
+                case 30:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space30.getLayoutX() + (space30.getWidth() / 2));
+                        gamePiece1.setLayoutY(space30.getLayoutY() + (space30.getHeight() / 2));
+                        stopPinkP1 = 33;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space30.getLayoutX() + (space30.getWidth() / 2));
+                        gamePiece2.setLayoutY(space30.getLayoutY() + (space30.getHeight() / 2));
+                        stopPinkP2 = 33;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space30.getLayoutX() + (space30.getWidth() / 2));
+                        gamePiece3.setLayoutY(space30.getLayoutY() + (space30.getHeight() / 2));
+                        stopPinkP3 = 33;
+                    }
+                    break;
+                case 31:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space31.getLayoutX() + (space31.getWidth() / 2));
+                        gamePiece1.setLayoutY(space31.getLayoutY() + (space31.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space31.getLayoutX() + (space31.getWidth() / 2));
+                        gamePiece2.setLayoutY(space31.getLayoutY() + (space31.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space31.getLayoutX() + (space31.getWidth() / 2));
+                        gamePiece3.setLayoutY(space31.getLayoutY() + (space31.getHeight() / 2));
+                    }
+                    break;
+                case 32:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space32.getLayoutX() + (space32.getWidth() / 2));
+                        gamePiece1.setLayoutY(space32.getLayoutY() + (space32.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space32.getLayoutX() + (space32.getWidth() / 2));
+                        gamePiece2.setLayoutY(space32.getLayoutY() + (space32.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space32.getLayoutX() + (space32.getWidth() / 2));
+                        gamePiece3.setLayoutY(space32.getLayoutY() + (space32.getHeight() / 2));
+                    }
+                    break;
+                case 33:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space33.getLayoutX() + (space33.getWidth() / 2));
+                        gamePiece1.setLayoutY(space33.getLayoutY() + (space33.getHeight() / 2));
+                        stopPinkP1 = 41;
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space33.getLayoutX() + (space33.getWidth() / 2));
+                        gamePiece2.setLayoutY(space33.getLayoutY() + (space33.getHeight() / 2));
+                        stopPinkP2 = 41;
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space33.getLayoutX() + (space33.getWidth() / 2));
+                        gamePiece3.setLayoutY(space33.getLayoutY() + (space33.getHeight() / 2));
+                        stopPinkP3 = 41;
+                    }
+                    break;
+                case 34:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space34.getLayoutX() + (space34.getWidth() / 2));
+                        gamePiece1.setLayoutY(space34.getLayoutY() + (space34.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space34.getLayoutX() + (space34.getWidth() / 2));
+                        gamePiece2.setLayoutY(space34.getLayoutY() + (space34.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space34.getLayoutX() + (space34.getWidth() / 2));
+                        gamePiece3.setLayoutY(space34.getLayoutY() + (space34.getHeight() / 2));
+                    }
+                    break;
+                case 35:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space35.getLayoutX() + (space35.getWidth() / 2));
+                        gamePiece1.setLayoutY(space35.getLayoutY() + (space35.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space35.getLayoutX() + (space35.getWidth() / 2));
+                        gamePiece2.setLayoutY(space35.getLayoutY() + (space35.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space35.getLayoutX() + (space35.getWidth() / 2));
+                        gamePiece3.setLayoutY(space35.getLayoutY() + (space35.getHeight() / 2));
+                    }
+                    break;
+                case 36:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space36.getLayoutX() + (space36.getWidth() / 2));
+                        gamePiece1.setLayoutY(space36.getLayoutY() + (space36.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space36.getLayoutX() + (space36.getWidth() / 2));
+                        gamePiece2.setLayoutY(space36.getLayoutY() + (space36.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space36.getLayoutX() + (space36.getWidth() / 2));
+                        gamePiece3.setLayoutY(space36.getLayoutY() + (space36.getHeight() / 2));
+                    }
+                    break;
+                case 37:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space37.getLayoutX() + (space37.getWidth() / 2));
+                        gamePiece1.setLayoutY(space37.getLayoutY() + (space37.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space37.getLayoutX() + (space37.getWidth() / 2));
+                        gamePiece2.setLayoutY(space37.getLayoutY() + (space37.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space37.getLayoutX() + (space37.getWidth() / 2));
+                        gamePiece3.setLayoutY(space37.getLayoutY() + (space37.getHeight() / 2));
+                    }
+                    break;
+                case 38:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space38.getLayoutX() + (space38.getWidth() / 2));
+                        gamePiece1.setLayoutY(space38.getLayoutY() + (space38.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space38.getLayoutX() + (space38.getWidth() / 2));
+                        gamePiece2.setLayoutY(space38.getLayoutY() + (space38.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space38.getLayoutX() + (space38.getWidth() / 2));
+                        gamePiece3.setLayoutY(space38.getLayoutY() + (space38.getHeight() / 2));
+                    }
+                    break;
+                case 39:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space39.getLayoutX() + (space39.getWidth() / 2));
+                        gamePiece1.setLayoutY(space39.getLayoutY() + (space39.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space39.getLayoutX() + (space39.getWidth() / 2));
+                        gamePiece2.setLayoutY(space39.getLayoutY() + (space39.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space39.getLayoutX() + (space39.getWidth() / 2));
+                        gamePiece3.setLayoutY(space39.getLayoutY() + (space39.getHeight() / 2));
+                    }
+                    break;
+                case 40:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space40.getLayoutX() + (space40.getWidth() / 2));
+                        gamePiece1.setLayoutY(space40.getLayoutY() + (space40.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space40.getLayoutX() + (space40.getWidth() / 2));
+                        gamePiece2.setLayoutY(space40.getLayoutY() + (space40.getHeight() / 2));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space40.getLayoutX() + (space40.getWidth() / 2));
+                        gamePiece3.setLayoutY(space40.getLayoutY() + (space40.getHeight() / 2));
+                    }
+                    break;
+                case 41:
+                    if(ctr == 0){
+                        gamePiece1.setLayoutX(space41.getLayoutX() + (space41.getWidth() / 2));
+                        gamePiece1.setLayoutY(space41.getLayoutY() + (space41.getHeight() / 2));
+                    }
+                    else if(ctr == 1) {
+                        gamePiece2.setLayoutX(space41.getLayoutX() + (space41.getWidth() / 3));
+                        gamePiece2.setLayoutY(space41.getLayoutY() + (space41.getHeight() / 3));
+                    }
+                    else if(ctr == 2) {
+                        gamePiece3.setLayoutX(space41.getLayoutX() + (space41.getWidth() / 4));
+                        gamePiece3.setLayoutY(space41.getLayoutY() + (space41.getHeight() / 4));
+                    }
+                    break;
+            }
+        }
+
+        if(ctr == 2) {
+            ctr -= 2;
+        }
+        else {
+            ctr++;
+        }
 
         rollSpin.setDisable(true);
         drawCard.setDisable(false);
 
         //should contain move instructions for pieces
         players.get(counter).setSpaceType(model.getB().takeTurn(players.get(counter), diceRoll, event, actionDeck, careerDeck, blueDeck, salaryDeck, houseDeck));
-
     }
 
     @FXML
