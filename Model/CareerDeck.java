@@ -57,11 +57,6 @@ public class CareerDeck extends Deck<CareerCard> {
 
 		Collections.shuffle(temp);
 		Collections.shuffle(temp);
-
-		for (CareerCard card: temp)
-			deck.push(card);
-			
-		temp.clear();
 	}
 }
 
