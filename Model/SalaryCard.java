@@ -30,7 +30,7 @@ public class SalaryCard {
 
     @Override
     public String toString() {
-        return "Salary: " + salary + "\n" + 
-               "Tax: " + tax + "\n";
+        return salary + " [Tax: " + tax + "]";
+
     }
 }

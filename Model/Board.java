@@ -110,15 +110,15 @@ public class Board {
                 break;
 
             case "careerPath":
-                while (i <= diceRoll && p.getSpace() < careerPath.length) {
+                while (i < diceRoll && p.getSpace() < careerPath.length) {
                     p.setSpace(p.getSpace() + i);
                     i++;
                 }
-                if (i <= diceRoll && p.getSpace() == careerPath.length - 1) {
+                if (i < diceRoll && p.getSpace() == careerPath.length - 1) {
                     p.setCurrentPath("mainPath");
                     p.setSpace(9);
 
-                    while (i <= diceRoll && p.getSpace() < mainPath.length) {
+                    while (i < diceRoll && p.getSpace() < mainPath.length) {
                         p.setSpace(p.getSpace() + i);
 
                         if (mainPath[p.getSpace()] instanceof MagentaSpace)
@@ -131,15 +131,15 @@ public class Board {
                 break;
 
             case "changeCareerPath":
-                while (i <= diceRoll && p.getSpace() < changeCareerPath.length) {
+                while (i < diceRoll && p.getSpace() < changeCareerPath.length) {
                     p.setSpace(p.getSpace() + i);
                     i++;
                 }
-                if (i <= diceRoll && p.getSpace() == changeCareerPath.length - 1) {
+                if (i < diceRoll && p.getSpace() == changeCareerPath.length - 1) {
                     p.setCurrentPath("mainPath");
                     p.setSpace(28);
 
-                    while (i <= diceRoll && p.getSpace() < mainPath.length) {
+                    while (i < diceRoll && p.getSpace() < mainPath.length) {
                         p.setSpace(p.getSpace() + i);
 
                         if (mainPath[p.getSpace()] instanceof MagentaSpace)
