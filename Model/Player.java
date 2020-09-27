@@ -1,11 +1,6 @@
 package Model;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player {
 
@@ -98,6 +93,10 @@ public class Player {
      */
     public void setHouse(HouseCard house) {
         this.house = house;
+    }
+
+    public HouseCard getHouse() {
+        return house;
     }
 
     /**
@@ -218,6 +217,8 @@ public class Player {
                 }
 
                 p.setCash(p.getCash() + (a.getPayAmount() * -1));
+                System.out.println(this.cash);
+                System.out.println(p.getCash());
                 break;
 
             case "Christmas Bonus":
@@ -242,8 +243,10 @@ public class Player {
 
             case "File a Lawsuit":
                 System.out.println("You Filed a Lawsuit Against Someone card was drawn");
-                this.cash += a.getPayAmount();
+                this.setCash(this.cash + a.getPayAmount());
+                System.out.println(this.cash);
                 p.setCash(p.getCash() + (a.getPayAmount() * -1));
+                System.out.println(p.cash);
                 break;
 
             case "It's your Birthday!":
@@ -276,14 +279,21 @@ public class Player {
     }
 
     public void receiveCareerCard (CareerCard c, CareerCard notChosen, CareerDeck cd) {
+        System.out.println("Chosen Career: " + c);
         this.career = c;
         cd.deck.addFirst(notChosen);
     }
 
-    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd) {
+    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
+        System.out.println("Chosen salary: " + s);
+        this.salary = s;
+        sd.deck.addFirst(notChosen);
+    }
+
+    public void jobSearch (CareerCard c, SalaryCard s, ArrayList<CareerCard> cd, ArrayList<SalaryCard> sd) {
         System.out.println("Career and Salary Changed via Job Search");
-        cd.getDeck().addFirst(this.career);
-        sd.getDeck().addFirst(this.salary);
+        cd.add(this.career);
+        sd.add(this.salary);
         this.career = c;
         this.salary = s;
     }
@@ -292,7 +302,7 @@ public class Player {
         boolean hasBlueCard = false;
 
         // case 1: player's career matches blue card
-        if (b.getCareerLink() == this.career.getName()) 
+        if (b.getCareerLink() == this.career.getName())
             this.cash += 15000;
 
         // case 2: blue card matches another player's career
@@ -304,29 +314,23 @@ public class Player {
                 break;
             }
         }
-        
+
         // case 3: nobody's career in the game matches the blue card
         if (hasBlueCard == false)
             this.cash -= 15000;
     }
 
 
-    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
-        this.salary = s;
-        sd.deck.addFirst(notChosen);
-    }
-
     public void receiveHouseCard (int diceRoll, String houseName, HouseDeck hd) {
         HouseCard house = null;
 
         for (HouseCard h : hd.temp) {
-            if (h.getName() == houseName)
+            if (h.getName().equals(houseName))
                 house = h;
         }
 
         int key = hd.temp.indexOf(house);
-        this.house = hd.temp.get(key);
-        hd.temp.remove(key);
+        this.house = hd.temp.remove(key);
 
         if (diceRoll % 2 == 0)
             this.house.finalPayAmount = this.house.payAmountEven;
@@ -387,14 +391,14 @@ public class Player {
 
     public void marry (int diceRoll, ArrayList<Player> players) {
         if (diceRoll % 2 == 0) {
-            this.setCash(this.getCash() + (10000 * players.size()));
+            this.setCash(this.getCash() + (10000 * players.size()-1));
             for (Player p : players) {
                 if (p == this)
                     continue;
                 p.setCash(p.getCash() - 10000);
             }
         } else {
-            this.setCash(this.getCash() + (5000 * players.size()));
+            this.setCash(this.getCash() + (5000 * players.size()-1));
             for (Player p : players) {
                 if (p == this)
                     continue;

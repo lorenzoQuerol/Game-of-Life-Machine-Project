@@ -30,6 +30,10 @@ abstract class Deck<C> {
         return deck.pop();
     }
 
+    public ArrayList<C> getTemp() {
+        return temp;
+    }
+
     public void displayDeck() {
         System.out.println(deck);
     }

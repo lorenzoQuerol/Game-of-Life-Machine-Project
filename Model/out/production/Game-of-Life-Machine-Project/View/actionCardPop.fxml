@@ -7,32 +7,33 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="actionDone" disable="true" layoutX="258.0" layoutY="350.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+        <Button fx:id="actionDone" layoutX="258.0" layoutY="350.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font></Button>
-        <Button fx:id="payPlayer2" disable="true" layoutX="370.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay Player B" visible="false">
+        <Button fx:id="payPlayer2" layoutX="370.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay Player B" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="payBank" disable="true" layoutX="243.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay the Bank" visible="false">
+        <Button fx:id="payBank" layoutX="243.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay the Bank" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="collectBank" disable="true" layoutX="226.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Bank" visible="false">
+        <Button fx:id="collectBank" layoutX="226.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Bank" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="payPlayer1" disable="true" layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay Player A" visible="false">
+      <Button fx:id="collectMoney" layoutX="253.0" layoutY="283.0" mnemonicParsing="false" onAction="#otherAction" text="Collect Money" visible="false" />
+        <Button fx:id="payPlayer1" layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Pay Player A" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="ORANGE" height="200.0" layoutX="110.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="380.0" />
-        <Label fx:id="actionLabel" alignment="CENTER" layoutX="176.0" layoutY="148.0" prefHeight="80.0" prefWidth="249.0" text="Draw a Card!" textFill="#f9f8f8">
+        <Label fx:id="actionLabel" alignment="CENTER" layoutX="116.0" layoutY="148.0" prefHeight="95.0" prefWidth="369.0" text="Draw a Card!" textFill="#f9f8f8">
             <font>
                 <Font name="Impact" size="16.0" />
             </font>
@@ -70,12 +71,12 @@
                 </Label>
             </children>
         </HBox>
-      <Button fx:id="collectPlayer1" disable="true" layoutX="90.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Player A" visible="false">
+      <Button fx:id="collectPlayer1" layoutX="90.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Player A" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="collectPlayer2" disable="true" layoutX="339.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Player B" visible="false">
+      <Button fx:id="collectPlayer2" layoutX="339.0" layoutY="281.0" mnemonicParsing="false" onAction="#otherAction" text="Collect from Player B" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
