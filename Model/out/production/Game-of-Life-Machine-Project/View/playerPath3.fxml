@@ -12,6 +12,7 @@
                 <Font name="Droid Serif Bold Italic" size="20.0" />
             </font></Button>
         <Button fx:id="P3_careerPath" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" onAction="#copy_displayBoard" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Start Career" textAlignment="CENTER" textFill="#272838">
+
             <font>
                 <Font name="Droid Serif Bold Italic" size="20.0" />
             </font></Button>

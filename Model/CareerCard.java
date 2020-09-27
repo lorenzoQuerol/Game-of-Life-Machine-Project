@@ -26,7 +26,7 @@ public class CareerCard {
 
 	@Override
     public String toString() {
-        return "Name: " + name + "\n" +
-               "Pay Raise: " + payRaise + "\n";
+        return name + " [" + payRaise + "]";
+
     }
 } 

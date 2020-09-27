@@ -100,6 +100,10 @@ public class Player {
         this.house = house;
     }
 
+    public HouseCard getHouse() {
+        return house;
+    }
+
     /**
      * Sets the player's current bank loan (this accumulates if the player runs low on cash).
      * @param bankLoan The player's current bank loan
@@ -276,8 +280,15 @@ public class Player {
     }
 
     public void receiveCareerCard (CareerCard c, CareerCard notChosen, CareerDeck cd) {
+        System.out.println("Chosen Career: " + c);
         this.career = c;
         cd.deck.addFirst(notChosen);
+    }
+
+    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
+        System.out.println("Chosen salary: " + s);
+        this.salary = s;
+        sd.deck.addFirst(notChosen);
     }
 
     public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd) {
@@ -292,7 +303,7 @@ public class Player {
         boolean hasBlueCard = false;
 
         // case 1: player's career matches blue card
-        if (b.getCareerLink() == this.career.getName()) 
+        if (b.getCareerLink() == this.career.getName())
             this.cash += 15000;
 
         // case 2: blue card matches another player's career
@@ -304,17 +315,12 @@ public class Player {
                 break;
             }
         }
-        
+
         // case 3: nobody's career in the game matches the blue card
         if (hasBlueCard == false)
             this.cash -= 15000;
     }
 
-
-    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
-        this.salary = s;
-        sd.deck.addFirst(notChosen);
-    }
 
     public void receiveHouseCard (int diceRoll, String houseName, HouseDeck hd) {
         HouseCard house = null;
