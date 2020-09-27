@@ -15,7 +15,12 @@ abstract class Deck<C> {
     }
 
 
-    public abstract void generateDeck();
+    public abstract void generateDeck(int amount) throws InterruptedException;
+//    public abstract void generateDeck(int amount);
+
+    public Deque<C> getDeck() {
+        return deck;
+    }
 
     public int getDeckSize() {
         return deck.size(); 

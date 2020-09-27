@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <HBox layoutX="134.0" layoutY="14.0" prefHeight="65.0" prefWidth="332.0">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="J" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font></Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="B" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="102.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #67597A;" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="S" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #3E505B;" text="E" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="278.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: magenta;" text="A" textFill="#f9f8f8">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="281.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="R" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891ff;" text="C" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="H" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+        <Button fx:id="bChange" disable="true" layoutX="130.0" layoutY="302.0" mnemonicParsing="false" onAction="#huntAction" text="Change Career">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="bRetain" disable="true" layoutX="342.0" layoutY="302.0" mnemonicParsing="false" onAction="#huntAction" text="Retain Career">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7891ff" height="175.0" layoutX="113.0" layoutY="113.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="160.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3b26e" height="175.0" layoutX="323.0" layoutY="113.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="160.0" />
+        <Label layoutX="134.0" layoutY="128.0" prefHeight="38.0" prefWidth="118.0" text="Career:" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="128.0" prefHeight="38.0" prefWidth="118.0" text="Salary:" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="20.0" />
+            </font>
+        </Label>
+      <Label fx:id="jobDescription" layoutX="134.0" layoutY="181.0" prefHeight="38.0" prefWidth="118.0" text="*update here*" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="salaryDescription" layoutX="344.0" layoutY="181.0" prefHeight="38.0" prefWidth="118.0" text="*update here*" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="jobDone" disable="true" layoutX="258.0" layoutY="351.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="jobDraw" layoutX="258.0" layoutY="351.0" mnemonicParsing="false" onAction="#huntAction" text="Draw Cards">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>

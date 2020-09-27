@@ -1,5 +1,9 @@
 package Model;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +17,6 @@ public class Player {
     private boolean isMarried;
     private boolean isGraduate;
     private boolean isRetired;
-    private boolean isFinished;   
 
     private CareerCard career;
     private SalaryCard salary;
@@ -22,6 +25,8 @@ public class Player {
     private int bankLoan;
 
     private int space;
+    private Space spaceType;
+    private int place;
 
     /**
      * Constructor for a Player object. It assigns the starter cash amount for
@@ -49,7 +54,7 @@ public class Player {
 
     /**
      * Sets the player's starting point in the game (i.e. player starts on the college path or career path).
-     * @param pathStart The player's path choice when the game starts
+     * @param currentPath The player's path choice when the game starts
      */
     public void setCurrentPath(String currentPath) {
         this.currentPath = currentPath;
@@ -69,10 +74,6 @@ public class Player {
      */
     public void setGraduate(boolean isGraduate) {
         this.isGraduate = isGraduate;
-    }
-    
-    public void setFinished(boolean isFinished) {
-        this.isFinished = isFinished;
     }
 
     /**
@@ -115,6 +116,10 @@ public class Player {
         this.space = space;
     }
 
+    public void setSpaceType(Space spaceType) {
+        this.spaceType = spaceType;
+    }
+
     /**
      * Gets the player's name.
      * @return The name of the player
@@ -143,16 +148,16 @@ public class Player {
         return isRetired;
     }
 
-    public boolean getIsFinished() {
-        return isFinished;
-    }
-        
     /**
      * Gets the player's space.
      * @return The player's current position on the board
      */
     public int getSpace () {
         return space;
+    }
+
+    public Space getSpaceType() {
+        return spaceType;
     }
 
     public String getCurrentPath() {
@@ -167,6 +172,18 @@ public class Player {
         return career;
     }
 
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setRetired(boolean retired) {
+        isRetired = retired;
+    }
+
     /**
      * Spins for a random number between 1 to 10.
      * @return The number of spaces the player traverses
@@ -179,19 +196,19 @@ public class Player {
      * This method allows the player to receive an action card and manipulate the player's statistics
      * based on the description of the chosen card.
      * @param a The action card deck
-     * @param in The input scanner
+
      * @param players The list of current players
      */
-    public void receiveActionCard (ActionCard a, Scanner in, ArrayList<Player> players) {
+    public void receiveActionCard (Player p, ActionCard a, ArrayList<Player> players) {
         String choice;
-        
+
         /*
         Certain action cards require the interaction of the current player with other players in the game.
         e.g. the player's cash is increased by the amount that was deducted from another player, and vice versa.
         */ 
         switch (a.getActionType()) { 
             case "Lawsuit":
-                System.out.println("You have been filed for a Lawsuit!");  
+                System.out.println("File a Lawsuit card was drawn");
                 if (!bankLoanNeeded(this, a.getPayAmount())) 
                     this.cash += (a.getPayAmount());
                 else {
@@ -200,18 +217,11 @@ public class Player {
                     this.cash += (a.getPayAmount());
                 }
 
-                System.out.println("Choose a Player to Pay: ");
-                displayOtherPlayers(players);
-                choice = in.nextLine();
-
-                for (Player x : players) {
-                    if (x.getName().contains(choice)) 
-                        x.cash += (a.getPayAmount() * -1);                 
-                }
+                p.setCash(p.getCash() + (a.getPayAmount() * -1));
                 break;
 
             case "Christmas Bonus":
-                System.out.println("You paid everyone " + (a.getPayAmount() * -1 + "!"));
+                System.out.println("Christmas Bonus card was drawn");
 
                 for (Player x : players) {
                     if (x.getName() == this.name) { // If it reads the name of the current player, skip
@@ -231,28 +241,13 @@ public class Player {
                 break;
 
             case "File a Lawsuit":
-                System.out.println("You Filed a Lawsuit Against Someone!");
+                System.out.println("You Filed a Lawsuit Against Someone card was drawn");
                 this.cash += a.getPayAmount();
-                
-                System.out.println("Choose a Player to File a Lawsuit Against: ");
-                displayOtherPlayers(players);
-                choice = in.nextLine();
-                
-                for (Player x : players) {
-                    if (x.getName().contains(choice)) {
-                        if (!bankLoanNeeded(x, a.getPayAmount())) 
-                            x.cash += (a.getPayAmount() * -1);
-                        else {
-                            while (bankLoanNeeded(x, a.getPayAmount()))
-                                makeBankLoan(x);
-                            x.cash += (a.getPayAmount() * -1);
-                        }
-                    }
-                }
+                p.setCash(p.getCash() + (a.getPayAmount() * -1));
                 break;
 
             case "It's your Birthday!":
-                System.out.println("It's your birthday! Everyone gifts you " + (a.getPayAmount() + "!"));
+                System.out.println("It's your birthday! card was drawn");
 
                 for (Player x : players) {
                     if (x.getName() == this.name) 
@@ -280,39 +275,17 @@ public class Player {
         }
     }
 
-    public void receiveCareerCard (CareerCard c1, CareerCard c2, CareerDeck cd, Scanner in) {
-        System.out.println("Choose a career:");
-        System.out.println(c1);
-        System.out.println(c2);
-        System.out.print("Choice: ");
-
-        String choice = in.nextLine(); 
-
-        if (choice == c1.getName()) {
-            this.career = c1;
-            cd.deck.addFirst(c2); // returns the unchosen card back to the bottom of the original deck
-        } else {
-            this.career = c2;
-            cd.deck.addFirst(c1);
-        }
+    public void receiveCareerCard (CareerCard c, CareerCard notChosen, CareerDeck cd) {
+        this.career = c;
+        cd.deck.addFirst(notChosen);
     }
 
-    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd, Scanner in) {
-        System.out.println("Job Search! Would you like to change your current career and salary? (Y/N)");
-        System.out.print("Choice: ");
-        String choice = in.nextLine();
-
-        switch (choice) {
-            case "Y":
-                this.career = c;
-                this.salary = s;
-                break;
-
-            case "N":
-                cd.deck.addFirst(c);
-                sd.deck.addFirst(s);
-                break;
-        }
+    public void jobSearch (CareerCard c, SalaryCard s, CareerDeck cd, SalaryDeck sd) {
+        System.out.println("Career and Salary Changed via Job Search");
+        cd.getDeck().addFirst(this.career);
+        sd.getDeck().addFirst(this.salary);
+        this.career = c;
+        this.salary = s;
     }
 
     public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
@@ -337,68 +310,42 @@ public class Player {
             this.cash -= 15000;
     }
 
-    public void receiveSalaryCard (SalaryCard s1, SalaryCard s2, SalaryDeck sd, Scanner in) {
-        System.out.println("Choose a Salary:");
-        System.out.println(s1);
-        System.out.println(s2);
-        System.out.print("Choice: ");
 
-        int choice = Integer.parseInt(in.nextLine());
-
-        if (choice == 1) {
-            this.salary = s1;
-            sd.deck.addFirst(s2); // returns the unchosen card back to the bottom of the original deck
-        } else {
-            this.salary = s2;
-            sd.deck.addFirst(s1);
-        }
+    public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
+        this.salary = s;
+        sd.deck.addFirst(notChosen);
     }
 
-    public void receiveHouseCard (HouseCard h1, HouseCard h2, HouseDeck hd, Scanner in) {
-        System.out.println("Choose a House:");
-        System.out.println(h1);
-        System.out.println(h2);
-        System.out.print("Choice: ");
-        int choice = Integer.parseInt(in.nextLine());
-        int num = 0;
+    public void receiveHouseCard (int diceRoll, String houseName, HouseDeck hd) {
+        HouseCard house = null;
 
-        switch (choice) {
-            case 1:
-                System.out.println("Spin an even number or an odd number for your payment!");
-                num = this.spin();
-                if (num % 2 == 0) {
-                    h1.setFinalPayAmount(h1.payAmountEven);
-                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
-                        makeBankLoan(this);
-                
-                    this.cash -= h1.finalPayAmount;
-                    hd.deck.addFirst(h2);
-                } else {
-                    h1.setFinalPayAmount(h1.payAmountOdd);
-                    while (bankLoanNeeded(this, h1.finalPayAmount)) 
-                        makeBankLoan(this);
-                    this.cash -= h1.finalPayAmount;
-                    hd.deck.addFirst(h2);
-                }
-                break;
-
-            case 2:
-                System.out.println("Spin an even number or an odd number for your payment!");
-                num = this.spin();
-                if (num % 2 == 0) {
-                    h2.setFinalPayAmount(h2.payAmountEven);
-                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
-                        makeBankLoan(this);
-                    this.cash -= h2.finalPayAmount;
-                    hd.deck.addFirst(h1);
-                } else {
-                    h2.setFinalPayAmount(h2.payAmountOdd);
-                    while (bankLoanNeeded(this, h2.finalPayAmount)) 
-                        makeBankLoan(this); 
-                    this.cash -= h2.finalPayAmount;
-                    hd.deck.addFirst(h1);
-                }
+        for (HouseCard h : hd.temp) {
+            if (h.getName() == houseName)
+                house = h;
         }
+
+        int key = hd.temp.indexOf(house);
+        this.house = hd.temp.get(key);
+        hd.temp.remove(key);
+
+        if (diceRoll % 2 == 0)
+            this.house.finalPayAmount = this.house.payAmountEven;
+        else
+            this.house.finalPayAmount = this.house.payAmountOdd;
+
+        while (bankLoanNeeded(this, house.finalPayAmount))
+            makeBankLoan(this);
+
+        this.cash -= house.finalPayAmount;
+    }
+
+    public void receiveSalary () {
+        this.setCash(this.getCash() + this.getSalaryCard().computeSalary());
+    }
+
+    public void receivePayRaise () {
+        this.getSalaryCard().setSalary((int)(this.getSalaryCard().getSalary() * 1.1));
+        this.getSalaryCard().setTax(this.getSalaryCard().getTax() + 2000);
     }
 
     public void makeBankLoan (Player p) {
@@ -413,6 +360,46 @@ public class Player {
         } else {
             this.cash -= this.bankLoan;
             this.bankLoan = 0;
+        }
+    }
+
+    public void haveBabies (int diceRoll, ArrayList<Player> players) {
+        if (this.isMarried) {
+            if (diceRoll % 2 == 0) {
+                this.numChildren = 2;
+                this.setCash(this.getCash() + 10000 * players.size());
+                for (Player p : players) {
+                    if (p == this)
+                        continue;
+                    p.setCash(p.getCash() - 10000);
+                }
+            } else {
+                this.numChildren = 1;
+                this.setCash(this.getCash() + 5000 * players.size());
+                for (Player p : players) {
+                    if (p == this)
+                        continue;
+                    p.setCash(p.getCash() - 5000);
+                }
+            }
+        }
+    }
+
+    public void marry (int diceRoll, ArrayList<Player> players) {
+        if (diceRoll % 2 == 0) {
+            this.setCash(this.getCash() + (10000 * players.size()));
+            for (Player p : players) {
+                if (p == this)
+                    continue;
+                p.setCash(p.getCash() - 10000);
+            }
+        } else {
+            this.setCash(this.getCash() + (5000 * players.size()));
+            for (Player p : players) {
+                if (p == this)
+                    continue;
+                p.setCash(p.getCash() - 5000);
+            }
         }
     }
 
@@ -452,20 +439,7 @@ public class Player {
         while (this.bankLoan != 0)
             settleBankLoan();
 
-        this.setFinished(true);
-    }
-
-    /**
-     * Helper Method: This displays other players in the game. It skips outputting
-     * the current player.
-     * @param players The current players of the game
-     */
-    public void displayOtherPlayers (ArrayList<Player> players) {
-        for (Player x : players) {
-            if (x.getName() == this.name) 
-                continue;
-            System.out.println(x.getName());
-        }
+        this.setRetired(true);
     }
 
     /**
@@ -482,6 +456,6 @@ public class Player {
      */
     @Override
     public String toString() {
-        return this.name + " | " + "Cash: " + this.cash;
+        return this.name;
     }
 }

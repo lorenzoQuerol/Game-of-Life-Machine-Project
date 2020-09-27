@@ -1,7 +1,8 @@
 package Model;
 
+import javafx.event.ActionEvent;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Board {
 
@@ -16,8 +17,9 @@ public class Board {
     private BlueDeck blueDeck;
     private SalaryDeck salaryDeck;
     private HouseDeck houseDeck;
+    private int counter;
 
-    public Board () { 
+    public Board() {
         players = new ArrayList<Player>();
         actionDeck = new ActionDeck();
         careerDeck = new CareerDeck();
@@ -28,13 +30,20 @@ public class Board {
         careerPath = new Space[9];
         changeCareerPath = new Space[8];
     }
-    
-    public void initializeData () {
-        actionDeck.generateDeck();
-        careerDeck.generateDeck();
-        blueDeck.generateDeck();
-        salaryDeck.generateDeck();
-        houseDeck.generateDeck();
+
+    public void initializeData(int numAction, int numCareer, int numSalary, int fill1, int fill2) throws InterruptedException {
+
+        actionDeck.generateDeck(numAction);
+        careerDeck.generateDeck(numCareer);
+        salaryDeck.generateDeck(numSalary);
+        blueDeck.generateDeck(fill1);
+        houseDeck.generateDeck(fill2);
+
+        System.out.println("Action Deck generated amount: " + actionDeck.getDeckSize());
+        System.out.println("Career Deck generated amount: " + careerDeck.getDeckSize());
+        System.out.println("Salary Deck generated amount: " + salaryDeck.getDeckSize());
+        System.out.println("Blue Deck generated amount: " + blueDeck.getDeckSize());
+        System.out.println("House Deck generated amount: " + houseDeck.getDeckSize());
 
         mainPath[8] = new MagentaSpace(8, MagentaSpace.MAGENTA[0]);
         mainPath[15] = new MagentaSpace(15, MagentaSpace.MAGENTA[1]);
@@ -58,61 +67,60 @@ public class Board {
         changeCareerPath[3] = new GreenSpace(3, GreenSpace.GREEN[0]);
 
         for (int i = 0; i < mainPath.length; i++) {
-            if (mainPath[i] == null) 
-                mainPath[i] = new OrangeSpace(i);
+            if (mainPath[i] == null) {
+                mainPath[i] = new OrangeSpace(i); // Change back to OrangeSpace once testing is done <3
+            }
         }
 
         for (int i = 0; i < changeCareerPath.length; i++) {
-            if (changeCareerPath[i] == null) 
-            changeCareerPath[i] = new OrangeSpace(i);
+            if (changeCareerPath[i] == null) {
+                changeCareerPath[i] = new OrangeSpace(i);
+            }
         }
 
         for (int i = 0; i < changeCareerPath.length; i++) {
-            if (changeCareerPath[i] == null) 
-            changeCareerPath[i] = new OrangeSpace(i);
+            if (changeCareerPath[i] == null) {
+                changeCareerPath[i] = new OrangeSpace(i);
+            }
         }
     }
 
     /**
      * Allows the player to take a turn (e.g. spin a number and get a card).
-     * @param p The current player
-     * @param in Input Scanner
-     * @param actionDeck The action card deck
-     * @param gameOver The status of the game
-     * @return A boolean value if the game is over
+     *
+     * @param p  The current player
+     * @param ad The action card deck
      */
-    public void takeTurn (Player p, Scanner in, ActionDeck ad, 
-    CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
+    public Space takeTurn(Player p, int diceRoll, ActionEvent event, ActionDeck ad,
+                          CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
 
-        int spin = p.spin();
         Space s = null;
         int i = 0;
-        
+
         switch (p.getCurrentPath()) {
             case "mainPath":
-                while (i <= spin && p.getSpace() < mainPath.length) {
-                    p.setSpace(p.getSpace()+i);
+                while (i < diceRoll && p.getSpace() < mainPath.length) {
+                    p.setSpace(p.getSpace() + 1);
 
                     if (mainPath[p.getSpace()] instanceof MagentaSpace)
                         break;
-                    i++;     
+                    i++;
                 }
-
                 s = mainPath[p.getSpace()];
                 break;
 
             case "careerPath":
-                while (i <= spin && p.getSpace() < careerPath.length) {
-                    p.setSpace(p.getSpace()+i);
-                    i++;     
+                while (i <= diceRoll && p.getSpace() < careerPath.length) {
+                    p.setSpace(p.getSpace() + i);
+                    i++;
                 }
-                if (i <= spin && p.getSpace() == careerPath.length-1) {
+                if (i <= diceRoll && p.getSpace() == careerPath.length - 1) {
                     p.setCurrentPath("mainPath");
                     p.setSpace(9);
 
-                    while (i <= spin && p.getSpace() < mainPath.length) {
-                        p.setSpace(p.getSpace()+i);
-    
+                    while (i <= diceRoll && p.getSpace() < mainPath.length) {
+                        p.setSpace(p.getSpace() + i);
+
                         if (mainPath[p.getSpace()] instanceof MagentaSpace)
                             break;
                         i++;
@@ -120,21 +128,20 @@ public class Board {
                     s = mainPath[p.getSpace()];
                 } else
                     s = careerPath[p.getSpace()];
-                
                 break;
 
             case "changeCareerPath":
-                while (i <= spin && p.getSpace() < changeCareerPath.length) {
-                    p.setSpace(p.getSpace()+i);
-                    i++;     
+                while (i <= diceRoll && p.getSpace() < changeCareerPath.length) {
+                    p.setSpace(p.getSpace() + i);
+                    i++;
                 }
-                if (i <= spin && p.getSpace() == changeCareerPath.length-1) {
+                if (i <= diceRoll && p.getSpace() == changeCareerPath.length - 1) {
                     p.setCurrentPath("mainPath");
                     p.setSpace(28);
-                    
-                    while (i <= spin && p.getSpace() < mainPath.length) {
-                        p.setSpace(p.getSpace()+i);
-    
+
+                    while (i <= diceRoll && p.getSpace() < mainPath.length) {
+                        p.setSpace(p.getSpace() + i);
+
                         if (mainPath[p.getSpace()] instanceof MagentaSpace)
                             break;
                         i++;
@@ -142,89 +149,111 @@ public class Board {
                 }
                 s = changeCareerPath[p.getSpace()];
                 break;
-        }  
+        }
 
-        System.out.println(p.getSpace());
-        if (p.getSpace() == mainPath.length - 1)
-            p.retire(players);
-        else   
-            checkSpace(s, p, in, ad, cd, bd, sd, hd);
+        System.out.println(p + " landed on space " + p.getSpace());
+        return s;
     }
 
-    public void checkSpace (Space s, Player p, Scanner in, ActionDeck ad, 
-    CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
+    public String checkSpace(Player p) {
+        if (p.getSpaceType() instanceof GreenSpace)
+            return "green";
+        else if (p.getSpaceType() instanceof OrangeSpace)
+            return "orange";
+        else if (p.getSpaceType() instanceof BlueSpace)
+            return "blue";
 
-        if (s instanceof OrangeSpace) 
+        return "magenta";
+    }
 
-            p.receiveActionCard(ad.drawCard(), in, players);
+//    public void checkSpace (Space s, Player p, ActionEvent event, ActionDeck ad,
+//                            CareerDeck cd, BlueDeck bd, SalaryDeck sd, HouseDeck hd) {
+//
+//        if (s instanceof OrangeSpace)
+//
+//            p.receiveActionCard(ad.drawCard(), event, players);
+//
+//        else if (s instanceof BlueSpace)
+//
+//            p.receiveBlueCard(bd.drawCard(), players);
+//
+//        else if (s instanceof GreenSpace) {
+//
+//            if (((GreenSpace) s).getGreenDescription() == GreenSpace.GREEN[0])
+//                p.setCash(p.getCash() + p.getSalaryCard().computeSalary());
+//            else {
+//                p.getSalaryCard().setSalary((int)(p.getSalaryCard().getSalary() * 1.1));
+//                p.getSalaryCard().setTax(p.getSalaryCard().getTax() + 2000);
+//            }
+//
+//        } else if (s instanceof MagentaSpace) {
+//            CareerCard c1 = cd.drawCard();
+//            CareerCard c2 = cd.drawCard();
+//            SalaryCard s1 = sd.drawCard();
+//            SalaryCard s2 = sd.drawCard();
+//            HouseCard h1 = hd.drawCard();
+//            HouseCard h2 = hd.drawCard();
+//            switch (((MagentaSpace) s).getMagentaDescription()) {
+//                case "College Career Choice! Pick a Career and Salary Card!":
+//
+//                    p.receiveCareerCard(c1, c2, cd, event);
+//                    p.receiveSalaryCard(s1, s2, sd, event);
+//                    break;
+//
+//                case "Job Search! Choose a new Career or keep your current one!":
+//                    p.jobSearch(c1, s1, cd, sd, event);
+//                    break;
+//
+//                case "Buy a House! Choose a house of your choice!":
+//                    p.receiveHouseCard(h1, h2, hd);
+//                    break;
+//
+//                case "Get Married! Spin a number for your wedding gift!":
+//                    int num = p.spin();
+//                    if (p.getIsMarried() == false) {
+//
+//                        p.setMarried(true);
+//
+//                        if (num % 2 == 0)
+//                            p.setCash(p.getCash() + (10000 * players.size()));
+//                        else
+//                            p.setCash(p.getCash() + (5000 * players.size()));
+//
+//                    } else
+//                        System.out.println("Current Player is already married");
+//                    break;
+//
+//                case "Have a Baby or Twins! Spin a number for your gift!":
+//                    if (p.getIsMarried() == true) {
+//                        int numBabies = ((int)Math.random() * ((2-1)+1)+1);
+//
+//                        switch (numBabies) {
+//                            case 1:
+//                                p.setCash(p.getCash() + 5000 * players.size());
+//                                break;
+//
+//                            case 2:
+//                                p.setCash(p.getCash() + 10000 * players.size());
+//                                break;
+//                        }
+//                    } else
+//                        System.out.println("Current player is not married");
+//                    break;
+//
+//                case "Which Path? Change your career or go start a family!":
+//
+//
+//                    break;
+//            }
+//        }
+//    }
 
-        else if (s instanceof BlueSpace)
+    public int getCounter() {
+        return counter;
+    }
 
-            p.receiveBlueCard(bd.drawCard(), players);
-
-        else if (s instanceof GreenSpace) {
-
-            if (((GreenSpace) s).getGreenDescription() == GreenSpace.GREEN[0])
-                p.setCash(p.getCash() + p.getSalaryCard().computeSalary());
-            else {
-                p.getSalaryCard().setSalary((int)(p.getSalaryCard().getSalary() * 1.1));
-                p.getSalaryCard().setTax((int)(p.getSalaryCard().getTax() + 2000));
-            }
-
-        } else if (s instanceof MagentaSpace) {
-            switch (((MagentaSpace) s).getMagentaDescription()) {
-                case "College Career Choice! Pick a Career and Salary Card!":
-                    p.receiveCareerCard(cd.drawCard(), cd.drawCard(), cd, in);
-                    p.receiveSalaryCard(sd.drawCard(), sd.drawCard(), sd, in);
-                    break;
-
-                case "Job Search! Choose a new Career or keep your current one!":
-                    p.jobSearch(cd.drawCard(), sd.drawCard(), cd, sd, in);
-                    break;
-
-                case "Buy a House! Choose a house of your choice!":
-                    p.receiveHouseCard(hd.drawCard(), hd.drawCard(), hd, in);
-                    break;
-
-                case "Get Married! Spin a number for your wedding gift!":
-                    int num = p.spin();
-                    if (p.getIsMarried() == false) {
-
-                        p.setMarried(true);
-
-                        if (num % 2 == 0)
-                            p.setCash(p.getCash() + (10000 * players.size()));
-                        else 
-                            p.setCash(p.getCash() + (5000 * players.size())); 
-                        
-                    } else 
-                        System.out.println("Already married!");
-                    break;
-
-                case "Have a Baby or Twins! Spin a number for your gift!":
-                    if (p.getIsMarried() == true) {
-                        int choice = Integer.parseInt(in.nextLine());
-                        switch (choice) {
-                            case 1: 
-                                p.setCash(p.getCash() + 5000 * players.size());
-                                break;
-                            case 2:
-                                p.setCash(p.getCash() + 10000 * players.size());
-                                break;
-                        }
-                    } else
-                        System.out.println("You are not married!");
-                    break;
-
-                case "Which Path? Change your career or go start a family!":
-                    int choice = Integer.parseInt(in.nextLine());
-                    if (choice == 1) { 
-                        p.setCurrentPath("changeCareerPath");
-                        p.setSpace(0);
-                    } 
-                    break;
-            }
-        }      
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -255,4 +284,11 @@ public class Board {
         return mainPath;
     }
 
+    public Space[] getCareerPath() {
+        return careerPath;
+    }
+
+    public Space[] getChangeCareerPath() {
+        return changeCareerPath;
+    }
 }

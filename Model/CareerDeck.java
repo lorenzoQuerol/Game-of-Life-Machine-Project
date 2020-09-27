@@ -4,18 +4,32 @@ import java.util.Collections;
 
 public class CareerDeck extends Deck<CareerCard> {
 
+
 	public CareerDeck () {
 		super();
 	}
 
 	@Override
-	public void generateDeck() {
-		for (int i = 0; i < CareerCard.CAREER.length; i++)
-			temp.add(new CareerCard(CareerCard.CAREER[i]));
-		
+	public void generateDeck(int amount) throws InterruptedException {
+		int i = 0;
+		int j = 0;
+
+		while (i < amount) {
+			temp.add(new CareerCard(CareerCard.CAREER[j]));
+			if (j == CareerCard.CAREER.length-1) {
+				j = 0;
+				i++;
+			}
+			else {
+				i++;
+				j++;
+			}
+		}
+
 		for (CareerCard card : temp) {
 			switch (card.getName()) {
 				case "Lawyer":
+				case "Doctor":
 					card.setPayRaise((int)Math.random() * ((8-5)+1) + 5);
 					break;
 
@@ -25,10 +39,6 @@ public class CareerDeck extends Deck<CareerCard> {
 
 				case "Computer Consultant":
 					card.setPayRaise((int)Math.random() * ((7-3)+1) + 3);	
-					break;
-
-				case "Doctor":
-					card.setPayRaise((int)Math.random() * ((8-5)+1) + 5);
 					break;
 
 				case "Server":
@@ -53,7 +63,7 @@ public class CareerDeck extends Deck<CareerCard> {
 			
 		temp.clear();
 	}
-} 
+}
 
 	
 	

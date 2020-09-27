@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <Button fx:id="bApartment" disable="true" layoutX="399.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Apartment">
+            <font>
+                <Font name="Droid Serif Bold Italic" size="14.0" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAGENTA" height="80.0" layoutX="42.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="129.0" />
+        <HBox layoutX="134.0" layoutY="14.0" prefHeight="65.0" prefWidth="332.0">
+            <children>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #79de78" text="B" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font></Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #CF5C36;" text="U" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="56.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="Y" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="102.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #67597A;" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="148.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891FF;" text="A" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="170.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: orange;" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #3E505B;" text="H" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="223.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #cf5c36;" text="O" textFill="WHITE">
+                    <font>
+                        <Font name="Impact" size="34.0" />
+                    </font>
+                </Label>
+            <Label alignment="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #7891ff;" text="U" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="278.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: magenta;" text="S" textFill="#f9f8f8">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="281.0" layoutY="10.0" prefHeight="65.0" prefWidth="46.0" style="-fx-background-color: #f3df8a;" text="E" textFill="WHITE">
+               <font>
+                  <Font name="Impact" size="34.0" />
+               </font>
+            </Label>
+            </children>
+        </HBox>
+        <Label fx:id="mobileHomeLabel" layoutX="63.0" layoutY="126.0" prefHeight="38.0" prefWidth="92.0" text="Price:" textFill="#f9f8f8">
+            <font>
+                <Font name="Impact" size="16.0" />
+            </font>
+        </Label>
+      <Button fx:id="bVilla" disable="true" layoutX="67.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Villa">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="bCondo" disable="true" layoutX="212.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Condominium">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="bMobileHome" disable="true" layoutX="38.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Mobile Home">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="bCabin" disable="true" layoutX="241.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Cabin">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#79de78" height="80.0" layoutX="220.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="129.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#67597a" height="80.0" layoutX="399.0" layoutY="105.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="129.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7891ff" height="80.0" layoutX="45.0" layoutY="237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="129.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3b26e" height="80.0" layoutX="223.0" layoutY="237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="129.0" />
+      <Label fx:id="cabinLabel" layoutX="241.0" layoutY="126.0" prefHeight="38.0" prefWidth="92.0" text="Price:" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="apartmentLabel" layoutX="420.0" layoutY="126.0" prefHeight="38.0" prefWidth="92.0" text="Price:" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="villaLabel" layoutX="63.0" layoutY="258.0" prefHeight="38.0" prefWidth="92.0" text="Price:" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="condoLabel" layoutX="242.0" layoutY="258.0" prefHeight="38.0" prefWidth="92.0" text="Price:" textFill="#f9f8f8">
+         <font>
+            <Font name="Impact" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="houseRoll" layoutX="437.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Roll!">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="houseCont" disable="true" layoutX="421.0" layoutY="322.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+         <font>
+            <Font name="Droid Serif Bold Italic" size="14.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>
