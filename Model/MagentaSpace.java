@@ -12,15 +12,20 @@ public class MagentaSpace extends Space {
             "Which Path? Change your career or go start a family!"
     };
 
+    /**
+     * Constructs the magenta space
+     * @param index index/position of the space on the board
+     * @param description description of the magenta space
+     */
     public MagentaSpace(int index, String description) {
         super(index, "magenta");
         this.magentaDescription = description;
     }
 
-    public String getMagentaDescription() {
-        return magentaDescription;
-    }
-    
+    /**
+     * Formats the string
+     * @return formatted string
+     */
     @Override
     public String toString() {
         return this.magentaDescription;

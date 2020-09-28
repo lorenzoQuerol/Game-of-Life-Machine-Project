@@ -4,13 +4,19 @@ import java.util.Collections;
 
 public class CareerDeck extends Deck<CareerCard> {
 
-
+	/**
+	 * This constructs a career card deck.
+	 */
 	public CareerDeck () {
 		super();
 	}
 
+	/**
+	 * This generates the cards and adds them into the career card deck.
+	 * @param amount the amount of career cards to be generated
+	 */
 	@Override
-	public void generateDeck(int amount) throws InterruptedException {
+	public void generateDeck(int amount) {
 		temp.clear();
 		int i = 0;
 		int j = 0;
@@ -55,6 +61,7 @@ public class CareerDeck extends Deck<CareerCard> {
 					break;
 			}
 		}
+
 
 		Collections.shuffle(temp);
 		Collections.shuffle(temp);

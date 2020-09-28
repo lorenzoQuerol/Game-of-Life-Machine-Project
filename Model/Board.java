@@ -19,6 +19,9 @@ public class Board {
     private HouseDeck houseDeck;
     private int counter;
 
+    /**
+     * This constructs the board and instantiates all its dependencies
+     */
     public Board() {
         players = new ArrayList<Player>();
         winners = new ArrayList<Player>();
@@ -32,7 +35,15 @@ public class Board {
         changeCareerPath = new Space[11]; // changed
     }
 
-    public void initializeData(int numAction, int numCareer, int numSalary, int fill1, int fill2) throws InterruptedException {
+    /**
+     * This initializes all data needed for a proper game flow
+     * @param numAction amount of action cards to be generated
+     * @param numCareer amount of career cards to be generated
+     * @param numSalary amount of salary cards to be generated
+     * @param fill1 filler value for blue cards
+     * @param fill2 filler value for house cards
+     */
+    public void initializeData(int numAction, int numCareer, int numSalary, int fill1, int fill2) {
 
         actionDeck.generateDeck(numAction);
         careerDeck.generateDeck(numCareer);
@@ -157,6 +168,11 @@ public class Board {
         return s;
     }
 
+    /**
+     * Checks the current space the player is on
+     * @param p current player
+     * @return string value of the type of space
+     */
     public String checkSpace(Player p) {
         if (p.getSpaceType() instanceof GreenSpace)
             return "green";
@@ -170,50 +186,98 @@ public class Board {
         return "magenta";
     }
 
+    /**
+     * Gets the winners of the game
+     * @return arraylist of players who reached the end of the board
+     */
     public ArrayList<Player> getWinners() {
         return winners;
     }
 
+    /**
+     * Gets the counter (active player)
+     * @return integer value or count of who is playing
+     */
     public int getCounter() {
         return counter;
     }
 
+    /**
+     * Sets the value of counter when the next player spins
+     * @param counter integer value or count of who is playing
+     */
     public void setCounter(int counter) {
         this.counter = counter;
     }
 
+    /**
+     * Gets the current players of the game
+     * @return arraylist of players
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Gets the action card deck
+     * @return deck of action cards
+     */
     public ActionDeck getActionDeck() {
         return actionDeck;
     }
 
+    /**
+     * Gets the blue card deck
+     * @return deck of blue cards
+     */
     public BlueDeck getBlueDeck() {
         return blueDeck;
     }
 
+    /**
+     * Gets the career card deck
+     * @return deck of career cards
+     */
     public CareerDeck getCareerDeck() {
         return careerDeck;
     }
 
+    /**
+     * Gets the salary card deck
+     * @return deck of salary cards
+     */
     public SalaryDeck getSalaryDeck() {
         return salaryDeck;
     }
 
+    /**
+     * Gets the house card deck
+     * @return deck of house cards
+     */
     public HouseDeck getHouseDeck() {
         return houseDeck;
     }
 
+    /**
+     * Gets the main path
+     * @return array of Spaces denoted as main path
+     */
     public Space[] getMainPath() {
         return mainPath;
     }
 
+    /**
+     * Gets the career path
+     * @return array of Spaces denoted as career path
+     */
     public Space[] getCareerPath() {
         return careerPath;
     }
 
+    /**
+     * Gets the change career path
+     * @return array of Spaces denoted as change career  path
+     */
     public Space[] getChangeCareerPath() {
         return changeCareerPath;
     }
