@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <HBox layoutX="163.0" layoutY="14.0" prefHeight="54.0" prefWidth="277.0">
             <children>
@@ -65,22 +65,22 @@
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="jobLabel1" layoutX="33.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="*update here*" textFill="#f9f8f8">
+      <Label fx:id="jobLabel1" alignment="CENTER" layoutX="33.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="Career Card" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="jobLabel2" layoutX="182.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="*update here*" textFill="#f9f8f8">
+      <Label fx:id="jobLabel2" alignment="CENTER" layoutX="182.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="Career Card" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="wageLabel1" layoutX="334.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="*update here*" textFill="#f9f8f8">
+      <Label fx:id="wageLabel1" alignment="CENTER" layoutX="334.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="Salary Card" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="wageLabel2" layoutX="481.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="*update here*" textFill="#f9f8f8">
+      <Label fx:id="wageLabel2" alignment="CENTER" layoutX="481.0" layoutY="133.0" prefHeight="38.0" prefWidth="88.0" text="Salary Card" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="14.0" />
          </font>

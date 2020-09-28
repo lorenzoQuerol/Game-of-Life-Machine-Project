@@ -11,7 +11,7 @@ public class Board {
     private Space[] changeCareerPath;
 
     private ArrayList<Player> players;
-
+    private ArrayList<Player> winners;
     private ActionDeck actionDeck;
     private CareerDeck careerDeck;
     private BlueDeck blueDeck;
@@ -21,6 +21,7 @@ public class Board {
 
     public Board() {
         players = new ArrayList<Player>();
+        winners = new ArrayList<Player>();
         actionDeck = new ActionDeck();
         careerDeck = new CareerDeck();
         blueDeck = new BlueDeck();
@@ -28,7 +29,7 @@ public class Board {
         houseDeck = new HouseDeck();
         mainPath = new Space[42];
         careerPath = new Space[9];
-        changeCareerPath = new Space[8];
+        changeCareerPath = new Space[11]; // changed
     }
 
     public void initializeData(int numAction, int numCareer, int numSalary, int fill1, int fill2) throws InterruptedException {
@@ -67,7 +68,7 @@ public class Board {
         changeCareerPath[3] = new GreenSpace(3, GreenSpace.GREEN[0]);
 
         for (int i = 0; i < mainPath.length; i++) {
-            if (mainPath[i] == null) {
+            if (mainPath[i] == null && i != 41) {
                 mainPath[i] = new OrangeSpace(i); // Change back to OrangeSpace once testing is done <3
             }
         }
@@ -100,8 +101,9 @@ public class Board {
                 while (i < diceRoll && p.getSpace() < mainPath.length) {
                     p.setSpace(p.getSpace() + 1);
 
-                    if (mainPath[p.getSpace()] instanceof MagentaSpace)
+                    if (mainPath[p.getSpace()] instanceof MagentaSpace) {
                         break;
+                    }
                     i++;
                 }
                 s = mainPath[p.getSpace()];
@@ -162,8 +164,14 @@ public class Board {
             return "orange";
         else if (p.getSpaceType() instanceof BlueSpace)
             return "blue";
+        else if (p.getSpaceType() == null)
+            return "null";
 
         return "magenta";
+    }
+
+    public ArrayList<Player> getWinners() {
+        return winners;
     }
 
     public int getCounter() {

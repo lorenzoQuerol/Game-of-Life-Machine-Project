@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <Button fx:id="marryRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#marriageAction" text="Roll">
             <font>
@@ -66,7 +66,7 @@
             </children>
         </HBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="100.0" layoutX="250.0" layoutY="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="100.0" />
-      <Label fx:id="marryLabel" layoutX="292.0" layoutY="166.0" text="0" textFill="#f9f8f8">
+      <Label fx:id="marryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="166.0" prefHeight="38.0" prefWidth="100.0" text="0" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="30.0" />
          </font>
