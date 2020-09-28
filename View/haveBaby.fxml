@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <Button fx:id="babyRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#babyAction" text="Roll">
             <font>
@@ -55,7 +55,7 @@
                 </Label>
             </children>
         </HBox>
-        <Label fx:id="babyLabel" layoutX="161.0" layoutY="168.0" text="How many will you have I wonder?" textFill="#f9f8f8">
+        <Label fx:id="babyLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="118.0" layoutY="128.0" prefHeight="113.0" prefWidth="365.0" text="How many will you have? I wonder!" textAlignment="CENTER" textFill="#f9f8f8">
             <font>
                 <Font name="Impact" size="20.0" />
             </font>

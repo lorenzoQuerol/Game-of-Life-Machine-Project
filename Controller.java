@@ -114,22 +114,30 @@ public class Controller implements Initializable {
         Start Game Controllers (DONE)
     */
 
-
-    @FXML private Button startGame, player1p, player2p, P3_player2p, player3p, player1Job, player2Job, player3Job;
-
     @FXML
-    private Button P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
-
+    private Button startGame, P1_mainPath, P1_careerPath, P2_mainPath, P2_careerPath, P3_mainPath, P3_careerPath;
 
     @FXML
     public void gameStart() throws Exception {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
 
-        model.getB().initializeData(model.getNumAction(), model.getNumCareer(), model.getNumSalary(), 0, 0);
-        model.getB().getPlayers().get(0).setName(textFieldP1.getText());
-        model.getB().getPlayers().get(1).setName(textFieldP2.getText());
+        b.initializeData(model.getNumAction(), model.getNumCareer(), model.getNumSalary(), 0, 0);
 
-        if (model.getNumPlayers() == 3)
+        b.getPlayers().get(0).setName(textFieldP1.getText());
+        if (b.getPlayers().get(0).getName().equals(""))
+            b.getPlayers().get(0).setName("Player 1");
+
+        b.getPlayers().get(1).setName(textFieldP2.getText());
+        if (b.getPlayers().get(1).getName().equals(""))
+            b.getPlayers().get(1).setName("Player 2");
+
+        if (model.getNumPlayers() == 3) {
             model.getB().getPlayers().get(2).setName(textFieldP3.getText());
+            if (b.getPlayers().get(2).getName().equals(""))
+                b.getPlayers().get(2).setName("Player 3");
+        }
 
         Stage startStage = (Stage) startGame.getScene().getWindow();
         Parent startView = FXMLLoader.load(getClass().getResource("View/playerPath1.fxml"));
@@ -249,9 +257,9 @@ public class Controller implements Initializable {
             chooseP.showAndWait();
         }
 
-        System.out.println(model.getB().getPlayers().get(0).getName() + " : " + model.getB().getPlayers().get(0).getCurrentPath() + " : " + model.getB().getPlayers().get(0).getCareerCard());
-        System.out.println(model.getB().getPlayers().get(1).getName() + " : " + model.getB().getPlayers().get(1).getCurrentPath() + " : " + model.getB().getPlayers().get(1).getCareerCard());
-        model.getB().setCounter(0);
+        System.out.println(players.get(0).getName() + " : " + players.get(0).getCurrentPath() + " : " + players.get(0).getCareerCard());
+        System.out.println(players.get(1).getName() + " : " + players.get(1).getCurrentPath() + " : " + players.get(1).getCareerCard());
+        b.setCounter(0);
         Stage boardStage = (Stage) P2_mainPath.getScene().getWindow();
         Parent boardView = FXMLLoader.load(getClass().getResource("View/gameBoard.fxml"));
 
@@ -298,7 +306,7 @@ public class Controller implements Initializable {
     @FXML
     private Label diceLabel, nameLabel, moneyLabel, jobLabel, salaryLabel, houseLabel;
     @FXML
-    private Button rollSpin, nextPlayer, drawCard;
+    private Button rollSpin, nextPlayer, drawCard, settleLoan, rankings;
     @FXML
     private Rectangle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11, space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22, space23, space24, space25, space26, space27, space28, space29, space30, space31, space32, space33, space34, space35, space36, space37, space38, space39, space40, space41;
     @FXML
@@ -315,31 +323,90 @@ public class Controller implements Initializable {
     private static int stopPinkP3 = 0;
 
     @FXML
-    public void updateValues (MouseEvent mouseEvent) {
+    public void updateValues (MouseEvent mouseEvent) throws Exception {
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         Board b = model.getB();
 
-        nameLabel.setText(players.get(counter).getName());
-        moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
-
-        try {
-            jobLabel.setText(players.get(counter).getCareerCard().getName());
-            salaryLabel.setText(Integer.toString(players.get(counter).getSalaryCard().getSalary()));
-        } catch (NullPointerException e) {
-            jobLabel.setText("None");
-            salaryLabel.setText("None");
+        if (players.size() == 0) {
+            leaveGame.setVisible(false);
+            nextPlayer.setDisable(false);
+            rankings.setVisible(true);
+            rankings.setDisable(false);
+        } else {
+            leaveGame.setVisible(false);
+            rankings.setVisible(false);
         }
 
+
         try {
-            houseLabel.setText((players.get(counter).getHouse().getName()));
-        } catch (NullPointerException e) {
-            houseLabel.setText("None");
+            if (players.get(counter).getSpace() == 41) {
+                retireMyself();
+                drawCard.setDisable(true);
+                nextPlayer.setDisable(false);
+                leaveGame.setVisible(false);
+            }
+
+            if (b.getWinners().size() == model.getNumPlayers()) {
+                leaveGame.setVisible(true);
+                leaveGame.setDisable(false);
+                rankings.setVisible(false);
+                rankings.setDisable(true);
+            } else {
+                leaveGame.setVisible(true);
+                leaveGame.setDisable(false);
+                rankings.setVisible(true);
+                rankings.setDisable(true);
+            }
+
+            nameLabel.setText(players.get(counter).getName());
+            moneyLabel.setText(Integer.toString(players.get(counter).getCash()));
+
+            if (players.get(counter).getBankLoan() == 0)
+                settleLoan.setDisable(true);
+
+            try {
+                jobLabel.setText(players.get(counter).getCareerCard().getName());
+                salaryLabel.setText(Integer.toString(players.get(counter).getSalaryCard().getSalary()));
+            } catch (NullPointerException e) {
+                jobLabel.setText("None");
+                salaryLabel.setText("None");
+            }
+
+            try {
+                houseLabel.setText((players.get(counter).getHouse().getName()));
+            } catch (NullPointerException e) {
+                houseLabel.setText("None");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Game is finished");
         }
     }
 
     @FXML
-    public void rollDice(ActionEvent event) {
+    private Button leaveGame;
+
+    @FXML
+    public void endGame() throws Exception {
+        Stage endStage = (Stage)leaveGame.getScene().getWindow();
+        Parent endView = FXMLLoader.load(getClass().getResource("View/mainMenu.fxml"));
+
+        Scene endScene = new Scene(endView);
+        endStage.setScene(endScene);
+        endStage.show();
+    }
+
+    @FXML
+    public void settleBankLoan (ActionEvent event) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+
+        players.get(counter).settleBankLoan();
+    }
+
+    @FXML
+    public void rollDice(ActionEvent event) throws Exception {
 
         int diceRoll;
         ArrayList<Player> players = model.getB().getPlayers();
@@ -347,22 +414,40 @@ public class Controller implements Initializable {
         Board b = model.getB();
         int countMove;
 
-        if (players.get(counter).getSpace() == 0 && players.get(counter).getCurrentPath().equals("mainPath")) {
-            stopPinkP1 = 8;
-            stopPinkP2 = 8;
-            stopPinkP3 = 8;
-        } else if (players.get(counter).getSpace() == 0 && players.get(counter).getCurrentPath().equals("careerPath")) {
-            stopPinkP1 = 15;
-            stopPinkP2 = 15;
-            stopPinkP3 = 15;
-        } else if (players.get(counter).getSpace() == 19 && players.get(counter).getCurrentPath().equals("changeCareerPath")) {
-            stopPinkP1 = 30;
-            stopPinkP2 = 30;
-            stopPinkP3 = 30;
-        } else if (players.get(counter).getSpace() == 19 && players.get(counter).getCurrentPath().equals("mainPath")) {
-            stopPinkP1 = 21;
-            stopPinkP2 = 21;
-            stopPinkP3 = 21;
+        switch (b.getCounter()) {
+            case 0:
+                if (countP1 == 0 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP1 = 8;
+                } else if (countP1 == 0 && players.get(counter).getCurrentPath().equals("careerPath")) {
+                    stopPinkP1 = 15;
+                } else if (countP1 == 19 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP1 = 21;
+                }  else if (countP1 == 19 && players.get(counter).getCurrentPath().equals("changeCareerPath")) {
+                    stopPinkP1 = 30;
+                }
+                break;
+            case 1:
+                if (countP2 == 0 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP2 = 8;
+                } else if (countP2 == 0 && players.get(counter).getCurrentPath().equals("careerPath")) {
+                    stopPinkP2 = 15;
+                } else if (countP2 == 19 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP2 = 21;
+                }  else if (countP2 == 19 && players.get(counter).getCurrentPath().equals("changeCareerPath")) {
+                    stopPinkP2 = 30;
+                }
+                break;
+            case 2:
+                if (countP3 == 0 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP3 = 8;
+                } else if (countP3 == 0 && players.get(counter).getCurrentPath().equals("careerPath")) {
+                    stopPinkP3 = 15;
+                } else if (countP3 == 19 && players.get(counter).getCurrentPath().equals("mainPath")) {
+                    stopPinkP3 = 21;
+                }  else if (countP3 == 19 && players.get(counter).getCurrentPath().equals("changeCareerPath")) {
+                    stopPinkP3 = 30;
+                }
+                break;
         }
 
         ArrayList<ActionCard> actionDeck = model.getB().getActionDeck().getTemp();
@@ -373,39 +458,37 @@ public class Controller implements Initializable {
 
         System.out.println(b.getCounter());
 
-        diceRoll = 1;
+        diceRoll = 8;
 //        diceRoll = players.get(counter).spin();
         diceLabel.setText(Integer.toString(diceRoll));
 
         countMove = 0; // takes the current value of the current player's moves
 
         if(b.getCounter() == 0) {
-            countMove = countP1;
-            countMove += diceRoll;
             countP1 += diceRoll;
+            countMove = countP1;
             if(countMove >= stopPinkP1) {
                 countMove = stopPinkP1;
                 countP1 = stopPinkP1;
             }
         }
         else if(b.getCounter() == 1) {
-            countMove = countP2;
-            countMove += diceRoll;
             countP2 += diceRoll;
+            countMove = countP2;
             if(countMove >= stopPinkP2) {
                 countMove = stopPinkP2;
                 countP2 = stopPinkP2;
             }
         }
         else if(b.getCounter() == 2) {
-            countMove = countP3;
-            countMove += diceRoll;
             countP3 += diceRoll;
+            countMove = countP3;
             if(countMove >= stopPinkP3) {
                 countMove = stopPinkP3;
                 countP3 = stopPinkP3;
             }
         }
+
         System.out.println("Count move: " + countMove);
         if(countMove <= 41) {
             switch(countMove) {
@@ -791,17 +874,14 @@ public class Controller implements Initializable {
                     if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))){
                         gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece1.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-                        stopPinkP1 = 30;
                     }
                     else if(b.getCounter()  == 1 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece2.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece2.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-                        stopPinkP2 = 30;
                     }
                     else if(b.getCounter()  == 2 && (players.get(counter).getCurrentPath().equals("changeCareerPath"))) {
                         gamePiece3.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
                         gamePiece3.setLayoutY(space19.getLayoutY() + (space19.getHeight() / 2));
-                        stopPinkP3 = 30;
                     }
                     else if(b.getCounter()  == 0 && (players.get(counter).getCurrentPath().equals("mainPath"))){
                         gamePiece1.setLayoutX(space19.getLayoutX() + (space19.getWidth() / 2));
@@ -1235,6 +1315,8 @@ public class Controller implements Initializable {
             }
         }
 
+
+
         nextPlayer.setDisable(true);
         rollSpin.setDisable(true);
         drawCard.setDisable(false);
@@ -1279,7 +1361,8 @@ public class Controller implements Initializable {
                         getMarried();
                         break;
                     case 30:
-                        getBaby();
+                        if (players.get(counter).getIsMarried())
+                            getBaby();
                         break;
                     case 33:
                         buyHouse();
@@ -1311,12 +1394,27 @@ public class Controller implements Initializable {
     retP.showAndWait();
     }
 
-    public void retireAction(ActionEvent e) {
-    if(e.getSource() == retiredPlayer) {
+    public void retireAction(ActionEvent event) {
+        ArrayList<Player> players = model.getB().getPlayers();
+        int counter = model.getB().getCounter();
+        Board b = model.getB();
+        Player p = players.get(counter);
 
-        //collect money here, pay debt here, isRetired
-        retiredPlayer.setVisible(false);
-        retireCont.setVisible(true);
+        if(event.getSource() == retiredPlayer) {
+            b.getWinners().add(players.remove(counter));
+            p.retire(players, b.getWinners());
+            retirementPay.setText(Integer.toString(p.getRetirementPay()));
+            childPay.setText(Integer.toString(p.getChildCash()));
+            houseValue.setText(Integer.toString(p.getHouseCost()));
+            myDebt.setText(Integer.toString(p.getTotalBankLoan()));
+            retiredPlayer.setVisible(false);
+            retireCont.setVisible(true);
+            try {
+                drawCard.setDisable(true);
+                nextPlayer.setDisable(false);
+            } catch (NullPointerException e) {
+                System.out.println("Player has reached end game");
+            }
         }
     
     }
@@ -1379,16 +1477,19 @@ public class Controller implements Initializable {
                         payBank.setDisable(true);
 
                         players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
-                        actionLabel.setText(actionCard.getActionType() + "! Pay $" + (-1 * actionCard.getPayAmount()));
+                        actionLabel.setText(actionCard.getActionType() + "! Pay $" + actionCard.getPayAmount());
                         actionDone.setVisible(true);
                         actionDone.setDisable(false);
                         break;
 
                     case "Collect from Player":
                         if (actionCard.getActionType().equals("It's your Birthday!")) {
+                            payPlayer2.setVisible(false);
+                            payPlayer1.setVisible(false);
+                            actionDone.setVisible(true);
+                            actionDone.setDisable(false);
                             players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
                             actionLabel.setText(actionCard.getActionType() + " Everyone pays you $" + (actionCard.getPayAmount()));
-                            actionDone.setVisible(true);
                         } else {
                             if (model.getNumPlayers() == 2) {
                                 if (b.getCounter() == 0) {
@@ -1407,13 +1508,17 @@ public class Controller implements Initializable {
                             } else if (model.getNumPlayers() == 3) {
                                 collectPlayer1.setVisible(true);
                                 collectPlayer2.setVisible(true);
+                                payPlayer1.setVisible(false);
+                                payPlayer2.setVisible(false);
                                 actionDone.setVisible(false);
                             }
                         }
+                        break;
+
                     case "Pay the Player":
                         if (actionCard.getActionType().equals("Christmas Bonus")) {
                             players.get(counter).receiveActionCard(players.get(counter), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
-                            actionLabel.setText(actionCard.getActionType() + "! Pay everyone $" + (-1 * actionCard.getPayAmount()));
+                            actionLabel.setText(actionCard.getActionType() + "! Pay everyone $" + actionCard.getPayAmount());
                             actionDone.setVisible(true);
                             actionDone.setDisable(false);
                         } else {
@@ -1439,12 +1544,13 @@ public class Controller implements Initializable {
                                 actionDone.setVisible(false);
                             }
                         }
+                        break;
             }
 
         } else {
             actionLabel.setText(actionCard.getActionType());
             if (model.getNumPlayers() == 2) {
-                if (event.getSource().equals(payPlayer1) || event.getSource().equals(payPlayer2)) {
+                if (event.getSource().equals(payPlayer1) || event.getSource().equals(payPlayer2)) {{
                     payPlayer1.setVisible(false);
                     payPlayer2.setVisible(false);
                     if (b.getCounter() == 0)
@@ -1452,21 +1558,26 @@ public class Controller implements Initializable {
                     else
                         players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
 
-                    if (b.getCounter() == 0 && actionCard.getName().equals("Pay to Player")) {
-                        if (b.getCounter() == 0) {
-                            actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(1).getName() + "!");
-                        } else {
-                            actionLabel.setText("You have collected " + actionCard.getPayAmount() + " from " + players.get(0).getName() + "!");
-                        }
-                    } else {
-                        if (b.getCounter() == 0) {
-                            actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(1).getName() + "!");
-                        } else {
-                            actionLabel.setText("You have paid " + (actionCard.getPayAmount() * -1) + " to " + players.get(0).getName() + "!");
-                        }
-                    }
+                    if (b.getCounter() == 0)
+                        actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(1).getName() + "!");
+                    else
+                        actionLabel.setText("You have paid " + (actionCard.getPayAmount()) + " to " + players.get(0).getName() + "!"); }
 
-                    payPlayer1.setDisable(true);
+                    actionDone.setVisible(true);
+                    actionDone.setDisable(false);
+                } else if (event.getSource().equals(collectPlayer1) || event.getSource().equals(collectPlayer2)) {{
+                    collectPlayer1.setVisible(false);
+                    collectPlayer2.setVisible(false);
+                    if (b.getCounter() == 0)
+                        players.get(counter).receiveActionCard(players.get(1), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+                    else
+                        players.get(counter).receiveActionCard(players.get(0), b.getActionDeck().getTemp().remove(b.getActionDeck().getTemp().size()-1), players);
+
+                    if (b.getCounter() == 0)
+                        actionLabel.setText("You have collected " + (actionCard.getPayAmount()) + " from " + players.get(1).getName() + "!");
+                    else
+                        actionLabel.setText("You have collected " + (actionCard.getPayAmount()) + " from " + players.get(0).getName() + "!"); }
+
                     actionDone.setVisible(true);
                     actionDone.setDisable(false);
                 }
@@ -1577,7 +1688,7 @@ public class Controller implements Initializable {
         int counter = model.getB().getCounter();
         Board b = model.getB();
 
-        BlueCard blueCard = b.getBlueDeck().getDeck().peek();
+        BlueCard blueCard = b.getBlueDeck().getTemp().get(b.getBlueDeck().getTemp().size()-1);
         System.out.println(blueCard);
         String result = checkBlueCard(players.get(counter), blueCard, players);
         if (e.getSource() == blueDraw) {
@@ -1600,21 +1711,21 @@ public class Controller implements Initializable {
             }
         } else if (e.getSource() == collectBankBlue) {
             blueLabel.setText("It is your career! You get $15000!");
-            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
+            players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             collectBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payBankBlue) {
             blueLabel.setText("Nobody has this career. Pay the bank $15000!");
-            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
+            players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             payBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payPlayer) {
             blueLabel.setText("You have paid " + result + " $15000!");
-            players.get(counter).receiveBlueCard(b.getBlueDeck().drawCard(), players);
+            players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             payPlayer.setDisable(true);
 
             blueDone.setVisible(true);
@@ -1670,27 +1781,27 @@ public class Controller implements Initializable {
             switch (players.get(counter).getCurrentPath()) {
                 case "mainPath":
                     if (players.get(counter).getSpace() == 17 || players.get(counter).getSpace() == 35)  {
-                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        greenLabel.setText("Pay Day!\n You received your salary of $" + players.get(counter).getSalaryCard().getSalary() + "!");
                         players.get(counter).receiveSalary();
                     } else if (players.get(counter).getSpace() == 29) {
                         players.get(counter).receivePayRaise();
-                        greenLabel.setText("You get a pay raise! Your new salary is $" + players.get(counter).getSalaryCard().computeSalary() + "! (Tax included)");
+                        greenLabel.setText("You get a pay raise!\n Your new salary is $" + players.get(counter).getSalaryCard().getSalary() + "!");
                     }
                     break;
 
                 case "careerPath":
                     if (players.get(counter).getSpace() == 8) {
-                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().getSalary() + "!");
                         players.get(counter).receiveSalary();
                     } else if (players.get(counter).getSpace() == 3) {
                         players.get(counter).receivePayRaise();
-                        greenLabel.setText("You get a pay raise! Your new salary is $" + players.get(counter).getSalaryCard().computeSalary() + "! (Tax included)");
+                        greenLabel.setText("You get a pay raise!\n Your new salary is $" + players.get(counter).getSalaryCard().getSalary() + "!");
                     }
                     break;
 
                 case "changeCareerPath":
                     if (players.get(counter).getSpace() == 3) {
-                        greenLabel.setText("Pay Day! You received your salary of $" + players.get(counter).getSalaryCard().computeSalary() + "!");
+                        greenLabel.setText("Pay Day!\n You received your salary of $" + players.get(counter).getSalaryCard().getSalary() + "!");
                         players.get(counter).receiveSalary();
                     }
                     break;
@@ -1741,15 +1852,16 @@ public class Controller implements Initializable {
             } else {
                 marryOdd.setDisable(false);
             }
+            marryRoll.setVisible(false);
         } else if (e.getSource() == marryOdd) {
 
-            players.get(counter).marry(diceRoll, players);
+            players.get(counter).marry("odd", players);
             marryOdd.setDisable(true);
             marryRoll.setVisible(false);
             marryCont.setVisible(true);
         } else if (e.getSource() == marryEven) {
 
-            players.get(counter).marry(diceRoll, players);
+            players.get(counter).marry("even", players);
             marryEven.setDisable(true);
             marryRoll.setVisible(false);
             marryCont.setVisible(true);
@@ -1835,17 +1947,22 @@ public class Controller implements Initializable {
     // FOR TESTING
     public void houseAction(ActionEvent e) {
         int diceRoll = 0;
+        String str;
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
+        diceRoll = players.get(counter).spin();
+        if (diceRoll % 2 == 0)
+            str = "even";
+        else
+            str = "odd";
         Board b = model.getB();
         if (e.getSource() == houseRoll) {
-            diceRoll = players.get(counter).spin();
 
             houseRoll.setDisable(true);
             houseRoll.setVisible(false);
 
             //if else for odd or even pricing. dont forget setText on the labels
-            if (diceRoll % 2 == 0) {
+            if (str.equals("even")) {
                 mobileHomeLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[0]);
                 cabinLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[1]);
                 apartmentLabel.setText("Price: $" + HouseCard.HOUSE_EVEN[2]);
@@ -1858,51 +1975,64 @@ public class Controller implements Initializable {
                 condoLabel.setText("Price: $" + HouseCard.HOUSE_ODD[3]);
                 villaLabel.setText("Price: $" + HouseCard.HOUSE_ODD[4]);
             }
-
+            houseCont.setVisible(false);
             bMobileHome.setDisable(false);
             bCabin.setDisable(false);
             bApartment.setDisable(false);
+
             bVilla.setDisable(false);
             bCondo.setDisable(false);
         } else if (e.getSource() == bMobileHome) {
-            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[0], b.getHouseDeck());
+            players.get(counter).receiveHouseCard(str, HouseCard.HOUSE[0], b.getHouseDeck());
             bMobileHome.setDisable(true);
             bCabin.setDisable(true);
             bApartment.setDisable(true);
             bVilla.setDisable(true);
             bCondo.setDisable(true);
-        } else if (e.getSource() == bCabin) {
-            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[1], b.getHouseDeck());
-            bMobileHome.setDisable(true);
-            bCabin.setDisable(true);
-            bApartment.setDisable(true);
-            bVilla.setDisable(true);
-            bCondo.setDisable(true);
-        } else if (e.getSource() == bApartment) {
-            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[2], b.getHouseDeck());
-            bMobileHome.setDisable(true);
-            bCabin.setDisable(true);
-            bApartment.setDisable(true);
-            bVilla.setDisable(true);
-            bCondo.setDisable(true);
-        } else if (e.getSource() == bVilla) {
-            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[4], b.getHouseDeck());
-            bMobileHome.setDisable(true);
-            bCabin.setDisable(true);
-            bApartment.setDisable(true);
-            bVilla.setDisable(true);
-            bCondo.setDisable(true);
-        } else if (e.getSource() == bCondo) {
-            players.get(counter).receiveHouseCard(diceRoll, HouseCard.HOUSE[3], b.getHouseDeck());
-            bMobileHome.setDisable(true);
-            bCabin.setDisable(true);
-            bApartment.setDisable(true);
-            bVilla.setDisable(true);
-            bCondo.setDisable(true);
-        }
 
-        houseCont.setVisible(true);
-        houseCont.setDisable(false);
+            houseCont.setVisible(true);
+            houseCont.setDisable(false);
+        } else if (e.getSource() == bCabin) {
+            players.get(counter).receiveHouseCard(str, HouseCard.HOUSE[1], b.getHouseDeck());
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+
+            houseCont.setVisible(true);
+            houseCont.setDisable(false);
+        } else if (e.getSource() == bApartment) {
+            players.get(counter).receiveHouseCard(str, HouseCard.HOUSE[2], b.getHouseDeck());
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+
+            houseCont.setVisible(true);
+            houseCont.setDisable(false);
+        } else if (e.getSource() == bVilla) {
+            players.get(counter).receiveHouseCard(str, HouseCard.HOUSE[4], b.getHouseDeck());
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+
+            houseCont.setVisible(true);
+            houseCont.setDisable(false);
+        } else if (e.getSource() == bCondo) {
+            players.get(counter).receiveHouseCard(str, HouseCard.HOUSE[3], b.getHouseDeck());
+            bMobileHome.setDisable(true);
+            bCabin.setDisable(true);
+            bApartment.setDisable(true);
+            bVilla.setDisable(true);
+            bCondo.setDisable(true);
+
+            houseCont.setVisible(true);
+            houseCont.setDisable(false);
+        }
     }
 
     /*
@@ -1947,7 +2077,7 @@ public class Controller implements Initializable {
             forkContinue.setDisable(false);
         } else if (e.getSource() == continuePath) {
 
-            forkLabel.setText("So I guess it's time to start a family huh");
+            forkLabel.setText("It's time to start a family!");
             careerChange.setVisible(false);
             continuePath.setVisible(false);
 
@@ -2000,42 +2130,58 @@ public class Controller implements Initializable {
             wageLabel1.setText(Integer.toString(s1.getSalary()));
             jobLabel2.setText(c2.getName());
             wageLabel2.setText(Integer.toString(s2.getSalary()));
-            showThem.setVisible(false);
 
+            collegeCont.setVisible(false);
+            showThem.setVisible(false);
             career1.setVisible(true);
             career2.setVisible(true);
             salary1.setVisible(true);
             salary2.setVisible(true);
+
+            career1.setDisable(false);
+            career2.setDisable(false);
+            salary1.setDisable(false);
+            salary2.setDisable(false);
         }
         else if(e.getSource() == career1) {
             CareerCard c1 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
             CareerCard c2 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
             players.get(counter).receiveCareerCard(c1, c2, b.getCareerDeck());
+            career1.setVisible(true);
             career1.setDisable(true);
+            career2.setVisible(false);
             career2.setDisable(true);
         }
         else if(e.getSource() == career2) {
             CareerCard c1 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
             CareerCard c2 = b.getCareerDeck().getTemp().remove(b.getCareerDeck().getTemp().size()-1);
             players.get(counter).receiveCareerCard(c2, c1, b.getCareerDeck());
+            career1.setVisible(false);
             career1.setDisable(true);
+            career2.setVisible(true);
             career2.setDisable(true);
         }
         else if(e.getSource() == salary1) {
             SalaryCard s1 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
             SalaryCard s2 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
             players.get(counter).receiveSalaryCard(s1, s2, b.getSalaryDeck());
+            salary1.setVisible(true);
             salary1.setDisable(true);
+            salary2.setVisible(false);
             salary2.setDisable(true);
         }
         else if(e.getSource() == salary2) {
             SalaryCard s1 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
             SalaryCard s2 = b.getSalaryDeck().getTemp().remove(b.getSalaryDeck().getTemp().size()-1);
             players.get(counter).receiveSalaryCard(s2, s1, b.getSalaryDeck());
+            salary1.setVisible(false);
             salary1.setDisable(true);
+            salary2.setVisible(true);
             salary2.setDisable(true);
         }
-        collegeCont.setVisible(true);
+
+        if ((salary1.isDisabled() && salary2.isDisabled()) && (career1.isDisabled() && career2.isDisabled()))
+            collegeCont.setVisible(true);
     }
 
     /*
@@ -2043,14 +2189,14 @@ public class Controller implements Initializable {
     */
 
     @FXML
-    private Label winnerName, winnerCash, winnerMarriage, winnerKids;
+    private Label winnerName, winnerCash, winnerKids, secondName, secondCash, secondKids, thirdName, thirdCash, thirdKids;
     @FXML
-    private Button winnerWinner, winnerDone;
+    private Button winnerDone, showWinner;
 
     @FXML
     public void displayWinner() throws Exception {
         Stage winnerP = new Stage();
-        Parent winnerCard = FXMLLoader.load(getClass().getResource("View/winnerPop.fxml"));
+        Parent winnerCard = FXMLLoader.load(getClass().getResource("View/showStats.fxml"));
 
         winnerP.initStyle(StageStyle.UNDECORATED);
         winnerP.initModality(Modality.APPLICATION_MODAL);
@@ -2059,52 +2205,56 @@ public class Controller implements Initializable {
         winnerP.showAndWait();
     }
 
-    public void winnerStats(ActionEvent e) {
-        if(e.getSource() == winnerWinner) {
-            winnerName.setText("Player Name: *insert here*");
-            winnerCash.setText("Cash Remaining: $999999");
-            winnerMarriage.setText("Got Married? : Yes");
-            winnerKids.setText("Children: 2");
+    @FXML
+    public void displayStats(ActionEvent e) {
 
-            winnerWinner.setVisible(false);
+        ArrayList<Player> winners = model.getB().getWinners();
+        Board b = model.getB();
+        int counter = b.getCounter();
+
+        if(e.getSource() == showWinner) {
+
+            winnerName.setText("Player Name: " + winners.get(0).getName());
+            winnerCash.setText("Cash Remaining: $" + + winners.get(0).getCash());
+            winnerKids.setText("Children: " + + winners.get(0).getNumChildren());
+
+            secondName.setText("Player Name: " + winners.get(1).getName());
+            secondCash.setText("Cash Remaining: $" + + winners.get(1).getCash());
+            secondKids.setText("Children: " + winners.get(1).getNumChildren());
+
+            if ( model.getNumPlayers() == 3){
+                thirdName.setText("Player Name: " + winners.get(2).getName());
+                thirdCash.setText("Cash Remaining: $" + winners.get(2).getCash());
+                thirdKids.setText("Children: " + winners.get(2).getNumChildren());
+            }
+
+            showWinner.setVisible(false);
             winnerDone.setVisible(true);
+            leaveGame.setVisible(true);
+            rankings.setVisible(false);
         }
-    }    
+    }
         
     @FXML // FUNCTIONAL
-    public void nextTurn() {
+    public void nextTurn() throws Exception {
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         Board b = model.getB();
+
         if (model.getNumPlayers() == 2) {
-            if (model.getB().getCounter() == 1) {
-                model.getB().setCounter(0);
-                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
-                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
-
-            } else {
-                model.getB().setCounter(model.getB().getCounter() + 1);
-                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
-                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
-
-            }
-
+           if (b.getCounter() == players.size()-1)
+               b.setCounter(0);
+           else
+               b.setCounter(b.getCounter()+1);
         } else if (model.getNumPlayers() == 3) {
-            if (model.getB().getCounter() == 2) {
-                model.getB().setCounter(0);
-                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
-                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
-
-            } else {
-                model.getB().setCounter(model.getB().getCounter() + 1);
-                nameLabel.setText(model.getB().getPlayers().get(model.getB().getCounter()).getName());
-                moneyLabel.setText(Integer.toString(model.getB().getPlayers().get(model.getB().getCounter()).getCash()));
-
-            }
+            if (b.getCounter() == players.size()-1)
+                b.setCounter(0);
+            else
+                b.setCounter(b.getCounter()+1);
         }
-
         rollSpin.setDisable(false);
         nextPlayer.setDisable(true);
+        System.out.println(b.getCounter());
     }
 
     /*
@@ -2128,31 +2278,31 @@ public class Controller implements Initializable {
     }
 
     public void babyAction(ActionEvent e) {
-        int diceRoll = 0;
+        int diceRoll = (int)(Math.random() * ((2-1)+1) + 1);
         ArrayList<Player> players = model.getB().getPlayers();
         int counter = model.getB().getCounter();
         Board b = model.getB();
 
         if(e.getSource() == babyRoll) {
-            diceRoll = (int)(Math.random() * ((2-1)+1) + 1);
-
             babyRoll.setDisable(true);
             babyRoll.setVisible(false);
 
-            switch(diceRoll) {
-                case 1:
+            switch (diceRoll) {
+                case 1 -> {
                     babyLabel.setText("Congratulations!\nCollect $5000 from other players!");
                     babyCollect.setText("Collect $5000");
                     babyCollect.setDisable(false);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     babyLabel.setText("TWINS!\nCollect $10000 from other players!");
                     babyCollect.setText("Collect $10000");
                     babyCollect.setDisable(false);
-                    break;
+                }
+
             }
         }
         else if(e.getSource() == babyCollect) {
+            System.out.println(diceRoll);
             players.get(counter).haveBabies(diceRoll, players);
             babyCollect.setDisable(true);
             babyCollect.setVisible(false);

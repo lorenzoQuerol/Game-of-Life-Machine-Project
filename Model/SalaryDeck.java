@@ -11,6 +11,8 @@ public class SalaryDeck extends Deck<SalaryCard> {
 
     @Override
     public void generateDeck(int amount) throws InterruptedException {
+        temp.clear();
+
         int tempSalary = 0;
         int tempTax = 0;
 

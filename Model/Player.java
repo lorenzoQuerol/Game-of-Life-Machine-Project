@@ -22,6 +22,11 @@ public class Player {
     private int space;
     private Space spaceType;
     private int place;
+    private int retirementPay;
+    private int childCash;
+    private int houseCost;
+    private int rank;
+    private int totalBankLoan;
 
     /**
      * Constructor for a Player object. It assigns the starter cash amount for
@@ -45,6 +50,50 @@ public class Player {
      */
     public void setCash(int cash) {
         this.cash = cash;
+    }
+
+    public int getHouseCost() {
+        return houseCost;
+    }
+
+    public void setHouseCost(int houseCost) {
+        this.houseCost = houseCost;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public int getNumChildren() {
+        return numChildren;
+    }
+
+    public int getBankLoan() {
+        return bankLoan;
+    }
+
+    public int getRetirementPay() {
+        return retirementPay;
+    }
+
+    public void setRetirementPay(int retirementPay) {
+        this.retirementPay = retirementPay;
+    }
+
+    public int getChildCash() {
+        return childCash;
+    }
+
+    public void setChildCash(int childCash) {
+        this.childCash = childCash;
+    }
+
+    public int getTotalBankLoan() {
+        return totalBankLoan;
     }
 
     /**
@@ -209,14 +258,14 @@ public class Player {
             case "Lawsuit":
                 System.out.println("File a Lawsuit card was drawn");
                 if (!bankLoanNeeded(this, a.getPayAmount())) 
-                    this.cash += (a.getPayAmount());
+                    this.cash -= (a.getPayAmount());
                 else {
                     while (bankLoanNeeded(this, a.getPayAmount()))
                         makeBankLoan(this);
-                    this.cash += (a.getPayAmount());
+                    this.cash -= (a.getPayAmount());
                 }
 
-                p.setCash(p.getCash() + (a.getPayAmount() * -1));
+                p.setCash(p.getCash() + a.getPayAmount());
                 System.out.println(this.cash);
                 System.out.println(p.getCash());
                 break;
@@ -230,23 +279,21 @@ public class Player {
                     }
 
                     if (!bankLoanNeeded(this, a.getPayAmount())) {
-                        this.cash += (a.getPayAmount());
-                        x.cash += (a.getPayAmount() * -1);
+                        this.cash -= a.getPayAmount();
+                        x.cash += a.getPayAmount();
                     } else {
                         while (bankLoanNeeded(this, a.getPayAmount()))
                             makeBankLoan(this);
-                        this.cash += (a.getPayAmount());
-                        x.cash += (a.getPayAmount() * -1);
+                        this.cash -= a.getPayAmount();
+                        x.cash += a.getPayAmount();
                     }             
                 }
                 break;
 
             case "File a Lawsuit":
                 System.out.println("You Filed a Lawsuit Against Someone card was drawn");
-                this.setCash(this.cash + a.getPayAmount());
-                System.out.println(this.cash);
-                p.setCash(p.getCash() + (a.getPayAmount() * -1));
-                System.out.println(p.cash);
+                this.cash += a.getPayAmount();
+                p.setCash(p.getCash() - a.getPayAmount());
                 break;
 
             case "It's your Birthday!":
@@ -257,12 +304,12 @@ public class Player {
                         continue;
                     if (!bankLoanNeeded(x, a.getPayAmount())){
                         this.cash += a.getPayAmount();
-                        x.cash += (a.getPayAmount() * -1);
+                        x.cash -= a.getPayAmount();
                     } else {
                         while (bankLoanNeeded(x, a.getPayAmount()))
                             makeBankLoan(x);
                         this.cash += a.getPayAmount();
-                        x.cash += (a.getPayAmount() * -1);
+                        x.cash -= a.getPayAmount();
                     }                    
                 }
                 break;
@@ -321,7 +368,7 @@ public class Player {
     }
 
 
-    public void receiveHouseCard (int diceRoll, String houseName, HouseDeck hd) {
+    public void receiveHouseCard (String str, String houseName, HouseDeck hd) {
         HouseCard house = null;
 
         for (HouseCard h : hd.temp) {
@@ -332,10 +379,10 @@ public class Player {
         int key = hd.temp.indexOf(house);
         this.house = hd.temp.remove(key);
 
-        if (diceRoll % 2 == 0)
-            this.house.finalPayAmount = this.house.payAmountEven;
+        if (str.equals("even"))
+            this.house.setFinalPayAmount(this.house.payAmountEven);
         else
-            this.house.finalPayAmount = this.house.payAmountOdd;
+            this.house.setFinalPayAmount(this.house.payAmountOdd);
 
         while (bankLoanNeeded(this, house.finalPayAmount))
             makeBankLoan(this);
@@ -355,6 +402,7 @@ public class Player {
     public void makeBankLoan (Player p) {
         p.cash += 20000;
         p.bankLoan += 25000;
+        p.totalBankLoan += 25000;
     }
 
     public void settleBankLoan () {
@@ -369,81 +417,91 @@ public class Player {
 
     public void haveBabies (int diceRoll, ArrayList<Player> players) {
         if (this.isMarried) {
-            if (diceRoll % 2 == 0) {
+            if (diceRoll == 2) {
                 this.numChildren = 2;
-                this.setCash(this.getCash() + 10000 * players.size());
+                this.setCash(this.getCash() + (10000 * (players.size() - 1)));
                 for (Player p : players) {
                     if (p == this)
                         continue;
-                    p.setCash(p.getCash() - 10000);
+                    else
+                        p.setCash(p.getCash() - 10000);
                 }
-            } else {
+            } else if (diceRoll == 1){
                 this.numChildren = 1;
-                this.setCash(this.getCash() + 5000 * players.size());
+                this.setCash(this.getCash() + (5000 * (players.size() - 1)));
                 for (Player p : players) {
                     if (p == this)
                         continue;
-                    p.setCash(p.getCash() - 5000);
+                    else
+                        p.setCash(p.getCash() - 5000);
                 }
             }
         }
     }
 
-    public void marry (int diceRoll, ArrayList<Player> players) {
-        if (diceRoll % 2 == 0) {
-            this.setCash(this.getCash() + (10000 * players.size()-1));
+    public void marry (String diceRoll, ArrayList<Player> players) {
+        if (diceRoll.equals("even")) {
+            this.setCash(this.getCash() + (10000 * (players.size() - 1)));
             for (Player p : players) {
                 if (p == this)
                     continue;
                 p.setCash(p.getCash() - 10000);
             }
-        } else {
-            this.setCash(this.getCash() + (5000 * players.size()-1));
+        } else if (diceRoll.equals("odd")) {
+            this.setCash(this.getCash() + (5000 * (players.size() - 1)));
             for (Player p : players) {
                 if (p == this)
                     continue;
                 p.setCash(p.getCash() - 5000);
             }
         }
+        this.setMarried(true);
     }
 
-    public void retire (ArrayList<Player> players) {
+    public void retire (ArrayList<Player> players, ArrayList<Player> winners) {
         int place = 0;
 
-        // 1. Collect retirement pay from the bank.
-        for (Player p : players) {
-            if (p == this)
-                continue;
-            if (p.isRetired == true)
-                place++;
+        switch (winners.indexOf(this)) {
+        // first case: player is first to retire
+            case 0 -> {
+                this.retirementPay = 100000;
+                this.cash += 100000;
+                this.rank = 1;
+            }
+        // second case: player is second to retire
+            case 1 -> {
+                this.retirementPay = 50000;
+                this.cash += 50000;
+                this.rank = 2;
+            }
+        // third case: player is last to retire
+            case 2 -> {
+                this.retirementPay = 20000;
+                this.cash += 20000;
+                this.rank = 3;
+            }
         }
         
-        switch (place) {
-            case 0: // first case: player is first to retire
-                this.cash += 100000;
-                break;
-                
-            case 1: // second case: player is second to retire
-                this.cash += 50000;
-                break;
-
-            case 2: // third case: player is last to retire
-                this.cash += 20000;
-                break;
-        } 
-        
         // 2. Collect $10000 for each child he has from the bank.
-        this.cash += (this.numChildren * 10000);
+        this.childCash += (this.numChildren * 10000);
+        this.cash += this.childCash;
 
         // 3. Sell your house to the Bank for the amount listed on the card
-        this.cash += this.house.finalPayAmount;
+        try {
+            this.houseCost = this.house.finalPayAmount;
+            this.cash += this.house.finalPayAmount;
+        } catch (NullPointerException e) {
+            System.out.println("Player has no house");
+        }
         this.house = null;
 
         // 4. Repay to the Bank, all outstanding loans with interest.
-        while (this.bankLoan != 0)
+        while (this.bankLoan != 0) {
             settleBankLoan();
+        }
 
         this.setRetired(true);
+        System.out.println(getIsRetired());
     }
 
     /**
@@ -452,7 +510,7 @@ public class Player {
      * @return A boolean value if the player's cash is less than what he/she is paying for
      */
     private boolean bankLoanNeeded (Player p, int payment) {
-        return p.cash < (payment * -1) ? true : false;
+        return p.cash < (payment) ? true : false;
     }
  
     /**

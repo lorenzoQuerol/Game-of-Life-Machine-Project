@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <Button fx:id="careerChange" layoutX="237.0" layoutY="279.0" mnemonicParsing="false" onAction="#chosenAction" text="Change Career">
             <font>
@@ -57,7 +57,7 @@
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="forkLabel" alignment="CENTER" layoutX="209.0" layoutY="141.0" text="What will you do next?" textFill="#f9f8f8">
+      <Label fx:id="forkLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="118.0" prefHeight="116.0" prefWidth="366.0" text="What will you do next?" textFill="#f9f8f8">
          <font>
             <Font name="Impact" size="20.0" />
          </font></Label>

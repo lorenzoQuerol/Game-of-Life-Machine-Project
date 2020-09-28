@@ -18,6 +18,7 @@ public class ActionDeck extends Deck<ActionCard> {
      */
     @Override
     public void generateDeck(int amount) throws InterruptedException {
+        temp.clear();
         /*
         The temporary array list is used to generate the action deck values into
         its respective proportions per type of action card.
@@ -84,27 +85,27 @@ public class ActionDeck extends Deck<ActionCard> {
                     card.setActionType(ActionCard.PAYBANK[(int)(Math.random() * (6))]);
                     switch(card.getActionType()) {
                         case "Buy an Item":
-                            card.setPayAmount(-10000);
+                            card.setPayAmount(10000);
                             break;
 
                         case "Visit a Place":
-                            card.setPayAmount(-25000);
+                            card.setPayAmount(25000);
                             break;
 
                         case "Hiking":
-                            card.setPayAmount(-20000);
+                            card.setPayAmount(20000);
                             break;
 
                         case "Watch a Show":
-                            card.setPayAmount(-2500);
+                            card.setPayAmount(2500);
                             break;
 
                         case "Win a Competition":
-                            card.setPayAmount(-15000);
+                            card.setPayAmount(15000);
                             break;
 
                         case "Traffic Violation":
-                            card.setPayAmount(-1000);
+                            card.setPayAmount(1000);
                             break;
                     }
                     break;
@@ -113,11 +114,11 @@ public class ActionDeck extends Deck<ActionCard> {
                     card.setActionType(ActionCard.PAYPLAYER[(int)(Math.random() * (2))]);
                     switch(card.getActionType()) {
                         case "Lawsuit":
-                            card.setPayAmount(-50000);
+                            card.setPayAmount(50000);
                             break;
 
                         case "Christmas Bonus":
-                            card.setPayAmount(-25000);
+                            card.setPayAmount(25000);
                             break;
                     }
                     break;
