@@ -80,13 +80,13 @@ public class Board {
 
         for (int i = 0; i < mainPath.length; i++) {
             if (mainPath[i] == null && i != 41) {
-                mainPath[i] = new OrangeSpace(i); // Change back to OrangeSpace once testing is done <3
+                mainPath[i] = new OrangeSpace(i);
             }
         }
 
-        for (int i = 0; i < changeCareerPath.length; i++) {
-            if (changeCareerPath[i] == null) {
-                changeCareerPath[i] = new OrangeSpace(i);
+        for (int i = 0; i < careerPath.length; i++) {
+            if (careerPath[i] == null) {
+                careerPath[i] = new OrangeSpace(i);
             }
         }
 
@@ -100,7 +100,7 @@ public class Board {
     /**
      * Allows the player to take a turn (e.g. spin a number and get a card).
      *  @param p  The current player
-     * @return
+     * @return the space type the player is on
      */
     public Space takeTurn(Player p, int diceRoll) {
 

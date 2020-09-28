@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <Button fx:id="P1_mainPath" layoutX="240.0" layoutY="471.0" mnemonicParsing="false" onAction="#secondPlayer" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/startSelectStyles.css" text="Go To College" textAlignment="CENTER" textFill="#272838">
             <font>
@@ -67,13 +67,13 @@
 
             </children>
         </HBox>
-      <Label layoutX="240.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #cf5c36;" text="Go to college and earn your degree!&#13;Gain an educational advantage!&#13;Results may vary :-)" textFill="#f9f8f8">
+      <Label alignment="CENTER" layoutX="240.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #cf5c36;" text="Go to college and earn your degree!&#13;Gain an educational advantage!&#13;Results may vary :-)" textAlignment="CENTER" textFill="#f9f8f8">
          <font>
-            <Font name="Droid Serif" size="12.0" />
+            <Font name="Impact" size="15.0" />
          </font></Label>
-      <Label layoutX="527.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #8884ff;" text="Start your career and get working!&#13;Get a house! Start a family!&#13;Your 9-5 life awaits! :-D">
+      <Label alignment="CENTER" layoutX="527.0" layoutY="377.0" prefHeight="76.0" prefWidth="250.0" style="-fx-background-color: #8884ff;" text="Start your career and get working!&#13;Get a house! Start a family!&#13;Your 9-5 life awaits! :-D" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Droid Serif" size="12.0" />
+            <Font name="Impact" size="15.0" />
          </font></Label>
       <HBox layoutX="336.0" layoutY="41.0">
          <children>

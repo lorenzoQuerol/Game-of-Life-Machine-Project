@@ -456,10 +456,9 @@ public class Controller implements Initializable {
         ArrayList<SalaryCard> salaryDeck = model.getB().getSalaryDeck().getTemp();
         ArrayList<HouseCard> houseDeck = model.getB().getHouseDeck().getTemp();
 
-        System.out.println(b.getCounter());
+        System.out.println("Current player: " + b.getCounter());
 
-        diceRoll = 8;
-//        diceRoll = players.get(counter).spin();
+        diceRoll = players.get(counter).spin();
         diceLabel.setText(Integer.toString(diceRoll));
 
         countMove = 0; // takes the current value of the current player's moves
@@ -1710,21 +1709,21 @@ public class Controller implements Initializable {
                     payPlayer.setDisable(false);
             }
         } else if (e.getSource() == collectBankBlue) {
-            blueLabel.setText("It is your career! You get $15000!");
+            blueLabel.setText(blueCard.getName() + "!\nIt is your career! You get $15000!");
             players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             collectBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payBankBlue) {
-            blueLabel.setText("Nobody has this career. Pay the bank $15000!");
+            blueLabel.setText(blueCard.getName() + "!\nNobody has this career. Pay the bank $15000!");
             players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             payBankBlue.setDisable(true);
 
             blueDone.setVisible(true);
             blueDone.setDisable(false);
         } else if (e.getSource() == payPlayer) {
-            blueLabel.setText("You have paid " + result + " $15000!");
+            blueLabel.setText(blueCard.getName() + "\nYou have paid " + result + " $15000!");
             players.get(counter).receiveBlueCard(b.getBlueDeck().getTemp().remove(b.getBlueDeck().getTemp().size()-1), players);
             payPlayer.setDisable(true);
 
