@@ -4,13 +4,20 @@ import java.util.Collections;
 
 public class SalaryDeck extends Deck<SalaryCard> {
 
-
+    /**
+     * This constructs the salary card deck which extends
+     * from the Deck abstract class
+     */
     public SalaryDeck () {
         super();
     }
 
+    /**
+     * This generates the salary card deck
+     * @param amount the amount of salary cards to be generated in a deck
+     */
     @Override
-    public void generateDeck(int amount) throws InterruptedException {
+    public void generateDeck(int amount) {
         temp.clear();
 
         int tempSalary = 0;

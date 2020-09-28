@@ -7,15 +7,20 @@ public class GreenSpace extends Space {
         "Pay Day! Collect your salary from the bank!",
         "Pay Raise!"};
 
+    /**
+     * Constructs the green space
+     * @param index index/position of the space on the board
+     * @param description description of the green space
+     */
     public GreenSpace(int index, String description) {
         super(index, "green");
         this.greenDescription = description;
     }
 
-    public String getGreenDescription() {
-        return greenDescription;
-    }
-    
+    /**
+     * Formats the string
+     * @return formatted string
+     */
     @Override
     public String toString() {
         return this.greenDescription;

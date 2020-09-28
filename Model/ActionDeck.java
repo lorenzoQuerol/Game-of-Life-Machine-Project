@@ -7,6 +7,7 @@ public class ActionDeck extends Deck<ActionCard> {
     /**
      * Constructor for an action card deck object. It creates a temporary
      * array list, as well as a deque for pushing action card objects into.
+     * It extends from abstract class Deck.
      */
 
     public ActionDeck() {
@@ -17,7 +18,7 @@ public class ActionDeck extends Deck<ActionCard> {
      * Generates and shuffles a new action card deck.
      */
     @Override
-    public void generateDeck(int amount) throws InterruptedException {
+    public void generateDeck(int amount) {
         temp.clear();
         /*
         The temporary array list is used to generate the action deck values into

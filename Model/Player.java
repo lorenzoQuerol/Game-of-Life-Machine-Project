@@ -1,5 +1,6 @@
 package Model;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 
 public class Player {
@@ -25,7 +26,6 @@ public class Player {
     private int retirementPay;
     private int childCash;
     private int houseCost;
-    private int rank;
     private int totalBankLoan;
 
     /**
@@ -37,7 +37,7 @@ public class Player {
     } 
 
     /**
-     * Sets the player's name
+     * Sets the player's name.
      * @param name The player's name
      */
     public void setName(String name) {
@@ -52,46 +52,51 @@ public class Player {
         this.cash = cash;
     }
 
+    /**
+     * This gets the cost of the house card
+     * @return the house card value.
+     */
     public int getHouseCost() {
         return houseCost;
     }
 
-    public void setHouseCost(int houseCost) {
-        this.houseCost = houseCost;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
+    /**
+     * This gets the number of children the player has
+     * @return the number of children.
+     */
     public int getNumChildren() {
         return numChildren;
     }
 
+    /**
+     * This gets the bank loan of the player
+     * @return the bank loan.
+     */
     public int getBankLoan() {
         return bankLoan;
     }
 
+    /**
+     * This gets the retirement pay the player received
+     * @return the retirement pay.
+     */
     public int getRetirementPay() {
         return retirementPay;
     }
 
-    public void setRetirementPay(int retirementPay) {
-        this.retirementPay = retirementPay;
-    }
-
+    /**
+     * This gets the total cash received from the amount
+     * of children the player has.
+     * @return
+     */
     public int getChildCash() {
         return childCash;
     }
 
-    public void setChildCash(int childCash) {
-        this.childCash = childCash;
-    }
-
+    /**
+     * Gets the total bank loan the player paid.
+     * @return total bank loan the player paid
+     */
     public int getTotalBankLoan() {
         return totalBankLoan;
     }
@@ -144,6 +149,10 @@ public class Player {
         this.house = house;
     }
 
+    /**
+     * Gets the house card of the player
+     * @return house card of the player
+     */
     public HouseCard getHouse() {
         return house;
     }
@@ -164,6 +173,10 @@ public class Player {
         this.space = space;
     }
 
+    /**
+     * Sets the type of space the player is currently on.
+     * @param spaceType color/type of space player is on
+     */
     public void setSpaceType(Space spaceType) {
         this.spaceType = spaceType;
     }
@@ -177,21 +190,33 @@ public class Player {
     }
     
     /**
-     * Gets the player's cash
+     * Gets the player's cash.
      * @return The player's current cash
      */
     public int getCash() {
         return cash;
     }
-    
+
+    /**
+     * Gets marriage status of player.
+     * @return marriage status of player
+     */
     public boolean getIsMarried() {
         return isMarried;
     }
 
+    /**
+     * Gets graduate status of player.
+     * @return graduate status of player
+     */
     public boolean getIsGraduate() {
         return isGraduate;
     }
 
+    /**
+     * Gets retirement status of player.
+     * @return retirement status of player
+     */
     public boolean getIsRetired() {
         return isRetired;
     }
@@ -204,30 +229,58 @@ public class Player {
         return space;
     }
 
+    /**
+     * Gets the space type of the player is currently on.
+     * @return the type of space the player is currently on
+     */
     public Space getSpaceType() {
         return spaceType;
     }
 
+    /**
+     * Gets current path of player.
+     * @return current path of player
+     */
     public String getCurrentPath() {
         return currentPath;
     }
 
+    /**
+     * Gets salary card of player.
+     * @return salary card
+     */
     public SalaryCard getSalaryCard() {
         return salary;
     }
 
+    /**
+     * Gets career card of player.
+     * @return career card
+     */
     public CareerCard getCareerCard() {
         return career;
     }
 
+    /**
+     * Sets place/ranking of player (1,2,3)
+     * @@param place of player
+     */
     public void setPlace(int place) {
         this.place = place;
     }
 
+    /**
+     * Gets place/ranking of player.
+     * @return place of player
+     */
     public int getPlace() {
         return place;
     }
 
+    /**
+     * Sets the retirement status of player.
+     * @param retired retirement status of player
+     */
     public void setRetired(boolean retired) {
         isRetired = retired;
     }
@@ -243,8 +296,8 @@ public class Player {
     /**
      * This method allows the player to receive an action card and manipulate the player's statistics
      * based on the description of the chosen card.
+     * @param p the player the current player interacts with
      * @param a The action card deck
-
      * @param players The list of current players
      */
     public void receiveActionCard (Player p, ActionCard a, ArrayList<Player> players) {
@@ -325,18 +378,37 @@ public class Player {
         }
     }
 
+    /**
+     * Lets player receive the career card and set it
+     * @param c career card chosen by the player
+     * @param notChosen career card to be discarded
+     * @param cd career deck
+     */
     public void receiveCareerCard (CareerCard c, CareerCard notChosen, CareerDeck cd) {
         System.out.println("Chosen Career: " + c);
         this.career = c;
-        cd.deck.addFirst(notChosen);
+        cd.getTemp().add(notChosen);
     }
 
+    /**
+     * Lets player receive the salary card and set it.
+     * @param s salary card chosen by the player
+     * @param notChosen salary card to be discarded
+     * @param sd salary deck
+     */
     public void receiveSalaryCard (SalaryCard s, SalaryCard notChosen, SalaryDeck sd) {
         System.out.println("Chosen salary: " + s);
         this.salary = s;
-        sd.deck.addFirst(notChosen);
+        sd.getTemp().add(notChosen);
     }
 
+    /**
+     * Called when player lands on a Job Search magenta space
+     * @param c career chosen by player
+     * @param s salary chosen by player
+     * @param cd career deck
+     * @param sd salary deck
+     */
     public void jobSearch (CareerCard c, SalaryCard s, ArrayList<CareerCard> cd, ArrayList<SalaryCard> sd) {
         System.out.println("Career and Salary Changed via Job Search");
         cd.add(this.career);
@@ -345,6 +417,11 @@ public class Player {
         this.salary = s;
     }
 
+    /**
+     * Lets player receive the blue card and set it.
+     * @param b blue card
+     * @param players players in the current game
+     */
     public void receiveBlueCard (BlueCard b, ArrayList<Player> players){
         boolean hasBlueCard = false;
 
@@ -367,7 +444,12 @@ public class Player {
             this.cash -= 15000;
     }
 
-
+    /**
+     * Lets player receive the house card and set it.
+     * @param str string value which contains "even" or "odd"
+     * @param houseName name of the house the player chose
+     * @param hd house deck
+     */
     public void receiveHouseCard (String str, String houseName, HouseDeck hd) {
         HouseCard house = null;
 
@@ -380,31 +462,44 @@ public class Player {
         this.house = hd.temp.remove(key);
 
         if (str.equals("even"))
-            this.house.setFinalPayAmount(this.house.payAmountEven);
+            this.house.setFinalPayAmount(this.house.getPayAmountEven());
         else
-            this.house.setFinalPayAmount(this.house.payAmountOdd);
+            this.house.setFinalPayAmount(this.house.getPayAmountOdd());
 
         while (bankLoanNeeded(this, house.finalPayAmount))
             makeBankLoan(this);
 
-        this.cash -= house.finalPayAmount;
+        this.cash -= house.getFinalPayAmount();
     }
 
+    /**
+     * Lets the player receive the computed salary
+     */
     public void receiveSalary () {
         this.setCash(this.getCash() + this.getSalaryCard().computeSalary());
     }
 
+    /**
+     * Lets the player receive a pay raise
+     */
     public void receivePayRaise () {
         this.getSalaryCard().setSalary((int)(this.getSalaryCard().getSalary() * 1.1));
         this.getSalaryCard().setTax(this.getSalaryCard().getTax() + 2000);
     }
 
+    /**
+     * Makes a bank loan of $20000 and adds to the player's bank loan balance
+     * @param p player
+     */
     public void makeBankLoan (Player p) {
         p.cash += 20000;
         p.bankLoan += 25000;
         p.totalBankLoan += 25000;
     }
 
+    /**
+     * Lets the player pay all of his/her bank loans
+     */
     public void settleBankLoan () {
         if (this.cash - 25000 >= 0 && this.bankLoan - 25000 >= 0) {
             this.cash -= 25000; 
@@ -415,6 +510,11 @@ public class Player {
         }
     }
 
+    /**
+     * Called when player lands on have baby/ies magenta space
+     * @param diceRoll an integer value that may contain 1 or 2
+     * @param players players of the current game
+     */
     public void haveBabies (int diceRoll, ArrayList<Player> players) {
         if (this.isMarried) {
             if (diceRoll == 2) {
@@ -439,6 +539,11 @@ public class Player {
         }
     }
 
+    /**
+     * Lets the player be married, which sets his/her status to married
+     * @param diceRoll a string value containing "even" or "odd"
+     * @param players players of the current game
+     */
     public void marry (String diceRoll, ArrayList<Player> players) {
         if (diceRoll.equals("even")) {
             this.setCash(this.getCash() + (10000 * (players.size() - 1)));
@@ -458,6 +563,11 @@ public class Player {
         this.setMarried(true);
     }
 
+    /**
+     * Lets the play retire. Called when the player reaches the end of the board
+     * @param players players of the current game
+     * @param winners list of players who arrived at the end of the board first
+     */
     public void retire (ArrayList<Player> players, ArrayList<Player> winners) {
         int place = 0;
 
@@ -466,19 +576,16 @@ public class Player {
             case 0 -> {
                 this.retirementPay = 100000;
                 this.cash += 100000;
-                this.rank = 1;
             }
         // second case: player is second to retire
             case 1 -> {
                 this.retirementPay = 50000;
                 this.cash += 50000;
-                this.rank = 2;
             }
         // third case: player is last to retire
             case 2 -> {
                 this.retirementPay = 20000;
                 this.cash += 20000;
-                this.rank = 3;
             }
         }
         
