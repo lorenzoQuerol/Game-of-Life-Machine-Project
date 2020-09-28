@@ -17,8 +17,8 @@ public class HouseCard {
 
     public HouseCard (String n, int o, int e) {
         this.name = n;
-        this.payAmountOdd = o;
-        this.payAmountEven = e;
+        this.payAmountOdd = e;
+        this.payAmountEven = o;
     }
 
     public String getName() {

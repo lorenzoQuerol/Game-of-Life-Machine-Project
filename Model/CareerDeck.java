@@ -11,6 +11,7 @@ public class CareerDeck extends Deck<CareerCard> {
 
 	@Override
 	public void generateDeck(int amount) throws InterruptedException {
+		temp.clear();
 		int i = 0;
 		int j = 0;
 
