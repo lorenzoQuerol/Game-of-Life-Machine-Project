@@ -1,0 +1,55 @@
+#drawCard, #drawCard:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #ff85e9;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: #f9f8f8;
+    -fx-border-radius: 5;
+}
+
+#rollSpin, #rollSpin:hover,
+#settleLoan, #settleLoan:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 20px;
+    -fx-background-color: #373737;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: #f9f8f8;
+    -fx-border-radius: 5;
+}
+
+#nextPlayer, #nextPlayer:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 12px;
+    -fx-background-color: #373737;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: #f9f8f8;
+    -fx-border-radius: 5;
+}
+
+#rankings, #rankings:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 20px;
+    -fx-background-color: #373737;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: green;
+    -fx-border-radius: 5;
+}
+
+#leaveGame, #leaveGame:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 20px;
+    -fx-background-color: #373737;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: red;
+    -fx-border-radius: 5;
+}

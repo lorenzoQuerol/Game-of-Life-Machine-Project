@@ -5,18 +5,18 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="marryRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#marriageAction" text="Roll">
+        <Button fx:id="marryRoll" layoutX="276.0" layoutY="334.0" mnemonicParsing="false" onAction="#marriageAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Roll">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font></Button>
-        <Button fx:id="marryEven" disable="true" layoutX="365.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" text="Collect $10000">
+        <Button fx:id="marryEven" disable="true" layoutX="365.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Collect $10000">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="marryOdd" disable="true" layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" text="Collect $5000">
+        <Button fx:id="marryOdd" disable="true" layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#marriageAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Collect $5000">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
@@ -71,7 +71,7 @@
             <Font name="Impact" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="marryCont" layoutX="258.0" layoutY="336.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+      <Button fx:id="marryCont" layoutX="259.0" layoutY="334.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Continue" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>

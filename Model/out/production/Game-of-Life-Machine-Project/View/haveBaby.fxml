@@ -5,13 +5,13 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="babyRoll" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#babyAction" text="Roll">
+        <Button fx:id="babyRoll" layoutX="276.0" layoutY="334.0" mnemonicParsing="false" onAction="#babyAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Roll">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font></Button>
-        <Button fx:id="babyCollect" disable="true" layoutX="244.0" layoutY="281.0" mnemonicParsing="false" onAction="#babyAction" text="Collect $5000">
+        <Button fx:id="babyCollect" disable="true" layoutX="242.0" layoutY="279.0" mnemonicParsing="false" onAction="#babyAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Collect $5000">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
@@ -60,7 +60,7 @@
                 <Font name="Impact" size="20.0" />
             </font>
         </Label>
-        <Button fx:id="babyCont" layoutX="258.0" layoutY="336.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+        <Button fx:id="babyCont" layoutX="259.0" layoutY="334.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Continue" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>

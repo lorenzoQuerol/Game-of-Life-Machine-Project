@@ -1,0 +1,17 @@
+#actionDraw, #actionDraw:hover,
+#collectPlayer1, #collectPlayer1:hover,
+#collectPlayer2, #collectPlayer2:hover,
+#payPlayer1, #payPlayer1:hover,
+#payPlayer2, #payPlayer2:hover,
+#payBank, #payBank:hover,
+#collectBank, #collectBank:hover,
+#collectMoney, #collectMoney:hover,
+#actionDone, #actionDone:hover, {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: orange;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}

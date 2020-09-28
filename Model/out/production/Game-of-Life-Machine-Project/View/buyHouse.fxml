@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="bApartment" disable="true" layoutX="399.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Apartment">
+        <Button fx:id="bApartment" disable="true" layoutX="407.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Buy Apartment">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
@@ -76,22 +76,22 @@
                 <Font name="Impact" size="16.0" />
             </font>
         </Label>
-      <Button fx:id="bVilla" disable="true" layoutX="67.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Villa">
+      <Button fx:id="bVilla" disable="true" layoutX="70.0" layoutY="320.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Buy Villa">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="bCondo" disable="true" layoutX="212.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Condominium">
+      <Button fx:id="bCondo" disable="true" layoutX="217.0" layoutY="320.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Buy Condominium">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="bMobileHome" disable="true" layoutX="38.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Mobile Home">
+      <Button fx:id="bMobileHome" disable="true" layoutX="38.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Buy Mobile Home">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="bCabin" disable="true" layoutX="241.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" text="Buy Cabin">
+      <Button fx:id="bCabin" disable="true" layoutX="244.0" layoutY="190.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Buy Cabin">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
@@ -120,12 +120,12 @@
             <Font name="Impact" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="houseRoll" layoutX="437.0" layoutY="322.0" mnemonicParsing="false" onAction="#houseAction" text="Roll!">
+      <Button fx:id="houseRoll" layoutX="440.0" layoutY="320.0" mnemonicParsing="false" onAction="#houseAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Roll!">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="houseCont" disable="true" layoutX="421.0" layoutY="322.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+      <Button fx:id="houseCont" disable="true" layoutX="425.0" layoutY="320.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/buyHouseStyles.css" text="Continue" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>

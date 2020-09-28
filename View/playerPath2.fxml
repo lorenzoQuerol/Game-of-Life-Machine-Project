@@ -8,11 +8,11 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
 
-        <Button fx:id="P2_mainPath" layoutX="242.0" layoutY="471.0" mnemonicParsing="false" onAction="#countPlayers" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Go To College" textAlignment="CENTER" textFill="#272838">
+        <Button fx:id="P2_mainPath" layoutX="240.0" layoutY="471.0" mnemonicParsing="false" onAction="#countPlayers" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/startSelectStyles.css" text="Go To College" textAlignment="CENTER" textFill="#272838">
             <font>
                 <Font name="Droid Serif Bold Italic" size="20.0" />
             </font></Button>
-        <Button fx:id="P2_careerPath" layoutX="531.0" layoutY="471.0" mnemonicParsing="false" onAction="#countPlayers" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/optionsMenuButtons.css" text="Start Career" textAlignment="CENTER" textFill="#272838">
+        <Button fx:id="P2_careerPath" layoutX="527.0" layoutY="471.0" mnemonicParsing="false" onAction="#countPlayers" prefHeight="50.0" prefWidth="250.0" stylesheets="@stylesheets/startSelectStyles.css" text="Start Career" textAlignment="CENTER" textFill="#272838">
 
             <font>
                 <Font name="Droid Serif Bold Italic" size="20.0" />

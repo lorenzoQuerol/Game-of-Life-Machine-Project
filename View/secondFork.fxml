@@ -5,14 +5,14 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <Button fx:id="careerChange" layoutX="237.0" layoutY="279.0" mnemonicParsing="false" onAction="#chosenAction" text="Change Career">
+        <Button fx:id="careerChange" layoutX="240.0" layoutY="270.0" mnemonicParsing="false" onAction="#chosenAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Change Career">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="continuePath" layoutX="214.0" layoutY="330.0" mnemonicParsing="false" onAction="#chosenAction" text="Stay on Current Path">
+        <Button fx:id="continuePath" layoutX="222.0" layoutY="328.0" mnemonicParsing="false" onAction="#chosenAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Stay on Current Path">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
@@ -52,7 +52,7 @@
                 </Label>
             </children>
         </HBox>
-      <Button fx:id="forkContinue" disable="true" layoutX="259.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+      <Button fx:id="forkContinue" disable="true" layoutX="259.0" layoutY="328.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/magentaSpaceStyles.css" text="Continue" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>

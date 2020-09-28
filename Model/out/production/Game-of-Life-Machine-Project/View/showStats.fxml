@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <HBox layoutX="42.0" layoutY="20.0" prefHeight="66.0" prefWidth="516.0">
             <children>
@@ -102,7 +102,7 @@
                 <Font name="Impact" size="14.0" />
             </font>
         </Label>
-        <Button fx:id="winnerDone" layoutX="254.0" layoutY="347.0" mnemonicParsing="false" onAction="#closeAction" text="End Game" visible="false">
+        <Button fx:id="winnerDone" layoutX="257.0" layoutY="345.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/otherButtons.css" text="End Game" visible="false">
             <font>
                 <Font name="Droid Serif Bold Italic" size="14.0" />
             </font>
@@ -154,7 +154,7 @@
             <Font name="Impact" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="showWinner" layoutX="243.0" layoutY="347.0" mnemonicParsing="false" onAction="#displayStats" text="Display Stats">
+      <Button fx:id="showWinner" layoutX="246.0" layoutY="345.0" mnemonicParsing="false" onAction="#displayStats" stylesheets="@stylesheets/otherButtons.css" text="Display Stats">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
