@@ -1,0 +1,60 @@
+#bMobileHome, #bMobileHome:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: magenta;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bCabin, #bCabin:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #79de78;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bApartment, #bApartment:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #67597a;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bVilla, #bVilla:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #7891FF;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bCondo, #bCondo:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #c3b26e;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#houseRoll, #houseRoll:hover,
+#houseCont, #houseCont:hover, {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: orange;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}

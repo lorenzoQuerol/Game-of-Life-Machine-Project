@@ -1,0 +1,32 @@
+#career1, #career1:hover,
+#career2, #career2:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #7891ff;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#salary1, #salary1:hover,
+#salary2, #salary2:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #c3b26e;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#showThem, #showThem:hover,
+#collegeCont, #collegeCont:hover, {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: magenta;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}

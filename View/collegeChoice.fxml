@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <HBox layoutX="163.0" layoutY="14.0" prefHeight="54.0" prefWidth="277.0">
             <children>
@@ -43,24 +43,24 @@
         </HBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7891ff" height="120.0" layoutX="14.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="125.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3b26e" height="120.0" layoutX="315.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="125.0" />
-      <Button fx:id="salary1" layoutX="347.0" layoutY="232.0" mnemonicParsing="false" onAction="#careerAction" text="Select" visible="false">
+      <Button fx:id="salary1" layoutX="348.0" layoutY="230.0" mnemonicParsing="false" onAction="#careerAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="Select" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7891ff" height="120.0" layoutX="163.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="125.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3b26e" height="120.0" layoutX="462.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-stroke: #f9f8f8;" width="125.0" />
-      <Button fx:id="career2" layoutX="195.0" layoutY="232.0" mnemonicParsing="false" onAction="#careerAction" text="Select" visible="false">
+      <Button fx:id="career2" layoutX="194.0" layoutY="230.0" mnemonicParsing="false" onAction="#careerAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="Select" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="career1" layoutX="46.0" layoutY="232.0" mnemonicParsing="false" onAction="#careerAction" text="Select" visible="false">
+      <Button fx:id="career1" layoutX="45.0" layoutY="230.0" mnemonicParsing="false" onAction="#careerAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="Select" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="salary2" layoutX="494.0" layoutY="232.0" mnemonicParsing="false" onAction="#careerAction" text="Select" visible="false">
+      <Button fx:id="salary2" layoutX="493.0" layoutY="230.0" mnemonicParsing="false" onAction="#careerAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="Select" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
@@ -85,12 +85,12 @@
             <Font name="Impact" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="collegeCont" layoutX="258.0" layoutY="332.0" mnemonicParsing="false" onAction="#closeAction" text="Continue" visible="false">
+      <Button fx:id="collegeCont" layoutX="257.0" layoutY="342.0" mnemonicParsing="false" onAction="#closeAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="Continue" visible="false">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="showThem" layoutX="211.0" layoutY="318.0" mnemonicParsing="false" onAction="#careerAction" text="What are my options?">
+      <Button fx:id="showThem" layoutX="215.0" layoutY="342.0" mnemonicParsing="false" onAction="#careerAction" stylesheets="@stylesheets/collegeChoiceStyles.css" text="What are my options?">
          <font>
             <Font name="Droid Serif Bold Italic" size="14.0" />
          </font>

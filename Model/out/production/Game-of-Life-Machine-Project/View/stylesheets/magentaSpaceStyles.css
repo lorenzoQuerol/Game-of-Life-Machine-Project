@@ -1,0 +1,58 @@
+#babyRoll, #babyRoll:hover,
+#babyCont, #babyCont:hover,
+#babyCollect, #babyCollect:hover,
+#marryOdd, #marryOdd:hover,
+#marryEven, #marryEven:hover,
+#careerChange, #careerChange:hover,
+#continuePath, #continuePath:hover,
+#forkContinue, #forkContinue:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: magenta;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#jobDraw, #jobDraw:hover,
+#jobDone, #jobDone:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #79de78;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bChange, #bChange:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #7891ff;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#bRetain, #bRetain:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #c3b26e;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}
+
+#marryRoll, #marryRoll:hover,
+#marryCont, #marryCont:hover {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #1e90ff;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}

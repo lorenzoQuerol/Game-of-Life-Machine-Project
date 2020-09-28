@@ -1,0 +1,13 @@
+#blueDraw, #blueDraw:hover,
+#payPlayer, #payPlayer:hover,
+#payBankBlue, #payBankBlue:hover,
+#collectBankBlue, #collectBankBlue:hover,
+#blueDone, #blueDone:hover, {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 16px;
+    -fx-background-color: #1E90FF;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-radius: 20;
+}

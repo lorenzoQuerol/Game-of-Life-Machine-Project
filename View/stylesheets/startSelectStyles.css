@@ -1,22 +1,23 @@
-#editBack, #editBack:hover {
+#P1_mainPath, #P1_mainPath:hover,
+#P2_mainPath, #P2_mainPath:hover,
+#P3_mainPath, #P3_mainPath:hover {
     -fx-text-fill: white;
     -fx-font-family: "Impact";
-    -fx-font-size: 20px;
+    -fx-font-size: 22px;
     -fx-background-color: #cf5c36;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
-    -fx-border-color: #cf5c36;
     -fx-border-radius: 20;
 }
 
-#editAtt, #editAtt:hover,
-#editSave, #editSave {
+#P1_careerPath, #P1_careerPath:hover,
+#P2_careerPath, #P2_careerPath:hover,
+#P3_careerPath, #P3_careerPath:hover {
     -fx-text-fill: white;
     -fx-font-family: "Impact";
-    -fx-font-size: 20px;
-    -fx-background-color: #79de82;
+    -fx-font-size: 22px;
+    -fx-background-color: #8884ff;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
-    -fx-border-color: #79de82;
     -fx-border-radius: 20;
 }

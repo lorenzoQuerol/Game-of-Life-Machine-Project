@@ -1,40 +1,22 @@
-#optionsCash, #optionsCash:hover,
-#optionsDeck, #optionsDeck:hover,
-#optionsBack, #optionsBack:hover {
+#editBack, #editBack:hover {
     -fx-text-fill: white;
     -fx-font-family: "Impact";
-    -fx-font-size: 24px;
-}
-
-#optionsCash {
-    -fx-background-color: #79de78;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-border-radius: 20;
-}
-
-#optionsCash:hover {
-    -fx-background-color: #5ca75b;
-}
-
-#optionsDeck {
-    -fx-background-color: #7891ff;
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-border-radius: 20;
-}
-
-#optionsDeck:hover {
-    -fx-background-color: #5263ac;
-}
-
-#optionsBack {
+    -fx-font-size: 20px;
     -fx-background-color: #cf5c36;
     -fx-background-radius: 30;
     -fx-background-insets: 0;
+    -fx-border-color: #cf5c36;
     -fx-border-radius: 20;
 }
 
-#optionsBack:hover {
-    -fx-background-color: #863c24;
+#editAtt, #editAtt:hover,
+#editSave, #editSave {
+    -fx-text-fill: white;
+    -fx-font-family: "Impact";
+    -fx-font-size: 20px;
+    -fx-background-color: #79de82;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-border-color: #79de82;
+    -fx-border-radius: 20;
 }
